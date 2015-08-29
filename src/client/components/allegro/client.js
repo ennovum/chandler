@@ -1,4 +1,4 @@
-import config from "./../../app/config.js";
+import config from "./../app/config.js";
 
 class AllegroClient {
     constructor($http) {

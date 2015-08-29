@@ -4,9 +4,9 @@ let _ = require("lodash");
 
 import config from "./config.js";
 import routing from "./routing.js";
-import injector from "./injector.js";
 
-import AllegroHandler from "./../services/allegro/handler.js";
+import injector from "./../../../shared/components/injector/injector.js";
+import AllegroHandler from "./../allegro/handler.js";
 
 class App {
     constructor() {

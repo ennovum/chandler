@@ -5,8 +5,8 @@ let _ = require("lodash");
 import config from "./config.js";
 import routing from "./routing.js";
 
-import AllegroClient from "./../services/allegro/client.js";
-import ChandlerDirective from "./../directives/chandler/chandler.js";
+import AllegroClient from "./../allegro/client.js";
+import ChandlerDirective from "./../chandler/chandler.js";
 
 class App {
     constructor() {

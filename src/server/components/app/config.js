@@ -1,5 +1,5 @@
 let config = {
-    "root": __dirname + "/../../..",
+    "root": __dirname + "/../../../..",
     "port": "8080",
     "baseUrl": "/api"
 }

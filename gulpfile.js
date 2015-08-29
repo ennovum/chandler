@@ -26,7 +26,7 @@ gulp.task("client.documents:watch", jobs.watch(src + client + "/*.html", {tasks:
 
 gulp.task("client.scripts", jobs.webpack(src + client + "/*.js", dev + client + "/", {target: "web"}));
 gulp.task("client.scripts:watch", jobs.webpack(src + client + "/*.js", dev + client + "/", {target: "web", watch: true}));
-gulp.task("client.scripts:lint", jobs.eslint(src + client + "/*.js"));
+gulp.task("client.scripts:lint", jobs.eslint(src + client + "/**/*.js"));
 
 gulp.task("client.styles", jobs.sass(src + client + "/*.scss", dev + client + "/"));
 gulp.task("client.styles:watch", jobs.watch(src + client + "/**/*.scss", {tasks: ["client.styles"]}));
@@ -37,17 +37,24 @@ gulp.task("client:lint", jobs.run(["client.scripts:lint"]));
 
 gulp.task("server.scripts", jobs.babel(src + server + "/**/*.js", dev + server + "/"));
 gulp.task("server.scripts:watch", jobs.watch(src + server + "/*.js", {tasks: ["server.scripts"]}));
-gulp.task("server.scripts:lint", jobs.eslint(src + server + "/*.js"));
+gulp.task("server.scripts:lint", jobs.eslint(src + server + "/**/*.js"));
 
 gulp.task("server:build", jobs.run(["server.scripts"]));
 gulp.task("server:watch", jobs.run(["server.scripts:watch"]));
 gulp.task("server:lint", jobs.run(["server.scripts:lint"]));
-
 gulp.task("server:start", jobs.exec("node", [dev + server + "/index.js"]));
 
-gulp.task("build", jobs.run(["client:build", "server:build"]));
+gulp.task("shared.scripts", jobs.babel(src + shared + "/**/*.js", dev + shared + "/"));
+gulp.task("shared.scripts:watch", jobs.watch(src + shared + "/*.js", {tasks: ["shared.scripts"]}));
+gulp.task("shared.scripts:lint", jobs.eslint(src + shared + "/**/*.js"));
+
+gulp.task("shared:build", jobs.run(["shared.scripts"]));
+gulp.task("shared:watch", jobs.run(["shared.scripts:watch"]));
+gulp.task("shared:lint", jobs.run(["shared.scripts:lint"]));
+
+gulp.task("build", jobs.run(["client:build", "server:build", "shared:build"]));
 gulp.task("server", jobs.run(["server:start"]));
-gulp.task("start", jobs.run(["client:build", "server:build"], "server:start"));
-gulp.task("dev", jobs.run(["client:build", "server:build"], "server:start", ["client:watch", "server:watch"]));
-gulp.task("lint", jobs.run(["client:lint"], ["server:lint"]));
+gulp.task("start", jobs.run(["client:build", "server:build", "shared:build"], "server:start"));
+gulp.task("dev", jobs.run(["client:build", "server:build", "shared:build"], "server:start", ["client:watch", "server:watch", "shared:watch"]));
+gulp.task("lint", jobs.run(["client:lint"], ["server:lint"], ["shared:lint"]));
 gulp.task("test", jobs.run(["lint"]));
