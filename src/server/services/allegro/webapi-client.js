@@ -7,31 +7,26 @@ class AllegroWebapiClient {
         this._wsdlUrl = "https://webapi.allegro.pl/service.php?wsdl";
         this._countryCode = 1;
         this._webapiKey = "dc812255";
-
-        this._client = null;
     }
 
     search(query) {
-        return this._clientCreate()
-            .then((client) => this._clientSearch(query));
+        return this._createClient()
+            .then((client) => this._getResults(client, query));
     }
 
-    _clientCreate() {
+    _createClient() {
         return new Promise((resolve, reject) => {
             soap.createClient(this._wsdlUrl, (err, client) => {
                 if (err) {
-                    reject(err);
-                    return;
+                    return reject(err);
                 }
 
-                this._client = client;
-
-                resolve(client);
+                return resolve(client);
             });
         });
     }
 
-    _clientSearch(query) {
+    _getResults(client, query, page = 0) {
         let params = {
             "webapiKey": this._webapiKey,
             "countryId": this._countryCode,
@@ -45,19 +40,20 @@ class AllegroWebapiClient {
                     }
                 ]
             },
-            "resultSize": PAGE_SIZE
+            "resultSize": PAGE_SIZE,
+            "resultOffset": page * PAGE_SIZE,
+            "resultScope": 2
         };
 
         return new Promise((resolve, reject) => {
-            this._client.doGetItemsList(params, (err, result) => {
+            client.doGetItemsList(params, (err, result) => {
                 if (err) {
-                    reject(err);
-                    return;
+                    return reject(err);
                 }
 
-                resolve({
+                return resolve({
                     meta: {
-                        page: 0,
+                        page: page,
                         pageSize: PAGE_SIZE,
                         totalCount: result.itemsCount
                     },
