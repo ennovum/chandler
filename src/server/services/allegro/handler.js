@@ -4,14 +4,12 @@ class AllegroHandler {
     handle(req, res) {
         let client = new AllegroWebapiClient();
 
-        client.search(req.query.query, (err, result) => {
-            if (err) {
+        client.search(req.query.query)
+            .then((result) => {
+                res.send(result);
+            }, (err) => {
                 res.status(500).send(err);
-                return;
-            }
-
-            res.send(result);
-        });
+            });
     }
 }
 
