@@ -28,14 +28,5 @@ module.exports = {
             "children": false
         }
     },
-    "eslint": {
-        "env": {
-            "es6": true,
-            "browser": true,
-            "node": true,
-        },
-        "rules": {
-            "strict": "never"
-        }
-    }
+    "eslint": {}
 };
