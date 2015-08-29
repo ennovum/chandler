@@ -58,7 +58,7 @@ class AllegroCrawler {
             .error((err) => {
                 console.error(err);
 
-                // instance.stop(); // TODO enable while osmosis@0.0.7 is used
+                instance.stop();
                 done(err);
             })
             .doc()

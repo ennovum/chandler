@@ -12,7 +12,7 @@ class Injector {
     instantiate(name, factory) {
         let dependencies = factory.$inject || [];
         let instance = factory.apply(null, _.map(dependencies, (dependency) => this.get(dependency)));
-        this._map[name] = instance;
+        this.register(name, instance);
     }
 
     get(name) {
