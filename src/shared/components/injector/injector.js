@@ -5,18 +5,18 @@ class Injector {
         this._map = {};
     }
 
-    register(name, instance) {
+    set(name, instance) {
         this._map[name] = instance;
+    }
+
+    get(name) {
+        return this._map[name];
     }
 
     instantiate(name, factory) {
         let dependencies = factory.$inject || [];
         let instance = factory.apply(null, _.map(dependencies, (dependency) => this.get(dependency)));
-        this.register(name, instance);
-    }
-
-    get(name) {
-        return this._map[name];
+        this.set(name, instance);
     }
 }
 

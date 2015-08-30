@@ -1,4 +1,4 @@
-import AllegroWebapiClient from "./webapi-client.js";
+import AllegroWebapiClient from "./allegro-webapi-client.js";
 
 class AllegroHandler {
     handle(req, res) {

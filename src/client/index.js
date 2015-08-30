@@ -1,7 +1,4 @@
-import es6Promise from "es6Promise";
-import App from "./components/app/app.js";
-
-es6Promise.polyfill();
+import App from "./app/app.js";
 
 window.addEventListener("load", () => {
     let app = new App();

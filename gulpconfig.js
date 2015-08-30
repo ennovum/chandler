@@ -1,7 +1,3 @@
-var _ = require("lodash");
-
-var packageConfig = require("./package.json");
-
 var gulpconfig = {
     "path": {
         "root": __dirname,
@@ -29,9 +25,11 @@ var gulpconfig = {
             "children": false
         },
         "resolve": {
-            "alias": _.transform(packageConfig.dependencies, function (alias, version, name) {
-                alias[_.camelCase(name)] = name;
-            })
+            "alias": {
+                "angularRoute": "angular-route",
+                "es6Promise": "es6-promise",
+                "injector": __dirname + "/src/shared/components/injector/injector.js"
+            }
         }
     },
     "nodepack": {
@@ -45,9 +43,20 @@ var gulpconfig = {
             "modules": true,
             "children": false
         },
-        "externals": _.transform(packageConfig.dependencies, function (externals, version, name) {
-            externals[_.camelCase(name)] = "commonjs " + name;
-        }),
+        "resolve": {
+            "alias": {
+                "injector": __dirname + "/src/shared/components/injector/injector.js"
+            }
+        },
+        "externals": {
+            "es6Promise": "commonjs es6-promise",
+            "express": "commonjs express",
+            "lodash": "commonjs lodash",
+            "morgan": "commonjs morgan",
+            "osmosis": "commonjs osmosis",
+            "soap": "commonjs soap",
+            "url": "commonjs url"
+        },
         "node": {
             "__filename": true,
             "__dirname": true

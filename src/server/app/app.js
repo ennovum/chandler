@@ -1,12 +1,15 @@
+import es6Promise from "es6Promise";
 import express from "express";
 import morgan from "morgan";
 import _ from "lodash";
+import injector from "injector";
 
-import config from "./../../config/config.js";
+import config from "./../config/config.js";
 import routing from "./routing.js";
 
-import injector from "./../../../shared/components/injector/injector.js";
-import AllegroHandler from "./../allegro/handler.js";
+import AllegroHandler from "./../components/allegro/allegro-handler.js";
+
+es6Promise.polyfill();
 
 class App {
     constructor() {
