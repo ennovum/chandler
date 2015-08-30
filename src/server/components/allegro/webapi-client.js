@@ -1,4 +1,4 @@
-let soap = require("soap");
+import soap from "soap";
 
 const PAGE_SIZE = 1000;
 

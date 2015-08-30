@@ -1,5 +1,5 @@
-let url = require("url");
-let osmosis = require("osmosis");
+import url from "url";
+import osmosis from "osmosis";
 
 class AllegroCrawler {
     search(query, done) {

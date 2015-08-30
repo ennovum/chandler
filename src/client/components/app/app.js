@@ -1,6 +1,6 @@
-let angular = require("angular");
-require("angular-route");
-let _ = require("lodash");
+import angular from "angular";
+import angularRoute from "angularRoute";
+import _ from "lodash";
 
 import config from "./config.js";
 import routing from "./routing.js";

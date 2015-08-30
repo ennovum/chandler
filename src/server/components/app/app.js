@@ -1,6 +1,6 @@
-let express = require("express");
-let morgan = require("morgan");
-let _ = require("lodash");
+import express from "express";
+import morgan from "morgan";
+import _ from "lodash";
 
 import config from "./config.js";
 import routing from "./routing.js";

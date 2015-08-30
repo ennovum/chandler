@@ -27,6 +27,11 @@ var gulpconfig = {
             "version": false,
             "modules": true,
             "children": false
+        },
+        "resolve": {
+            "alias": _.transform(packageConfig.dependencies, function (alias, version, name) {
+                alias[_.camelCase(name)] = name;
+            })
         }
     },
     "nodepack": {
@@ -41,7 +46,7 @@ var gulpconfig = {
             "children": false
         },
         "externals": _.transform(packageConfig.dependencies, function (externals, version, name) {
-            externals[name] = "commonjs " + name;
+            externals[_.camelCase(name)] = "commonjs " + name;
         }),
         "node": {
             "__filename": true,

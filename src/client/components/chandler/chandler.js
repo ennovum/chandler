@@ -1,3 +1,5 @@
+import template from "./chandler.tpl";
+
 class ChandlerDirective {
     constructor($scope, $element, $attrs, allegroClient) {
         this._$scope = $scope;
@@ -26,7 +28,7 @@ class ChandlerDirective {
 ChandlerDirective.directive = (allegroClient) => ({
     "restrict": "E",
     "replace": true,
-    "template": require("./chandler.tpl"),
+    "template": template,
     "scope": {},
     "link": ($scope, $element, $attrs) => new ChandlerDirective($scope, $element, $attrs, allegroClient)
 });

@@ -1,7 +1,9 @@
+import homeTemplate from "./views/home/home.tpl";
+
 let routing = {
     "routes": {
         "/home": {
-            "template": require("./views/home/home.tpl")
+            "template": homeTemplate
         }
     },
     "defaultPath": "/home"
