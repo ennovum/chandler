@@ -20,7 +20,7 @@ var gulpconfig = {
         "module": {
             "loaders": [
                 {"loader": "babel-loader", "test": /\.js$/, "exclude": /node_modules/},
-                {"loader": "raw-loader", "test": /\.tpl$/}
+                {"loader": "raw-loader", "test": /\.html$/}
             ]
         },
         "stats": {

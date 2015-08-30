@@ -1,4 +1,4 @@
-import template from "./chandler.tpl";
+import template from "./chandler.html";
 
 class ChandlerDirective {
     constructor($scope, $element, $attrs, allegroClient) {

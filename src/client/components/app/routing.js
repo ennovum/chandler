@@ -1,4 +1,4 @@
-import homeTemplate from "./views/home/home.tpl";
+import homeTemplate from "./views/home/home.html";
 
 let routing = {
     "routes": {
