@@ -1,6 +1,6 @@
 import soap from "soap";
 
-const PAGE_SIZE = 1000;
+import config from "./../../config/config.js";
 
 class AllegroWebapiClient {
     constructor() {
@@ -40,8 +40,8 @@ class AllegroWebapiClient {
                     }
                 ]
             },
-            "resultSize": PAGE_SIZE,
-            "resultOffset": page * PAGE_SIZE,
+            "resultSize": config.allegro.pageSize,
+            "resultOffset": page * config.allegro.pageSize,
             "resultScope": 2
         };
 
@@ -54,7 +54,7 @@ class AllegroWebapiClient {
                 return resolve({
                     meta: {
                         page: page,
-                        pageSize: PAGE_SIZE,
+                        pageSize: config.allegro.pageSize,
                         totalCount: result.itemsCount
                     },
                     data: result.itemsList.item

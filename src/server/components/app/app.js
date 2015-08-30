@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import _ from "lodash";
 
-import config from "./config.js";
+import config from "./../../config/config.js";
 import routing from "./routing.js";
 
 import injector from "./../../../shared/components/injector/injector.js";
@@ -17,7 +17,7 @@ class App {
     _create() {
         this._app = express();
 
-        this._app.use(express.static(config.root));
+        this._app.use(express.static(config.server.root));
         this._app.use(morgan("combined"));
 
         injector.instantiate("allegroHandler", AllegroHandler.service);
@@ -26,12 +26,12 @@ class App {
     _configure() {
         _.forEach(routing.routes, (route, path) => {
             let handler = injector.get(route.handler);
-            this._app.all(config.baseUrl + path, (req, res) => handler.handle(req, res));
+            this._app.all(config.server.baseUrl + path, (req, res) => handler.handle(req, res));
         });
     }
 
     run() {
-        this._app.listen(config.port, () => {
+        this._app.listen(config.server.port, () => {
             console.log("server started");
         });
     }

@@ -2,7 +2,7 @@ import angular from "angular";
 import angularRoute from "angularRoute";
 import _ from "lodash";
 
-import config from "./config.js";
+import config from "./../../config/config.js";
 import routing from "./routing.js";
 
 import AllegroClient from "./../allegro/client.js";
