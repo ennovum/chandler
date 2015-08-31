@@ -2,15 +2,23 @@ import _ from "lodash";
 
 class Injector {
     constructor() {
-        this._map = {};
+        this._injectables = {};
     }
 
     set(name, instance) {
-        this._map[name] = instance;
+        let injectable = this._injectables[name] || {};
+        injectable.instance = instance;
+        this._injectables[name] = injectable;
     }
 
     get(name) {
-        return this._map[name];
+        let injectable = this._injectables[name] || {};
+        injectable.instance || (injectable.factory && (this.instantiate(name, injectable.factory)));
+        return injectable.instance;
+    }
+
+    register(name, factory) {
+        this._injectables[name] = {factory};
     }
 
     instantiate(name, factory) {
