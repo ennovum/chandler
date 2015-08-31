@@ -7,7 +7,7 @@ import injector from "injector";
 import config from "./../config/config.js";
 import routing from "./routing.js";
 
-import AllegroHandler from "./../components/allegro/allegro-handler.js";
+import "./../components/allegro/allegro.js";
 
 es6Promise.polyfill();
 
@@ -22,14 +22,14 @@ class App {
 
         this._app.use(express.static(config.server.root));
         this._app.use(morgan("combined"));
-
-        injector.instantiate("allegroHandler", AllegroHandler.service);
     }
 
     _configure() {
         _.forEach(routing.routes, (route, path) => {
             let handler = injector.get(route.handler);
-            this._app.all(config.server.baseUrl + path, (req, res) => handler.handle(req, res));
+            let method = route.method || "handle";
+
+            this._app.all(config.server.baseUrl + path, (req, res) => handler[method](req, res));
         });
     }
 

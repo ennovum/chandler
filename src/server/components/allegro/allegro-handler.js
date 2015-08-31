@@ -1,10 +1,17 @@
-import AllegroWebapiClient from "./allegro-webapi-client.js";
+import _ from "lodash";
+import injector from "injector";
 
 class AllegroHandler {
-    handle(req, res) {
-        let client = new AllegroWebapiClient();
+    constructor() {
+        this._client = injector.get('allegroWebapiClient');
+        this._costimizer = injector.get('allegroCostimizer');
+    }
 
-        client.search(req.query.query)
+    costimize(req, res) {
+        let queries = _.isArray(req.query.queries) ? req.query.queries : [req.query.queries];
+
+        Promise.all(_.map(queries, (query) => this._client.search(query)))
+            .then((results) => this._costimizer.costimize(_.map(results, (result) => result.data)))
             .then((result) => {
                 res.send(result);
             }, (err) => {
@@ -13,7 +20,7 @@ class AllegroHandler {
     }
 }
 
-AllegroHandler.service = () => new AllegroHandler();
-AllegroHandler.service.$inject = [];
+AllegroHandler.factory = () => new AllegroHandler();
+AllegroHandler.factory.$inject = [];
 
 export default AllegroHandler;

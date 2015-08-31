@@ -64,7 +64,7 @@ class AllegroWebapiClient {
     }
 }
 
-AllegroWebapiClient.service = () => new AllegroWebapiClient();
-AllegroWebapiClient.service.$inject = [];
+AllegroWebapiClient.factory = () => new AllegroWebapiClient();
+AllegroWebapiClient.factory.$inject = [];
 
 export default AllegroWebapiClient;
