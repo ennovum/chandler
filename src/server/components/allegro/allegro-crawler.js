@@ -54,9 +54,9 @@ class AllegroCrawler {
                 "open_timeout": 60000,
                 "follow_max": 8
             })
-            .log(console.log)
+            // .log(console.log)
             .error((err) => {
-                console.error(err);
+                // console.error(err);
 
                 instance.stop();
                 done(err);

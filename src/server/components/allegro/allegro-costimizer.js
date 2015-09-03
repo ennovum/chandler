@@ -1,13 +1,26 @@
 import _ from "lodash";
 
 class AllegroCostimizer {
-    costimize(itemsSet) {
-        let sellersSet = _.map(itemsSet, (items) => _.map(items, (item) => item.sellerInfo.userId));
-        let sellers = _.intersection.apply(null, sellersSet);
+    costimizeSearchResults(searchResults) {
+        let sellerIds = _.intersection(...(_.map(searchResults, (searchResult) => _.map(searchResult.data, (item) => item.seller.id))));
+        let result = {
+            meta: {
+                queries: _.map(searchResults, (searchResult) => searchResult.meta.query)
+            },
+            data: _.map(sellerIds, (sellerId) => {
+                let seller = _.find(searchResults[0].data, (item) => item.seller.id === sellerId).seller;
+                let offers = _.map(searchResults, (searchResult) => {
+                    return {
+                        query: searchResult.meta.query,
+                        items: _.filter(searchResult.data, (item) => item.seller.id === sellerId)
+                    };
+                });
 
-        // TODO
+                return {seller, offers};
+            })
+        };
 
-        return Promise.resolve(null);
+        return Promise.resolve(result);
     }
 }
 

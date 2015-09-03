@@ -3,17 +3,17 @@ import injector from "injector";
 
 class AllegroHandler {
     constructor() {
-        this._client = injector.get('allegroWebapiClient');
-        this._costimizer = injector.get('allegroCostimizer');
+        this._client = injector.get("allegroWebapiClient");
+        this._costimizer = injector.get("allegroCostimizer");
     }
 
     costimize(req, res) {
         let queries = _.isArray(req.query.queries) ? req.query.queries : [req.query.queries];
 
-        Promise.all(_.map(queries, (query) => this._client.search(query)))
-            .then((results) => this._costimizer.costimize(_.map(results, (result) => result.data)))
-            .then((result) => {
-                res.send(result);
+        Promise.all(_.map(queries, (query) => this._client.getSearchResult(query)))
+            .then((searchResults) => this._costimizer.costimizeSearchResults(searchResults))
+            .then((costimizeResult) => {
+                res.send(costimizeResult);
             }, (err) => {
                 res.status(500).send(err);
             });

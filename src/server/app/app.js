@@ -35,7 +35,7 @@ class App {
 
     run() {
         this._app.listen(config.server.port, () => {
-            console.log("server started");
+            // noop
         });
     }
 }

@@ -7,6 +7,6 @@ let config = {
     "allegro": {
         "pageSize": 100
     }
-}
+};
 
 export default config;

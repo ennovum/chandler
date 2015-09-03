@@ -5,6 +5,6 @@ let routing = {
             "method": "costimize"
         }
     }
-}
+};
 
 export default routing;
