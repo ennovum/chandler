@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 var _ = require("lodash");
 var sass = require("gulp-sass");
+var autoprefixer = require('gulp-autoprefixer');
 
 var conf = _.get(require("./../../gulpconfig.js"), 'sass', {});
 
@@ -19,6 +20,10 @@ function sassJob(src, dest, opts) {
     return function sassTask() {
         return gulp.src(src)
             .pipe(sass(opts))
+            .pipe(autoprefixer({
+                browsers: ['last 2 versions'],
+                cascade: false
+            }))
             .pipe(gulp.dest(dest));
     };
 };
