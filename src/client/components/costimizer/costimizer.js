@@ -1,4 +1,3 @@
-import _ from "lodash";
 import angular from "angular";
 
 import CostimizerController from "./costimizer-controller.js";

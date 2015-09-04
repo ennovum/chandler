@@ -10,16 +10,23 @@ html {
     line-height: $std-line-height;
 }
 
-html, body,
+/*html, body,
 div,
 h1, h2, h3, h4, h5, h6,
-ul, ol, li,
-dl, dt, dd {
+ul,
+dl {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     flex-grow: 0;
 }
+
+h1, h2, h3, h4, h5, h6,
+ol, li,
+dt, dd {
+    flex-shrink: 0;
+    flex-grow: 0;
+}*/
 
 audio,
 canvas,

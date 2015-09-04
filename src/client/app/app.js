@@ -3,7 +3,6 @@ import _ from "lodash";
 import angular from "angular";
 import "angularRoute";
 
-import config from "./../config/config.js";
 import routing from "./routing.js";
 
 import "./../components/allegro/allegro.js";

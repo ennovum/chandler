@@ -2,17 +2,29 @@ class CostimizerController {
     constructor(allegroClient) {
         this._allegroClient = allegroClient;
 
-        this.model = {};
+        this.model = {
+            queries: []
+        };
+
+        this.costimizedOffers = null;
+
+        this.addQuery();
     }
 
-    submit() {
-        let query = this.model.query;
+    addQuery() {
+        this.model.queries.push("");
+    }
 
-        this._allegroClient.getResults(query)
+    removeQuery(index) {
+        this.model.queries.splice(index, 1);
+    }
+
+    submitQueries() {
+        this._allegroClient.getCostimize(this.model.queries)
             .then((result) => {
-                // TODO
+                this.costimizedOffers = result.data;
             })
-            .catch((err) => {
+            .catch(() => {
                 // TODO
             });
     }

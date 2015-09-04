@@ -1,5 +1,27 @@
 <div class="costimizer">
-    <h1>Costimizer</h1>
-    <input type="text" ng-model="ctrl.model.query" />
-    <a ng-click="ctrl.submit()">Szukaj</a>
+    <h1>Allegro Costimizer</h1>
+    <div class="queries">
+        <div class="query" ng-repeat="query in ctrl.model.queries track by $index">
+            <input type="text" ng-model="ctrl.model.queries[$index]" />
+            <button ng-click="ctrl.removeQuery($index)">Remove the query</button>
+        </div>
+        <button ng-click="ctrl.addQuery()">Add a query</button>
+        <button ng-click="ctrl.submitQueries()">Submit queries</button>
+    </div>
+    <div class="results">
+        <table class="table table-bordered">
+            <tr ng-repeat="costimizedOffer in ctrl.costimizedOffers">
+                <td>
+                    <span ng-bind="costimizedOffer.seller.login"></span>
+                </td>
+                <td ng-repeat="offer in costimizedOffer.offers">
+                    <ul>
+                        <li ng-repeat="item in offer.items">
+                            <span ng-bind="item.title"></span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

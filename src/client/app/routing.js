@@ -5,6 +5,6 @@ let routing = {
             "template": "<costimizer />"
         }
     }
-}
+};
 
 export default routing;
