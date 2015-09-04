@@ -2,29 +2,36 @@ import _ from "lodash";
 
 class AllegroSanitizer {
     sanitizeSearchResult(searchResult) {
-        return this._sanitizeItems(searchResult.data)
-            .then((data) => {
-                searchResult.data = data;
-                return searchResult;
-            });
+        searchResult.data = this._sanitizeItems(searchResult.data);
+        return searchResult;
     }
 
     _sanitizeItems(items) {
-        return Promise.all(_.map(items, (item) => this._sanitizeItem(item)));
+        return _.map(items, (item) => this._sanitizeItem(item));
     }
 
     _sanitizeItem(item) {
-        return Promise.resolve({
-            id: item.itemId,
-            title: item.itemTitle,
-            seller: {
-                id: item.sellerInfo.userId,
-                login: item.sellerInfo.userLogin,
-                rating: item.sellerInfo.userRating
-            },
-            price: _.reduce(item.priceInfo.item, (price, priceItem) => _.min([priceItem.priceValue, price]), Infinity),
-            photos: _.map(_.filter(item.photosInfo.item, (photosInfoItem) => photosInfoItem.photoSize === "small"), (photosInfoItem) => photosInfoItem.photoUrl)
-        });
+        let id = _.get(item, 'itemId', null);
+        let title = _.get(item, 'itemTitle', null);
+
+        let sellerInfo = _.get(item, 'sellerInfo', null);
+        let seller = this._sanitizeSellerInfo(sellerInfo);
+
+        let priceItems = _.get(item, 'priceInfo.item', null);
+        let prices = _.map(priceItems, (priceItem) => priceItem.priceValue);
+
+        let photosInfoItems = _.get(item, 'photosInfo.item', null);
+        let photoUrls = _.map(_.filter(photosInfoItems, (photosInfoItem) => photosInfoItem.photoSize === "small"), (photosInfoItem) => photosInfoItem.photoUrl);
+
+        return {id, title, seller, prices, photoUrls};
+    }
+
+    _sanitizeSellerInfo(sellerInfo) {
+        let id = _.get(sellerInfo, 'userId', null);
+        let login = _.get(sellerInfo, 'userLogin', null);
+        let rating = _.get(sellerInfo, 'userRating', null);
+
+        return {id, login, rating};
     }
 }
 
