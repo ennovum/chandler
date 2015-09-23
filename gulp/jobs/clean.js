@@ -1,6 +1,6 @@
 var gulp = require("gulp");
-var paths = require('vinyl-paths');
-var del = require('del');
+var paths = require("vinyl-paths");
+var del = require("del");
 
 function cleanJob(src) {
     return function () {

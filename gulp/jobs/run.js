@@ -6,7 +6,7 @@ function runJob() {
     var sequence = Array.prototype.slice.call(arguments);
     var ready;
 
-    if (typeof sequence[sequence.length - 1] === "function") {
+    if (_.isFunction(_.last(sequence))) {
         ready = sequence.pop();
     }
 

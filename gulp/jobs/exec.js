@@ -3,7 +3,7 @@ var gutil = require("gulp-util");
 var _ = require("lodash");
 var chprocess = require("child_process");
 
-var conf = _.get(require("./../../gulpconfig.js"), 'exec', {});
+var conf = _.get(require("./../../gulpconfig.js"), "exec", {});
 
 function execJob(command, args, opts) {
     opts = _.extend(_.extend({

@@ -2,9 +2,9 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 var _ = require("lodash");
 var sass = require("gulp-sass");
-var autoprefixer = require('gulp-autoprefixer');
+var autoprefixer = require("gulp-autoprefixer");
 
-var conf = _.get(require("./../../gulpconfig.js"), 'sass', {});
+var conf = _.get(require("./../../gulpconfig.js"), "sass", {});
 
 function sassJob(src, dest, opts) {
     opts = _.extend(_.extend({
@@ -17,11 +17,11 @@ function sassJob(src, dest, opts) {
         gutil.log(opts.logTag, gutil.colors.red(err.message + " on line " + err.line + " in " + err.file));
     }
 
-    return function sassTask() {
+    return function () {
         return gulp.src(src)
             .pipe(sass(opts))
             .pipe(autoprefixer({
-                browsers: ['last 2 versions'],
+                browsers: ["last 2 versions"],
                 cascade: false
             }))
             .pipe(gulp.dest(dest));
