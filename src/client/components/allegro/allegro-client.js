@@ -7,11 +7,11 @@ class AllegroClient {
 
     getCostimize(queries) {
         return this._$http.get(config.api.baseUrl + config.api.resources.allegro.costimize, {
-                "params": {
-                    "queries": queries
-                }
-            })
-            .then((response) => response.data);
+            "params": {
+                "queries": queries
+            }
+        })
+        .then((response) => response.data);
     }
 }
 
