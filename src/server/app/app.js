@@ -11,7 +11,7 @@ import "./../components/allegro/allegro.js";
 
 es6Promise.polyfill();
 
-class App {
+export default class App {
     constructor() {
         this._create();
         this._configure();
@@ -39,5 +39,3 @@ class App {
         });
     }
 }
-
-export default App;

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import injector from "injector";
 
-class AllegroHandler {
+export default class AllegroHandler {
     constructor() {
         this._client = injector.get("allegroWebapiClient");
         this._costimizer = injector.get("allegroCostimizer");
@@ -22,5 +22,3 @@ class AllegroHandler {
 
 AllegroHandler.factory = () => new AllegroHandler();
 AllegroHandler.factory.$inject = [];
-
-export default AllegroHandler;

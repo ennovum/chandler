@@ -1,6 +1,6 @@
 import template from "./costimizer.html";
 
-class CostimizerDirective {
+export default class CostimizerDirective {
     constructor() {
         this.restrict = "E";
         this.template = template;
@@ -13,5 +13,3 @@ class CostimizerDirective {
 
 CostimizerDirective.directive = () => new CostimizerDirective();
 CostimizerDirective.directive.$inject = [];
-
-export default CostimizerDirective;

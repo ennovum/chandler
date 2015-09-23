@@ -3,7 +3,7 @@ import injector from "injector";
 
 import config from "./../../config/config.js";
 
-class AllegroWebapiClient {
+export default class AllegroWebapiClient {
     constructor() {
         this._sanitizer = injector.get("allegroWebapiSanitizer");
 
@@ -71,5 +71,3 @@ class AllegroWebapiClient {
 
 AllegroWebapiClient.factory = () => new AllegroWebapiClient();
 AllegroWebapiClient.factory.$inject = [];
-
-export default AllegroWebapiClient;

@@ -1,4 +1,4 @@
-let config = {
+export default {
     "server": {
         "root": __dirname + "/../../..",
         "port": "8080",
@@ -8,5 +8,3 @@ let config = {
         "pageSize": 100
     }
 };
-
-export default config;

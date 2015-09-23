@@ -1,4 +1,4 @@
-let routing = {
+export default {
     "defaultPath": "/costimizer",
     "routes": {
         "/costimizer": {
@@ -6,5 +6,3 @@ let routing = {
         }
     }
 };
-
-export default routing;

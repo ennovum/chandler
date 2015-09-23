@@ -1,6 +1,6 @@
 import config from "./../../config/config.js";
 
-class AllegroClient {
+export default class AllegroClient {
     constructor($http) {
         this._$http = $http;
     }
@@ -17,5 +17,3 @@ class AllegroClient {
 
 AllegroClient.service = ($http) => new AllegroClient($http);
 AllegroClient.service.$inject = ["$http"];
-
-export default AllegroClient;

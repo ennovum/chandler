@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-class AllegroCostimizer {
+export default class AllegroCostimizer {
     costimizeSearchResults(searchResults) {
         let sellerIds = _.intersection(...(_.map(searchResults, (searchResult) => _.map(searchResult.data, (item) => item.seller.id))));
         let result = {
@@ -26,5 +26,3 @@ class AllegroCostimizer {
 
 AllegroCostimizer.factory = () => new AllegroCostimizer();
 AllegroCostimizer.factory.$inject = [];
-
-export default AllegroCostimizer;

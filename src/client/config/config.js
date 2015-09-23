@@ -1,4 +1,4 @@
-let config = {
+export default {
     "api": {
         "baseUrl": "//localhost:8080/api",
         "resources": {
@@ -8,5 +8,3 @@ let config = {
         }
     }
 };
-
-export default config;

@@ -20,10 +20,8 @@ angular
         });
     }]);
 
-class App {
+export default class App {
     run() {
         angular.bootstrap(document, ["app"]);
     }
 }
-
-export default App;
