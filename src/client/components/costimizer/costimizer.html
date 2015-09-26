@@ -25,21 +25,6 @@
 </div>
 <div class="main">
     <div class="content-box">
-        <div class="results">
-            <table class="table table-bordered">
-                <tr ng-repeat="costimizedOffer in ctrl.costimizedOffers">
-                    <td>
-                        <a ng-href="{{costimizedOffer.seller.url}}" target="_blank">{{costimizedOffer.seller.login}}</a>
-                    </td>
-                    <td ng-repeat="offer in costimizedOffer.offers">
-                        <ul>
-                            <li ng-repeat="item in offer.items">
-                                <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <costimizer-results results="ctrl.results"></costimizer-results>
     </div>
 </div>

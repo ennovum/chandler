@@ -12,7 +12,7 @@ export default class CostimizerController {
             submitQueries: () => this.submitQueries()
         };
 
-        this.costimizedOffers = null;
+        this.results = null;
     }
 
     mainmenuToggle(option) {
@@ -26,7 +26,7 @@ export default class CostimizerController {
     submitQueries() {
         this._allegroClient.getCostimize(this.model.queries)
             .then((result) => {
-                this.costimizedOffers = result.data;
+                this.results = result.data;
             })
             .catch(() => {
                 // TODO

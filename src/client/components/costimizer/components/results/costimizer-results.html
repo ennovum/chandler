@@ -1,0 +1,14 @@
+<table>
+    <tr ng-repeat="result in ctrl.results">
+        <td>
+            <a ng-href="{{result.seller.url}}" target="_blank">{{result.seller.login}}</a>
+        </td>
+        <td ng-repeat="offer in result.offers">
+            <ul>
+                <li ng-repeat="item in offer.items">
+                    <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
