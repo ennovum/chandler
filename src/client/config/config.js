@@ -1,6 +1,6 @@
 export default {
     "api": {
-        "baseUrl": "//localhost:8080/api",
+        "baseUrl": "//" + window.location.host + "/api",
         "resources": {
             "allegro": {
                 "costimize": "/allegro/costimize"
