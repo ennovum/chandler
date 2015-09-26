@@ -1,0 +1,66 @@
+button,
+.button {
+    padding: 5px 15px;
+    background-color: $button-background-color;
+    text-decoration: none;
+    border: 1px solid $button-border-color;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    transition-property: background-color, box-shadow;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+}
+
+.inline-button {
+    padding: 1px 5px;
+}
+
+button:hover,
+.button:hover,
+button:active,
+.button:active,
+button:focus,
+.button:focus {
+    background-color: $active-button-background-color;
+    text-decoration: none;
+}
+
+button,
+.button,
+button:hover,
+.button:hover,
+button:focus,
+.button:focus,
+button:visited,
+.button:visited {
+    color: rgba(255, 255, 255, 1);
+}
+
+button:focus,
+.button:focus,
+button:active,
+.button:active {
+    outline: none;
+}
+
+button:active,
+.button:active,
+button.pressed,
+.button.pressed {
+    border-color: mix($button-border-color, rgba(0, 0, 0, 1), 50);
+    box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.5);
+    transition-duration: 0.1s;
+}
+
+.buttonset {
+    background: $buttonset-background-color;
+    border: 1px solid $buttonset-border-color;
+    border-radius: 5px;
+    overflow: hidden;
+
+    button,
+    .button {
+        border: none;
+    }
+}

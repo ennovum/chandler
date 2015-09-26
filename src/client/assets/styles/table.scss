@@ -1,0 +1,20 @@
+.grid {
+    width: 100%;
+    border: 0 solid $grid-border-color;
+    border-width: 1px 0 0 1px;
+}
+
+.grid-head,
+.grid-cell {
+    border: 0 solid $grid-border-color;
+    border-width: 0 1px 1px 0;
+}
+
+.grid-head {
+    padding: 15px 15px;
+    background: $grid-head-background-color;
+}
+
+.grid-cell {
+    padding: 5px 15px;
+}

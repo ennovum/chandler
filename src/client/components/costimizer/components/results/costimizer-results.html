@@ -1,11 +1,24 @@
-<table>
-    <tr ng-repeat="result in ctrl.results">
-        <td>
+<table class="grid" ng-show="ctrl.results">
+    <tr class="grid-row">
+        <td class="grid-head" rowspan="2">
+            Seller
+        </td>
+        <td class="grid-head" colspan="{{ctrl.results[0].offers.length}}">
+            Offers
+        </td>
+    </tr>
+    <tr class="grid-row">
+        <td class="grid-head" ng-repeat="offer in ctrl.results[0].offers track by $index">
+            "{{offer.query}}"
+        </td>
+    </tr>
+    <tr class="grid-row" ng-repeat="result in ctrl.results">
+        <td class="grid-cell">
             <a ng-href="{{result.seller.url}}" target="_blank">{{result.seller.login}}</a>
         </td>
-        <td ng-repeat="offer in result.offers">
-            <ul>
-                <li ng-repeat="item in offer.items">
+        <td class="grid-cell" ng-repeat="offer in result.offers track by $index">
+            <ul class="results-offers">
+                <li class="results-offer" ng-repeat="item in offer.items track by $index">
                     <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
                 </li>
             </ul>

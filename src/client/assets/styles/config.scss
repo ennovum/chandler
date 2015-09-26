@@ -1,2 +1,16 @@
-$std-font-size: 14px;
-$std-line-height: 1.4em;
+$std-font-size: 12px;
+$std-line-height: 1.2;
+$std-link-color: rgba(80, 120, 120, 1);
+
+$button-background-color: rgba(80, 120, 120, 1);
+$button-border-color: $button-background-color;
+$active-button-background-color: rgba(100, 140, 140, 1);
+
+$buttonset-background-color: $button-background-color;
+$buttonset-border-color: $button-border-color;
+
+$input-border-color: rgba(180, 180, 180, 1);
+$active-input-border-color: $active-button-background-color;
+
+$grid-border-color: rgba(180, 180, 180, 1);
+$grid-head-background-color: rgba(220, 220, 220, 1);

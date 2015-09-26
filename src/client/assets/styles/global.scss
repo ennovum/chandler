@@ -2,35 +2,68 @@
     box-sizing: border-box;
 }
 
-html {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    font-size: $std-font-size;
-    line-height: $std-line-height;
+h1,
+h2 {
+    margin: 5px 0 10px 0;
+    font-size: 130%;
 }
 
-/*html, body,
-div,
-h1, h2, h3, h4, h5, h6,
+h3,
+h4 {
+    margin: 4px 0 8px 0;
+    font-size: 115%;
+}
+
+h5,
+h6 {
+    margin: 3px 0 6px 0;
+    font-size: 100%;
+}
+
+p,
 ul,
-dl {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    flex-grow: 0;
+ol {
+    margin: 0 0 6px 0;
 }
 
-h1, h2, h3, h4, h5, h6,
-ol, li,
-dt, dd {
-    flex-shrink: 0;
-    flex-grow: 0;
-}*/
+ul,
+ol {
+    padding: 0 0 0 20px;
+}
 
-audio,
-canvas,
-img,
-video {
-    vertical-align: middle;
+li {
+    margin: 0 0 1px 0;
+}
+
+a,
+a:hover,
+.link {
+    color: $std-link-color;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover,
+a:active,
+a:focus,
+.link:hover,
+.link:active,
+.link:focus {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.busy {
+    cursor: wait;
+}
+
+.hotkey {
+    text-decoration: underline;
 }

@@ -1,0 +1,28 @@
+.topbar {
+    padding: 10px 20px;
+    background: rgba(68, 68, 68, 1);
+    color: rgba(255, 255, 255, 1);
+    overflow: auto;
+}
+
+.logo {
+    float: left;
+    height: 32px;
+    margin: -1px 20px -1px 0;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 32px;
+    cursor: default;
+    color: rgba(255, 255, 255, 1);
+}
+
+.logo h3 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.logo .beta {
+    font-size: 14px;
+}

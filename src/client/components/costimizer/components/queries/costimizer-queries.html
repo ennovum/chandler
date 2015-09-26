@@ -1,10 +1,11 @@
-<div class="query-list" ng-show="ctrl.model.queries.length > 0">
-    <div class="query-item" ng-repeat="query in ctrl.model.queries track by $index">
-        <input class="query-input" type="text" ng-model="ctrl.model.queries[$index]" />
-        <button class="query-button" ng-click="ctrl.removeQuery($index)">Remove the query</button>
+<div class="search-queries" ng-show="ctrl.model.queries.length">
+    <div class="search-query" ng-repeat="query in ctrl.model.queries track by $index">
+        <input class="search-input" type="text" ng-model="ctrl.model.queries[$index]" placeholder="Enter a query" />
+        <button class="search-button" ng-click="ctrl.removeQuery($index)">Remove the query</button>
+        <button class="search-button" ng-click="ctrl.addQuery()" ng-show="$index === ctrl.model.queries.length - 1">Add a query</button>
     </div>
 </div>
-<div class="query-buttons">
-    <button class="query-button" ng-click="ctrl.addQuery()">Add a query</button>
-    <button class="query-button" ng-click="ctrl.submitQueries()" ng-show="ctrl.model.queries.length > 0">Submit queries</button>
+<div class="search-buttons">
+    <button class="search-button" ng-click="ctrl.addQuery()" ng-show="!ctrl.model.queries.length">Add a query</button>
+    <button class="search-button" ng-click="ctrl.submitQueries()" ng-show="ctrl.model.queries.length">Search</button>
 </div>
