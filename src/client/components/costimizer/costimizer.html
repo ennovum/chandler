@@ -1,27 +1,45 @@
-<div class="costimizer">
-    <h1>Allegro Costimizer</h1>
-    <div class="queries">
-        <div class="query" ng-repeat="query in ctrl.model.queries track by $index">
-            <input type="text" ng-model="ctrl.model.queries[$index]" />
-            <button ng-click="ctrl.removeQuery($index)">Remove the query</button>
+<div class="top">
+    <div class="topbar">
+        <div class="logo">
+            <h3>Allegro Costimizer <span class="beta">beta</span></h3>
         </div>
-        <button ng-click="ctrl.addQuery()">Add a query</button>
-        <button ng-click="ctrl.submitQueries()">Submit queries</button>
+        <div class="sidemenu">
+            <a class="sidemenu-link ennovum-link" href="http://ennovum.net" target="_blank">Ennovum</a>
+            <a class="sidemenu-link github-link" href="http://github.com/ennovum/armadillog" target="_blank">Github</a>
+        </div>
+        <div class="mainmenu">
+            <ul class="mainmenu-list">
+                <li class="mainmenu-item">
+                    <button class="mainmenu-link query-switch" ng-click="ctrl.mainmenuToggle('query')">
+                        <span class="button-label">Queries</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="results">
-        <table class="table table-bordered">
-            <tr ng-repeat="costimizedOffer in ctrl.costimizedOffers">
-                <td>
-                    <a ng-href="{{costimizedOffer.seller.url}}" target="_blank">{{costimizedOffer.seller.login}}</a>
-                </td>
-                <td ng-repeat="offer in costimizedOffer.offers">
-                    <ul>
-                        <li ng-repeat="item in offer.items">
-                            <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+    <div class="drawer query-drawer" ng-show="ctrl.mainmenuIs('query')">
+        <div class="drawer-body query-box">
+            <costimizer-queries model="ctrl.model" on-submit="ctrl.on.submitQueries()"></costimizer-queries>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="content-box">
+        <div class="results">
+            <table class="table table-bordered">
+                <tr ng-repeat="costimizedOffer in ctrl.costimizedOffers">
+                    <td>
+                        <a ng-href="{{costimizedOffer.seller.url}}" target="_blank">{{costimizedOffer.seller.login}}</a>
+                    </td>
+                    <td ng-repeat="offer in costimizedOffer.offers">
+                        <ul>
+                            <li ng-repeat="item in offer.items">
+                                <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
