@@ -62,7 +62,13 @@ var gulpconfig = {
             "__dirname": true
         }
     },
-    "eslint": {}
+    "watch": {
+        "interval": 1000,
+        "debounceDelay": 1000
+    },
+    "sass": {
+        "errLogToConsole": true
+    }
 };
 
 module.exports = gulpconfig;
