@@ -16,3 +16,10 @@ body {
     line-height: $std-line-height;
     color: rgba(0, 0, 0, 1);
 }
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    overflow: auto;
+}

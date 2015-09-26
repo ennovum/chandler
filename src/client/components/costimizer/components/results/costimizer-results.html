@@ -1,13 +1,15 @@
 <table class="grid" ng-show="ctrl.results">
     <tr class="grid-row">
-        <td class="grid-head" rowspan="2">
-            Seller
+        <td class="grid-head">
+            Sellers
         </td>
         <td class="grid-head" colspan="{{ctrl.results[0].offers.length}}">
             Offers
         </td>
     </tr>
     <tr class="grid-row">
+        <td class="grid-head">
+        </td>
         <td class="grid-head" ng-repeat="offer in ctrl.results[0].offers track by $index">
             "{{offer.query}}"
         </td>
