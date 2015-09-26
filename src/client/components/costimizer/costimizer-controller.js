@@ -2,8 +2,6 @@ export default class CostimizerController {
     constructor(allegroClient) {
         this._allegroClient = allegroClient;
 
-        this.mainmenuOption = null;
-
         this.model = {
             queries: [""]
         };
@@ -13,14 +11,6 @@ export default class CostimizerController {
         };
 
         this.results = null;
-    }
-
-    mainmenuToggle(option) {
-        this.mainmenuOption = this.mainmenuOption === option ? null : option;
-    }
-
-    mainmenuIs(option) {
-        return this.mainmenuOption === option;
     }
 
     submitQueries() {

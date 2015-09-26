@@ -1,4 +1,4 @@
-<div class="top">
+<div class="top" toggler="tglr" toggler-init="query">
     <div class="topbar">
         <div class="logo">
             <h3>Allegro Costimizer <span class="beta">beta</span></h3>
@@ -10,14 +10,14 @@
         <div class="mainmenu">
             <ul class="mainmenu-list">
                 <li class="mainmenu-item">
-                    <button class="mainmenu-link query-switch" ng-click="ctrl.mainmenuToggle('query')">
+                    <button class="mainmenu-link query-switch" ng-click="tglr.toggle('query')">
                         <span class="button-label">Queries</span>
                     </button>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="drawer query-drawer" ng-show="ctrl.mainmenuIs('query')">
+    <div class="drawer query-drawer" ng-show="tglr.is('query')">
         <div class="drawer-body query-box">
             <costimizer-queries model="ctrl.model" on-submit="ctrl.on.submitQueries()"></costimizer-queries>
         </div>

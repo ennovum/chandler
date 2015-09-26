@@ -7,11 +7,12 @@ import routing from "./routing.js";
 
 import "./../components/allegro/allegro.js";
 import "./../components/costimizer/costimizer.js";
+import "./../components/toggler/toggler.js";
 
 es6Promise.polyfill();
 
 angular
-    .module("app", ["ngRoute", "allegro", "costimizer"])
+    .module("app", ["ngRoute", "allegro", "costimizer", "toggler"])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
 
