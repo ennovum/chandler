@@ -8,6 +8,7 @@ export default {
         "wsdlUrl": "https://webapi.allegro.pl/service.php?wsdl",
         "countryCode": 1,
         "webapiKey": "",
-        "pageSize": 100
+        "pageSize": 1000,
+        "chunkSize": 100
     }
 };

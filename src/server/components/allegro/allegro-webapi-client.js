@@ -1,3 +1,4 @@
+import _ from "lodash";
 import soap from "soap";
 import injector from "injector";
 
@@ -10,11 +11,13 @@ export default class AllegroWebapiClient {
         this._wsdlUrl = config.allegro.wsdlUrl;
         this._countryCode = config.allegro.countryCode;
         this._webapiKey = config.allegro.webapiKey;
+        this._pageSize = config.allegro.pageSize;
+        this._chunkSize = config.allegro.chunkSize;
     }
 
     getSearchResult(query) {
         return this._createClient()
-            .then((client) => this._getSearchResult(client, query))
+            .then((client) => this._getSearchPageResult(client, query, 0, this._pageSize))
             .then((searchResult) => this._sanitizer.sanitizeSearchResult(searchResult));
     }
 
@@ -30,7 +33,31 @@ export default class AllegroWebapiClient {
         });
     }
 
-    _getSearchResult(client, query, page = 0) {
+    _getSearchPageResult(client, query, page, pageSize) {
+        let chunkSize = this._chunkSize;
+        let chunkCount = _.ceil(pageSize / chunkSize);
+        let chunk;
+        let chunkQueue = [];
+
+        for (chunk = 0; chunk < chunkCount; chunk++) {
+            chunkQueue.push(this._getSearchChunkResult(client, query, chunk, chunkSize));
+        }
+
+        return Promise.all(chunkQueue)
+            .then((searchChunkResults) => {
+                let meta = {
+                    page,
+                    pageSize,
+                    totalCount: searchChunkResults[0].meta.totalCount,
+                    query
+                };
+                let data = _.reduce(searchChunkResults, (data, searchChunkResult) => data.concat(searchChunkResult.data), []).slice(0, pageSize);
+
+                return {meta, data};
+            });
+    }
+
+    _getSearchChunkResult(client, query, chunk, chunkSize) {
         let params = {
             "webapiKey": this._webapiKey,
             "countryId": this._countryCode,
@@ -44,8 +71,8 @@ export default class AllegroWebapiClient {
                     }
                 ]
             },
-            "resultSize": config.allegro.pageSize,
-            "resultOffset": page * config.allegro.pageSize,
+            "resultSize": chunkSize,
+            "resultOffset": chunk * chunkSize,
             "resultScope": 2
         };
 
@@ -55,15 +82,15 @@ export default class AllegroWebapiClient {
                     return reject(err);
                 }
 
-                return resolve({
-                    meta: {
-                        page: page,
-                        pageSize: config.allegro.pageSize,
-                        totalCount: result.itemsCount,
-                        query: query
-                    },
-                    data: result.itemsList.item
-                });
+                let meta = {
+                    chunk,
+                    chunkSize,
+                    totalCount: result.itemsCount,
+                    query
+                };
+                let data = result.itemsList && result.itemsList.item || [];
+
+                return resolve({meta, data});
             });
         });
     }
