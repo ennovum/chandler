@@ -5,6 +5,9 @@ export default {
         "baseUrl": "/api"
     },
     "allegro": {
+        "wsdlUrl": "https://webapi.allegro.pl/service.php?wsdl",
+        "countryCode": 1,
+        "webapiKey": "",
         "pageSize": 100
     }
 };

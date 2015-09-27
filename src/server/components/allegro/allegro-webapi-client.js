@@ -7,9 +7,9 @@ export default class AllegroWebapiClient {
     constructor() {
         this._sanitizer = injector.get("allegroWebapiSanitizer");
 
-        this._wsdlUrl = "https://webapi.allegro.pl/service.php?wsdl";
-        this._countryCode = 1;
-        this._webapiKey = "dc812255";
+        this._wsdlUrl = config.allegro.wsdlUrl;
+        this._countryCode = config.allegro.countryCode;
+        this._webapiKey = config.allegro.webapiKey;
     }
 
     getSearchResult(query) {
