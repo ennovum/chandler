@@ -4,7 +4,7 @@ var config = require("./gulpconfig.js");
 
 var jobs = {
     run: require("./gulp/jobs/run.js"),
-    exec: require("./gulp/jobs/exec.js"),
+    nodemon: require("./gulp/jobs/nodemon.js"),
     copy: require("./gulp/jobs/copy.js"),
     watch: require("./gulp/jobs/watch.js"),
     babel: require("./gulp/jobs/babel.js"),
@@ -49,7 +49,7 @@ gulp.task("server.scripts:lint", jobs.eslint(src + server + "/**/*.js"));
 gulp.task("server:build", jobs.run("server.scripts:build"));
 gulp.task("server:dev", jobs.run("server.scripts:dev"));
 gulp.task("server:lint", jobs.run("server.scripts:lint"));
-gulp.task("server:start", jobs.exec("node", [dev + server + "/index.js"]));
+gulp.task("server:start", jobs.nodemon(dev + server + "/index.js"));
 
 gulp.task("server-test:build", jobs.nodepack(src + server + "/**/*.test.js", test + server + "/", {target: "node"}));
 gulp.task("server-test:start", jobs.mocha(test + server + "/**/*.js"));
