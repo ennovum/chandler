@@ -1,4 +1,4 @@
-export default class CostimizerQueriesController {
+class CostimizerUiQueriesController {
     constructor() {
         this.model; // via attribute
         this.onSubmit; // via attribute
@@ -17,5 +17,8 @@ export default class CostimizerQueriesController {
     }
 }
 
-CostimizerQueriesController.controller = () => new CostimizerQueriesController();
-CostimizerQueriesController.controller.$inject = [];
+CostimizerUiQueriesController.controller = (...args) => new CostimizerUiQueriesController(...args);
+CostimizerUiQueriesController.controller.$inject = [];
+
+export default CostimizerUiQueriesController;
+export {CostimizerUiQueriesController};

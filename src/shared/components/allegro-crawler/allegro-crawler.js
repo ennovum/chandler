@@ -1,7 +1,7 @@
 import url from "url";
 import osmosis from "osmosis";
 
-export default class AllegroCrawler {
+class AllegroCrawler {
     search(query, done) {
         let link = "http://allegro.pl/listing/listing.php?order=t&string=" + encodeURIComponent(query);
 
@@ -92,5 +92,8 @@ export default class AllegroCrawler {
     }
 }
 
-AllegroCrawler.service = () => new AllegroCrawler();
+AllegroCrawler.service = (...args) => new AllegroCrawler(...args);
 AllegroCrawler.service.$inject = [];
+
+export default AllegroCrawler;
+export {AllegroCrawler};

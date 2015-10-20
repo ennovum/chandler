@@ -1,18 +1,17 @@
 import _ from "lodash";
 import soap from "soap";
-import injector from "injector";
 
-import config from "./../../config/config.js";
+class AllegroWebapiClient {
+    constructor(allegroWebapiSanitizer) {
+        this._sanitizer = allegroWebapiSanitizer;
+    }
 
-export default class AllegroWebapiClient {
-    constructor() {
-        this._sanitizer = injector.get("allegroWebapiSanitizer");
-
-        this._wsdlUrl = config.allegro.wsdlUrl;
-        this._countryCode = config.allegro.countryCode;
-        this._webapiKey = config.allegro.webapiKey;
-        this._pageSize = config.allegro.pageSize;
-        this._chunkSize = config.allegro.chunkSize;
+    configure(config) {
+        this._wsdlUrl = config.wsdlUrl;
+        this._countryCode = config.countryCode;
+        this._webapiKey = config.webapiKey;
+        this._pageSize = config.pageSize;
+        this._chunkSize = config.chunkSize;
     }
 
     getSearchResult(query) {
@@ -96,5 +95,8 @@ export default class AllegroWebapiClient {
     }
 }
 
-AllegroWebapiClient.factory = () => new AllegroWebapiClient();
-AllegroWebapiClient.factory.$inject = [];
+AllegroWebapiClient.factory = (...args) => new AllegroWebapiClient(...args);
+AllegroWebapiClient.factory.$inject = ["allegroWebapiSanitizer"];
+
+export default AllegroWebapiClient;
+export {AllegroWebapiClient};

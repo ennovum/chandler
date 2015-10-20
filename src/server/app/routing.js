@@ -1,4 +1,4 @@
-export default {
+let routing = {
     "routes": {
         "/allegro/costimize": {
             "handler": "allegroHandler",
@@ -6,3 +6,6 @@ export default {
         }
     }
 };
+
+export default routing;
+export {routing};

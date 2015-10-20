@@ -1,4 +1,4 @@
-export default {
+let config = {
     "api": {
         "baseUrl": "//" + window.location.host + "/api",
         "resources": {
@@ -8,3 +8,6 @@ export default {
         }
     }
 };
+
+export default config;
+export {config};

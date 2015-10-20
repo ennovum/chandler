@@ -1,6 +1,6 @@
 import costimizerTpl from "./views/costimizer.html";
 
-export default {
+let routing = {
     "defaultPath": "/costimizer",
     "routes": {
         "/costimizer": {
@@ -8,3 +8,6 @@ export default {
         }
     }
 };
+
+export default routing;
+export {routing};

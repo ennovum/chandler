@@ -1,4 +1,4 @@
-export default class CostimizerController {
+class CostimizerUiController {
     constructor(allegroClient) {
         this._allegroClient = allegroClient;
 
@@ -24,5 +24,8 @@ export default class CostimizerController {
     }
 }
 
-CostimizerController.controller = (allegroClient) => new CostimizerController(allegroClient);
-CostimizerController.controller.$inject = ["allegroClient"];
+CostimizerUiController.controller = (...args) => new CostimizerUiController(...args);
+CostimizerUiController.controller.$inject = ["allegroClient"];
+
+export default CostimizerUiController;
+export {CostimizerUiController};

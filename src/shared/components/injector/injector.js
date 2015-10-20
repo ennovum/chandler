@@ -28,6 +28,5 @@ class Injector {
     }
 }
 
-let injector = new Injector();
-
-export default injector;
+export default Injector;
+export {Injector};

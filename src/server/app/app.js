@@ -2,16 +2,19 @@ import es6Promise from "es6Promise";
 import express from "express";
 import morgan from "morgan";
 import _ from "lodash";
-import injector from "injector";
 
+import Injector from "./../../shared/components/injector/injector.js";
+
+import depend from "./depend.js";
 import config from "./../config/config.js";
 import routing from "./routing.js";
 
-import "./../components/allegro/allegro.js";
-
 es6Promise.polyfill();
 
-export default class App {
+let injector = new Injector();
+depend(injector);
+
+class App {
     constructor() {
         this._create();
         this._configure();
@@ -39,3 +42,6 @@ export default class App {
         });
     }
 }
+
+export default App;
+export {App};

@@ -1,4 +1,4 @@
-export default class TogglerDirective {
+class TogglerDirective {
     constructor() {
         this.restrict = "A";
         this.controller = "toggler";
@@ -7,3 +7,6 @@ export default class TogglerDirective {
 
 TogglerDirective.directive = () => new TogglerDirective();
 TogglerDirective.directive.$inject = [];
+
+export default TogglerDirective;
+export {TogglerDirective};

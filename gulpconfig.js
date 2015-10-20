@@ -27,8 +27,7 @@ var gulpconfig = {
         "resolve": {
             "alias": {
                 "angularRoute": "angular-route",
-                "es6Promise": "es6-promise",
-                "injector": __dirname + "/src/shared/components/injector/injector.js"
+                "es6Promise": "es6-promise"
             }
         }
     },
@@ -45,7 +44,6 @@ var gulpconfig = {
         },
         "resolve": {
             "alias": {
-                "injector": __dirname + "/src/shared/components/injector/injector.js"
             }
         },
         "externals": {

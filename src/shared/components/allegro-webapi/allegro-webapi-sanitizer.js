@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export default class AllegroSanitizer {
+class AllegroWebapiSanitizer {
     sanitizeSearchResult(searchResult) {
         searchResult.data = this._sanitizeItems(searchResult.data);
         return searchResult;
@@ -37,5 +37,8 @@ export default class AllegroSanitizer {
     }
 }
 
-AllegroSanitizer.factory = () => new AllegroSanitizer();
-AllegroSanitizer.factory.$inject = [];
+AllegroWebapiSanitizer.factory = (...args) => new AllegroWebapiSanitizer(...args);
+AllegroWebapiSanitizer.factory.$inject = [];
+
+export default AllegroWebapiSanitizer;
+export {AllegroWebapiSanitizer};

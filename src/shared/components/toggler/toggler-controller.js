@@ -1,4 +1,4 @@
-export default class TogglerController {
+class TogglerController {
     constructor($scope, $element, $attrs) {
         this.name = $attrs.toggler;
         this.api = $scope[this.name] = $scope[this.name] || {};
@@ -25,3 +25,6 @@ export default class TogglerController {
 
 TogglerController.controller = ($scope, $element, $attrs) => new TogglerController($scope, $element, $attrs);
 TogglerController.controller.$inject = ["$scope", "$element", "$attrs"];
+
+export default TogglerController;
+export {TogglerController};

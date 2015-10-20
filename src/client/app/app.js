@@ -3,16 +3,20 @@ import _ from "lodash";
 import angular from "angular";
 import "angularRoute";
 
+import depend from "./depend.js";
 import routing from "./routing.js";
-
-import "./../components/allegro/allegro.js";
-import "./../components/costimizer/costimizer.js";
-import "./../components/toggler/toggler.js";
 
 es6Promise.polyfill();
 
+depend();
+
 angular
-    .module("app", ["ngRoute", "allegro", "costimizer", "toggler"])
+    .module("app", [
+        "ngRoute",
+        "allegroClient",
+        "costimizerUi",
+        "toggler"
+    ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
 
@@ -21,8 +25,11 @@ angular
         });
     }]);
 
-export default class App {
+class App {
     run() {
         angular.bootstrap(document, ["app"]);
     }
 }
+
+export default App;
+export {App};
