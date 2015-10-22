@@ -5,6 +5,10 @@ import {
 } from "./../components/allegro-client/allegro-client.js";
 
 import {
+    AllegroCostimizer
+} from "./../../shared/components/allegro-costimizer/allegro-costimizer.js";
+
+import {
     CostimizerUiController,
     CostimizerUiDirective,
     CostimizerUiQueriesController,
@@ -22,6 +26,10 @@ function depend() {
     angular
         .module("allegroClient", [])
         .service("allegroClient", AllegroClient.service);
+
+    angular
+        .module("allegroCostimizer", [])
+        .factory("allegroCostimizer", AllegroCostimizer.factory);
 
     angular
         .module("costimizerUi", [])

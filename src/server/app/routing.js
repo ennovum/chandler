@@ -1,8 +1,8 @@
 let routing = {
     "routes": {
-        "/allegro/costimize": {
+        "/allegro/search": {
             "handler": "allegroHandler",
-            "method": "costimize"
+            "method": "search"
         }
     }
 };

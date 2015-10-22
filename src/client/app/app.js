@@ -14,6 +14,7 @@ angular
     .module("app", [
         "ngRoute",
         "allegroClient",
+        "allegroCostimizer",
         "costimizerUi",
         "toggler"
     ])

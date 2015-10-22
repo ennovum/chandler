@@ -5,12 +5,12 @@ class AllegroClient {
         this._$http = $http;
     }
 
-    getCostimize(queries) {
+    getSearch(query) {
         return this._$http.get(
-            config.api.baseUrl + config.api.resources.allegro.costimize,
+            config.api.baseUrl + config.api.resources.allegro.search,
             {
                 "params": {
-                    "queries": queries
+                    "query": query
                 }
             })
             .then((response) => response.data);

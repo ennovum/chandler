@@ -1,6 +1,8 @@
 class CostimizerUiController {
-    constructor(allegroClient) {
-        this._allegroClient = allegroClient;
+    constructor($scope, allegroClient, allegroCostimizer) {
+        this._$scope = $scope;
+        this._client = allegroClient;
+        this._costimizer = allegroCostimizer;
 
         this.model = {
             queries: [""]
@@ -14,9 +16,13 @@ class CostimizerUiController {
     }
 
     submitQueries() {
-        this._allegroClient.getCostimize(this.model.queries)
-            .then((result) => {
-                this.results = result.data;
+        let queries = this.model.queries;
+
+        Promise.all(_.map(queries, (query) => this._client.getSearch(query)))
+            .then((searchResults) => this._costimizer.costimizeSearchResults(searchResults))
+            .then((costimizeResult) => {
+                this.results = costimizeResult.data;
+                this._$scope.$apply(); // custom async promise
             })
             .catch(() => {
                 // TODO
@@ -25,7 +31,7 @@ class CostimizerUiController {
 }
 
 CostimizerUiController.controller = (...args) => new CostimizerUiController(...args);
-CostimizerUiController.controller.$inject = ["allegroClient"];
+CostimizerUiController.controller.$inject = ["$scope", "allegroClient", "allegroCostimizer"];
 
 export default CostimizerUiController;
 export {CostimizerUiController};
