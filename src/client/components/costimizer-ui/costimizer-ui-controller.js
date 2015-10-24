@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 class CostimizerUiController {
     constructor($scope, allegroClient, allegroCostimizer) {
         this._$scope = $scope;
