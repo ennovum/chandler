@@ -38,10 +38,6 @@ gulp.task("client:build", jobs.run(["client.documents:build", "client.scripts:bu
 gulp.task("client:dev", jobs.run(["client.documents:dev", "client.scripts:dev", "client.styles:dev"]));
 gulp.task("client:lint", jobs.run("client.scripts:lint"));
 
-gulp.task("client-test:build", jobs.webpack(src + client + "/**/*.test.js", test + client + "/", {target: "web"}));
-gulp.task("client-test:start", jobs.mocha(test + client + "/**/*.js"));
-gulp.task("client-test:dev", jobs.watch(src + client + "/**/*.test.js", {tasks: ["client-test:build", "client-test:start"]}));
-
 gulp.task("server.scripts:build", jobs.nodepack(src + server + "/*.js", dev + server + "/", {target: "node"}));
 gulp.task("server.scripts:dev", jobs.nodepack(src + server + "/*.js", dev + server + "/", {target: "node", watch: true}));
 gulp.task("server.scripts:lint", jobs.eslint(src + server + "/**/*.js"));
@@ -51,13 +47,25 @@ gulp.task("server:dev", jobs.run("server.scripts:dev"));
 gulp.task("server:lint", jobs.run("server.scripts:lint"));
 gulp.task("server:start", jobs.nodemon(dev + server + "/index.js"));
 
+gulp.task("client-test:build", jobs.webpack(src + client + "/**/*.test.js", test + client + "/", {target: "web"}));
+gulp.task("client-test:start", jobs.mocha(test + client + "/**/*.js"));
+gulp.task("client-test:dev", jobs.watch(src + client + "/**/*.test.js", {tasks: ["client-test:build", "client-test:start"]}));
+
 gulp.task("server-test:build", jobs.nodepack(src + server + "/**/*.test.js", test + server + "/", {target: "node"}));
 gulp.task("server-test:start", jobs.mocha(test + server + "/**/*.js"));
 gulp.task("server-test:dev", jobs.watch(src + server + "/**/*.test.js", {tasks: ["server-test:build", "server-test:start"]}));
 
+gulp.task("shared-test:build", jobs.nodepack(src + shared + "/**/*.test.js", test + shared + "/", {target: "node"}));
+gulp.task("shared-test:start", jobs.mocha(test + shared + "/**/*.js"));
+gulp.task("shared-test:dev", jobs.watch(src + shared + "/**/*.test.js", {tasks: ["shared-test:build", "shared-test:start"]}));
+
+gulp.task("test:build", jobs.run("client-test:build", "server-test:build", "shared-test:build"));
+gulp.task("test:start", jobs.run("client-test:start", "server-test:start", "shared-test:start"));
+gulp.task("test:dev", jobs.run("client-test:dev", "server-test:dev", "shared-test:dev"));
+
 gulp.task("build", jobs.run(["client:build", "server:build"]));
 gulp.task("server", jobs.run("server:start"));
 gulp.task("start", jobs.run(["client:build", "server:build"], "server:start"));
-gulp.task("dev", jobs.run(["client:dev", "server:dev"], "server:start", ["client-test:dev", "server-test:dev"]));
+gulp.task("dev", jobs.run(["client:dev", "server:dev"], "server:start", ["test:dev"]));
 gulp.task("lint", jobs.run("client:lint", "server:lint"));
-gulp.task("test", jobs.run("lint", ["client-test:build", "server-test:build"], ["client-test:start", "server-test:start"]));
+gulp.task("test", jobs.run("lint", ["test:build"], ["test:start"]));

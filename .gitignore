@@ -1,5 +1,6 @@
 /node_modules
 /bower_components
 /dev
+/test
 /dist
 /npm-debug.log

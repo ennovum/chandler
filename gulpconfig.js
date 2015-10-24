@@ -7,6 +7,7 @@ var gulpconfig = {
     "dir": {
         "src": "/src",
         "dev": "/dev",
+        "test": "/test",
         "dist": "/dist",
         "client": "/client",
         "server": "/server",
@@ -66,6 +67,9 @@ var gulpconfig = {
     },
     "sass": {
         "errLogToConsole": true
+    },
+    "mocha": {
+        "bail": true
     }
 };
 
