@@ -9,8 +9,9 @@ class AllegroHandler {
 
     search(req, res) {
         let query = req.query.query;
+        let page = Number(req.query.page);
 
-        this._client.getSearchResult(query)
+        this._client.getSearchResult(query, page)
             .then((searchResult) => {
                 res.send(searchResult);
             }, (err) => {

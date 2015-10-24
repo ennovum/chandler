@@ -8,8 +8,8 @@ let config = {
         "wsdlUrl": "https://webapi.allegro.pl/service.php?wsdl",
         "countryCode": 1,
         "webapiKey": "",
-        "pageSize": 1000,
-        "chunkSize": 100
+        "pageSize": 100,
+        "chunkSize": 25
     }
 };
 

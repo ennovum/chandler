@@ -14,10 +14,10 @@ class AllegroWebapiClient {
         this._chunkSize = config.chunkSize;
     }
 
-    getSearchResult(query) {
+    getSearchResult(query, page) {
         return this._createClient()
-            .then((client) => this._getSearchPageResult(client, query, 0, this._pageSize))
-            .then((searchResult) => this._sanitizer.sanitizeSearchResult(searchResult));
+            .then((client) => this._getRawSearchPageResult(client, query, page, this._pageSize))
+            .then((rawSearchResult) => this._sanitizer.sanitizeSearchResult(rawSearchResult));
     }
 
     _createClient() {
@@ -32,14 +32,14 @@ class AllegroWebapiClient {
         });
     }
 
-    _getSearchPageResult(client, query, page, pageSize) {
+    _getRawSearchPageResult(client, query, page, pageSize) {
         let chunkSize = this._chunkSize;
         let chunkCount = _.ceil(pageSize / chunkSize);
         let chunk;
         let chunkQueue = [];
 
         for (chunk = 0; chunk < chunkCount; chunk++) {
-            chunkQueue.push(this._getSearchChunkResult(client, query, chunk, chunkSize));
+            chunkQueue.push(this._getRawSearchChunkResult(client, query, page, pageSize, chunk, chunkSize));
         }
 
         return Promise.all(chunkQueue)
@@ -56,7 +56,7 @@ class AllegroWebapiClient {
             });
     }
 
-    _getSearchChunkResult(client, query, chunk, chunkSize) {
+    _getRawSearchChunkResult(client, query, page, pageSize, chunk, chunkSize) {
         let params = {
             "webapiKey": this._webapiKey,
             "countryId": this._countryCode,
@@ -71,7 +71,7 @@ class AllegroWebapiClient {
                 ]
             },
             "resultSize": chunkSize,
-            "resultOffset": chunk * chunkSize,
+            "resultOffset": (page * pageSize) + (chunk * chunkSize),
             "resultScope": 2
         };
 
@@ -81,12 +81,9 @@ class AllegroWebapiClient {
                     return reject(err);
                 }
 
-                let meta = {
-                    chunk,
-                    chunkSize,
-                    totalCount: result.itemsCount,
-                    query
-                };
+                let totalCount = result.itemsCount;
+
+                let meta = {chunk, chunkSize, totalCount, query};
                 let data = result.itemsList && result.itemsList.item || [];
 
                 return resolve({meta, data});

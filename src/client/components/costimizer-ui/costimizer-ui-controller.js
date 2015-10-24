@@ -19,12 +19,23 @@ class CostimizerUiController {
 
     submitQueries() {
         let queries = this.model.queries;
+        let searchResults = _.map(queries, (query) => ({
+            "meta": {query},
+            "data": []
+        }));
 
-        Promise.all(_.map(queries, (query) => this._client.getSearch(query)))
-            .then((searchResults) => this._costimizer.costimizeSearchResults(searchResults))
-            .then((costimizeResult) => {
-                this.results = costimizeResult.data;
-                this._$scope.$apply(); // custom async promise
+        Promise.all(
+            _.map(queries, (query, index) => this._client.sipSearch(query, (result) => {
+                searchResults[index].data = searchResults[index].data.concat(result.data);
+
+                return this._costimizer.costimizeSearchResults(searchResults)
+                    .then((costimizeResult) => {
+                        this.results = costimizeResult.data;
+                        this._$scope.$apply(); // async promise
+                    });
+            })))
+            .then(() => {
+                // nothing
             })
             .catch(() => {
                 // TODO
