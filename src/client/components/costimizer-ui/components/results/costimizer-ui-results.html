@@ -3,18 +3,18 @@
         <td class="grid-head">
             Sellers
         </td>
-        <td class="grid-head" colspan="{{ctrl.results[0].offers.length}}">
+        <td class="grid-head" colspan="{{ctrl.queries.length}}">
             Offers
         </td>
     </tr>
     <tr class="grid-row">
         <td class="grid-head">
         </td>
-        <td class="grid-head" ng-repeat="offer in ctrl.results[0].offers track by $index">
-            "{{offer.query}}"
+        <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
+            "{{query}}"
         </td>
     </tr>
-    <tr class="grid-row" ng-repeat="result in ctrl.results">
+    <tr class="grid-row" ng-repeat="result in ctrl.results" ng-if="ctrl.results.length">
         <td class="grid-cell">
             <a ng-href="{{result.seller.url}}" target="_blank">{{result.seller.login}}</a>
         </td>
@@ -24,6 +24,11 @@
                     <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
                 </li>
             </ul>
+        </td>
+    </tr>
+    <tr class="grid-row" ng-if="!ctrl.results.length">
+        <td class="grid-cell" colspan="{{1 + ctrl.queries.length}}">
+            <span>No results</span>
         </td>
     </tr>
 </table>

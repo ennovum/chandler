@@ -5,6 +5,7 @@ class CostimizerUiResultsDirective {
         this.restrict = "E";
         this.template = template;
         this.scope = {
+            queries: "=",
             results: "="
         };
         this.controller = "costimizerUiResults";

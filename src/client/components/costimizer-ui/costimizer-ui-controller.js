@@ -14,18 +14,21 @@ class CostimizerUiController {
             submitQueries: () => this.submitQueries()
         };
 
+        this.queries = null;
         this.results = null;
     }
 
     submitQueries() {
-        let queries = this.model.queries;
-        let searchResults = _.map(queries, (query) => ({
+        this.queries = _.clone(this.model.queries);
+        this.results = null;
+
+        let searchResults = _.map(this.queries, (query) => ({
             "meta": {query},
             "data": []
         }));
 
         Promise.all(
-            _.map(queries, (query, index) => this._client.sipSearch(query, (result) => {
+            _.map(this.queries, (query, index) => this._client.sipSearch(query, (result) => {
                 searchResults[index].data = searchResults[index].data.concat(result.data);
 
                 return this._costimizer.costimizeSearchResults(searchResults)
