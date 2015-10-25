@@ -1,26 +1,20 @@
 import _ from "lodash";
 
 class AllegroCostimizer {
-    costimizeSearchResults(searchResults) {
-        let sellerIds = _.intersection(...(_.map(searchResults, (searchResult) => _.map(searchResult.data, (item) => item.seller.id))));
-        let result = {
-            meta: {
-                queries: _.map(searchResults, (searchResult) => searchResult.meta.query)
-            },
-            data: _.map(sellerIds, (sellerId) => {
-                let seller = _.find(searchResults[0].data, (item) => item.seller.id === sellerId).seller;
-                let offers = _.map(searchResults, (searchResult) => {
-                    return {
-                        query: searchResult.meta.query,
-                        items: _.filter(searchResult.data, (item) => item.seller.id === sellerId)
-                    };
-                });
+    costimizeSearch(searchSets) {
+        let sellerIdsList = _.map(searchSets, (searchSet) => _.map(searchSet.items, (item) => item.seller.id));
+        let commonSellerIds = _.intersection(...sellerIdsList);
+        let results = _.map(commonSellerIds, (commonSellerId) => {
+            let seller = _.find(searchSets[0].items, (item) => item.seller.id === commonSellerId).seller;
+            let offers = _.map(searchSets, (searchSet) => ({
+                query: searchSet.query,
+                items: _.filter(searchSet.items, (item) => item.seller.id === commonSellerId)
+            }));
 
-                return {seller, offers};
-            })
-        };
+            return {seller, offers};
+        });
 
-        return Promise.resolve(result);
+        return Promise.resolve(results);
     }
 }
 

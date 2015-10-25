@@ -22,18 +22,18 @@ class CostimizerUiController {
         this.queries = _.clone(this.model.queries);
         this.results = null;
 
-        let searchResults = _.map(this.queries, (query) => ({
-            "meta": {query},
-            "data": []
+        let searchSets = _.map(this.queries, (query) => ({
+            "query": query,
+            "items": []
         }));
 
         Promise.all(
-            _.map(this.queries, (query, index) => this._client.sipSearch(query, (result) => {
-                searchResults[index].data = searchResults[index].data.concat(result.data);
+            _.map(searchSets, (searchSet) => this._client.sipSearch(searchSet.query, (result) => {
+                searchSet.items = searchSet.items.concat(result.data);
 
-                return this._costimizer.costimizeSearchResults(searchResults)
-                    .then((costimizeResult) => {
-                        this.results = costimizeResult.data;
+                return this._costimizer.costimizeSearch(searchSets)
+                    .then((results) => {
+                        this.results = results;
                         this._$scope.$apply(); // async promise
                     });
             })))
