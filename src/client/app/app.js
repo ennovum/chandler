@@ -18,7 +18,8 @@ angular
         "costimizerUi",
         "toggler",
         "loading",
-        "fetcher"
+        "fetcher",
+        "crawebler"
     ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
