@@ -83,14 +83,9 @@ class AllegroListingCrawler {
         let id = offerCrEl.element('.offer-info').attribute('data-seller-id');
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
 
-        let seller = {id, login: null, rating: null, url};
+        let seller = {id, url};
 
-        return this._fetcher.fetchJSON(config.api.resources.allegro.listingUserData(id))
-            .then((data) => {
-                seller.login = data.login;
-                seller.rating = data.rating;
-            })
-            .then(() => seller);
+        return Promise.resolve(seller);
     }
 }
 

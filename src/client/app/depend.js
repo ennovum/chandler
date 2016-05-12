@@ -1,7 +1,8 @@
 import angular from "angular";
 
 import {
-    AllegroListingCrawler
+    AllegroListingCrawler,
+    AllegroSellerCrawler
 } from "./../components/allegro-crawler/allegro-crawler.js";
 
 import {
@@ -33,7 +34,8 @@ import {
 function depend() {
     angular
         .module("allegroCrawler", [])
-        .service("allegroListingCrawler", AllegroListingCrawler.service);
+        .service("allegroListingCrawler", AllegroListingCrawler.service)
+        .service("allegroSellerCrawler", AllegroSellerCrawler.service);
 
     angular
         .module("allegroCostimizer", [])

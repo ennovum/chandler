@@ -1,10 +1,11 @@
 import _ from "lodash";
 
 class CostimizerUiComponent {
-    constructor($scope, allegroListingCrawler, allegroCostimizer) {
+    constructor($scope, listingCrawler, sellerCrawler, costimizer) {
         this._$scope = $scope;
-        this._listingCrawler = allegroListingCrawler;
-        this._costimizer = allegroCostimizer;
+        this._listingCrawler = listingCrawler;
+        this._sellerCrawler = sellerCrawler;
+        this._costimizer = costimizer;
 
         this.model = {
             queries: [""]
@@ -18,44 +19,58 @@ class CostimizerUiComponent {
         this.queries = null;
         this.results = null;
 
-        this.sipPromises = null;
-        this.sipAllPromise = null;
+        this.sipListingPromises = null;
+        this.sipListingAllPromise = null;
     }
 
     submitQueries() {
         this.queries = _.clone(this.model.queries);
         this.results = null;
 
-        let searchSets = _.map(this.queries, (query) => ({
+        this.searchSets = _.map(this.queries, (query) => ({
             "query": query,
             "items": []
         }));
 
-        this.sipPromises = _.map(searchSets, (searchSet) => this._listingCrawler.sipListing(searchSet.query, (result) => {
-            searchSet.items = searchSet.items.concat(result.data.offers);
-
-            return this._costimizer.costimizeSearch(searchSets)
-                .then((results) => {
-                    this.results = results;
-                    this._$scope.$apply(); // async promise
-                });
+        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet, () => {
+            this._$scope.$apply(); // async promise
         }));
 
-        this.sipAllPromise = Promise.all(this.sipPromises)
-            .then(() => {
-                // nothing
-            })
+        this.sipListingAllPromise = Promise.all(this.sipListingPromises)
             .catch((err) => {
                 console.error(err); // TODO
             });
     }
 
+    _sipListing(searchSet, sipFn) {
+        return this._listingCrawler.sipListing(searchSet.query, (result) => {
+            searchSet.items = searchSet.items.concat(result.data.offers);
+
+            return this._costimizer.costimizeSearch(this.searchSets)
+                .then((results) => {
+                    this.results = results;
+
+                    let sellerPromises = _.map(this.results, (result) => this._getSeller(result));
+
+                    return Promise.all(sellerPromises);
+                })
+                .then(() => sipFn(this.results));
+        });
+    }
+
+    _getSeller(result) {
+        return this._sellerCrawler.getListingOfferSeller(result.seller.id)
+            .then((seller) => {
+                result.seller = seller;
+            });
+    }
+
     abortQueries() {
-        _.forEach(this.sipPromises, (sipPromise) => {
+        _.forEach(this.sipListingPromises, (sipPromise) => {
             sipPromise.abort();
         });
 
-        this.sipPromises = null;
+        this.sipListingPromises = null;
     }
 }
 
@@ -83,14 +98,14 @@ const template = `
     </div>
     <div class="main">
         <div class="content-box">
-            <loading promise="ctrl.sipAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
+            <loading promise="ctrl.sipListingAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
             <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
         </div>
     </div>
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroListingCrawler", "allegroCostimizer"];
+controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "allegroCostimizer"];
 
 const component = {
     template,
