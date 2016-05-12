@@ -9,51 +9,41 @@ import {
 } from "./../../shared/components/allegro-costimizer/allegro-costimizer.js";
 
 import {
-    CostimizerUiController,
-    CostimizerUiDirective,
-    CostimizerUiQueriesController,
-    CostimizerUiQueriesDirective,
-    CostimizerUiResultsController,
-    CostimizerUiResultsDirective
+    CostimizerUiComponent,
+    CostimizerUiQueriesComponent,
+    CostimizerUiResultsComponent,
 } from "./../components/costimizer-ui/costimizer-ui.js";
 
 import {
-    TogglerController,
     TogglerDirective
 } from "./../../shared/components/toggler/toggler.js";
 
 import {
-    LoadingController,
-    LoadingDirective
+    LoadingComponent
 } from "./../../shared/components/loading/loading.js";
 
 function depend() {
     angular
         .module("allegroClient", [])
-        .service("allegroClient", AllegroClient.service);
+        .service("allegroClient", AllegroClient.factory);
 
     angular
         .module("allegroCostimizer", [])
-        .factory("allegroCostimizer", AllegroCostimizer.factory);
+        .service("allegroCostimizer", AllegroCostimizer.factory);
 
     angular
         .module("costimizerUi", [])
-        .controller("costimizerUi", CostimizerUiController.controller)
-        .directive("costimizerUi", CostimizerUiDirective.directive)
-        .controller("costimizerUiQueries", CostimizerUiQueriesController.controller)
-        .directive("costimizerUiQueries", CostimizerUiQueriesDirective.directive)
-        .controller("costimizerUiResults", CostimizerUiResultsController.controller)
-        .directive("costimizerUiResults", CostimizerUiResultsDirective.directive);
+        .component("costimizerUi", CostimizerUiComponent.component)
+        .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
+        .component("costimizerUiResults", CostimizerUiResultsComponent.component);
 
     angular
         .module("toggler", [])
-        .controller("toggler", TogglerController.controller)
         .directive("toggler", TogglerDirective.directive);
 
     angular
         .module("loading", [])
-        .controller("loading", LoadingController.controller)
-        .directive("loading", LoadingDirective.directive);
+        .component("loading", LoadingComponent.component);
 }
 
 export default depend;

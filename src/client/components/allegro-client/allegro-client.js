@@ -42,8 +42,8 @@ class AllegroClient {
     }
 }
 
-AllegroClient.service = ($http) => new AllegroClient($http);
-AllegroClient.service.$inject = ["$http"];
+AllegroClient.factory = ($http) => new AllegroClient($http);
+AllegroClient.factory.$inject = ["$http"];
 
 export default AllegroClient;
 export {AllegroClient};

@@ -1,7 +1,5 @@
-import LoadingController from "./loading-controller.js";
-import LoadingDirective from "./loading-directive.js";
+import LoadingComponent from "./loading-component.js";
 
 export {
-    LoadingController,
-    LoadingDirective
+    LoadingComponent
 };
