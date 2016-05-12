@@ -16,7 +16,8 @@ angular
         "allegroClient",
         "allegroCostimizer",
         "costimizerUi",
-        "toggler"
+        "toggler",
+        "loading"
     ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));

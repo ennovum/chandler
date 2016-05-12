@@ -6,15 +6,22 @@ class AllegroClient {
     }
 
     sipSearch(query, done) {
-        return this._sipSearchTail(query, 0, done);
+        let isAborted = false;
+        let checkAborted = () => isAborted;
+        let abort = () => isAborted = true;
+
+        let promise = this._sipSearchTail(query, 0, done, checkAborted);
+        promise.abort = abort;
+
+        return promise;
     }
 
-    _sipSearchTail(query, page, done) {
+    _sipSearchTail(query, page, done, checkAborted) {
         return this._getSearchPage(query, page)
             .then((result) => {
-                if ((result.meta.page + 1) * result.meta.pageSize < result.meta.totalCount) {
+                if (!checkAborted() && ((result.meta.page + 1) * result.meta.pageSize < result.meta.totalCount)) {
                     done(result, false);
-                    return this._sipSearchTail(query, page + 1, done);
+                    return this._sipSearchTail(query, page + 1, done, checkAborted);
                 }
                 else {
                     done(result, true);

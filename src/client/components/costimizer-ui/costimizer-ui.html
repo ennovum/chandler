@@ -21,6 +21,7 @@
 </div>
 <div class="main">
     <div class="content-box">
+        <loading promise="ctrl.sipAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
         <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
     </div>
 </div>

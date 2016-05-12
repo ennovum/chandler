@@ -11,11 +11,15 @@ class CostimizerUiController {
         };
 
         this.on = {
-            submitQueries: () => this.submitQueries()
+            submitQueries: () => this.submitQueries(),
+            abortQueries: () => this.abortQueries()
         };
 
         this.queries = null;
         this.results = null;
+
+        this.sipPromises = null;
+        this.sipAllPromise = null;
     }
 
     submitQueries() {
@@ -27,22 +31,31 @@ class CostimizerUiController {
             "items": []
         }));
 
-        Promise.all(
-            _.map(searchSets, (searchSet) => this._client.sipSearch(searchSet.query, (result) => {
-                searchSet.items = searchSet.items.concat(result.data);
+        this.sipPromises = _.map(searchSets, (searchSet) => this._client.sipSearch(searchSet.query, (result) => {
+            searchSet.items = searchSet.items.concat(result.data);
 
-                return this._costimizer.costimizeSearch(searchSets)
-                    .then((results) => {
-                        this.results = results;
-                        this._$scope.$apply(); // async promise
-                    });
-            })))
+            return this._costimizer.costimizeSearch(searchSets)
+                .then((results) => {
+                    this.results = results;
+                    this._$scope.$apply(); // async promise
+                });
+        }));
+
+        this.sipAllPromise = Promise.all(this.sipPromises)
             .then(() => {
                 // nothing
             })
             .catch(() => {
                 // TODO
             });
+    }
+
+    abortQueries() {
+        _.forEach(this.sipPromises, (sipPromise) => {
+            sipPromise.abort();
+        });
+
+        this.sipPromises = null;
     }
 }
 

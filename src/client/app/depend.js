@@ -22,6 +22,11 @@ import {
     TogglerDirective
 } from "./../../shared/components/toggler/toggler.js";
 
+import {
+    LoadingController,
+    LoadingDirective
+} from "./../../shared/components/loading/loading.js";
+
 function depend() {
     angular
         .module("allegroClient", [])
@@ -44,6 +49,11 @@ function depend() {
         .module("toggler", [])
         .controller("toggler", TogglerController.controller)
         .directive("toggler", TogglerDirective.directive);
+
+    angular
+        .module("loading", [])
+        .controller("loading", LoadingController.controller)
+        .directive("loading", LoadingDirective.directive);
 }
 
 export default depend;
