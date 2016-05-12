@@ -28,6 +28,10 @@ import {
 } from "./../../shared/components/fetcher/fetcher.js";
 
 import {
+    Stock
+} from "./../../shared/components/stock/stock.js";
+
+import {
     Crawebler
 } from "./../../shared/components/crawebler/crawebler.js";
 
@@ -58,6 +62,10 @@ function depend() {
     angular
         .module("fetcher", [])
         .service("fetcher", Fetcher.factory);
+
+    angular
+        .module("stock", [])
+        .service("stock", Stock.factory);
 
     angular
         .module("crawebler", [])

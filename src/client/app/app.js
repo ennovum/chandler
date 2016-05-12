@@ -19,6 +19,7 @@ angular
         "toggler",
         "loading",
         "fetcher",
+        "stock",
         "crawebler"
     ])
     .config(["$routeProvider", ($routeProvider) => {
