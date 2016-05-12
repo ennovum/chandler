@@ -1,9 +1,10 @@
 import config from "./../../config/config.js";
 
 class AllegroListingCrawler {
-    constructor(fetcher, crawebler) {
+    constructor(fetcher, crawebler, stock) {
         this._fetcher = fetcher;
         this._crawebler = crawebler;
+        this._stock = stock;
     }
 
     sipListing(query, done) {
@@ -34,8 +35,14 @@ class AllegroListingCrawler {
     }
 
     _getListingPage(query, page) {
-        return this._fetcher.fetchText(config.api.resources.allegro.listing(query, page))
+        return this._fetchListingSource(query, page)
             .then((source) => this._parseListingSource(query, page, source));
+    }
+
+    _fetchListingSource(query, page) {
+        return this._stock.have(
+            `listingSource/${query}/${page}`,
+            () => this._fetcher.fetchText(config.api.resources.allegro.listing(query, page)));
     }
 
     _parseListingSource(query, page, source) {
@@ -90,7 +97,7 @@ class AllegroListingCrawler {
 }
 
 AllegroListingCrawler.service = (...args) => new AllegroListingCrawler(...args);
-AllegroListingCrawler.service.$inject = ['fetcher', 'crawebler'];
+AllegroListingCrawler.service.$inject = ['fetcher', 'crawebler', 'stock'];
 
 export default AllegroListingCrawler;
 export {AllegroListingCrawler};

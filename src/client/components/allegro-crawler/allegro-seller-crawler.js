@@ -1,9 +1,9 @@
 import config from "./../../config/config.js";
 
 class AllegroSellerCrawler {
-    constructor(fetcher, crawebler) {
+    constructor(fetcher, stock) {
         this._fetcher = fetcher;
-        this._crawebler = crawebler;
+        this._stock = stock;
     }
 
     getListingOfferSeller(id) {
@@ -11,17 +11,23 @@ class AllegroSellerCrawler {
 
         let seller = {id, login: null, rating: null, url};
 
-        return this._fetcher.fetchJSON(config.api.resources.allegro.listingUserData(id))
+        return this._fetchListingOfferSellerData(id)
             .then((data) => {
                 seller.login = data.login;
                 seller.rating = data.rating;
             })
             .then(() => seller);
     }
+
+    _fetchListingOfferSellerData(id) {
+        return this._stock.have(
+            `listingOfferSellerData/${id}`,
+            () => this._fetcher.fetchJSON(config.api.resources.allegro.listingUserData(id)));
+    }
 }
 
 AllegroSellerCrawler.service = (...args) => new AllegroSellerCrawler(...args);
-AllegroSellerCrawler.service.$inject = ['fetcher', 'crawebler'];
+AllegroSellerCrawler.service.$inject = ['fetcher', 'stock'];
 
 export default AllegroSellerCrawler;
 export {AllegroSellerCrawler};
