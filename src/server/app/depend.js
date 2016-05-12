@@ -3,9 +3,8 @@ import {
 } from "./../components/allegro-handler/allegro-handler.js";
 
 import {
-    AllegroWebapiClient,
-    AllegroWebapiSanitizer
-} from "./../../shared/components/allegro-webapi/allegro-webapi.js";
+    AllegroProxyHandler
+} from "./../components/allegro-proxy-handler/allegro-proxy-handler.js";
 
 import {
     AllegroCostimizer
@@ -17,8 +16,7 @@ import {
 
 function depend(injector) {
     injector.register("allegroHandler", AllegroHandler.factory);
-    injector.register("allegroWebapiClient", AllegroWebapiClient.factory);
-    injector.register("allegroWebapiSanitizer", AllegroWebapiSanitizer.factory);
+    injector.register("allegroProxyHandler", AllegroProxyHandler.factory);
     injector.register("allegroCostimizer", AllegroCostimizer.factory);
     injector.register("fetcher", Fetcher.factory);
 }
