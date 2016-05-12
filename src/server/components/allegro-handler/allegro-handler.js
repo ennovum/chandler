@@ -7,11 +7,11 @@ class AllegroHandler {
         this._client.configure(config.allegroWebapi);
     }
 
-    search(req, res) {
+    listing(req, res) {
         let query = req.query.query;
         let page = Number(req.query.page);
 
-        this._client.getSearchResult(query, page)
+        this._client.getListingResult(query, page)
             .then((searchResult) => {
                 res.send(searchResult);
             }, (err) => {

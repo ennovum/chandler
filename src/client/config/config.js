@@ -3,7 +3,7 @@ let config = {
         "baseUrl": "//" + window.location.host + "/api",
         "resources": {
             "allegro": {
-                "search": "/allegro/search"
+                "listing": "/allegro/listing"
             }
         }
     }

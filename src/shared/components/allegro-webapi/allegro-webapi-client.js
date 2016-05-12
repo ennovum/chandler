@@ -14,7 +14,7 @@ class AllegroWebapiClient {
         this._chunkSize = config.chunkSize;
     }
 
-    getSearchResult(query, page) {
+    getListingResult(query, page) {
         return this._createClient()
             .then((client) => this._getRawSearchPageResult(client, query, page, this._pageSize))
             .then((rawSearchResult) => this._sanitizer.sanitizeSearchResult(rawSearchResult));
@@ -44,13 +44,13 @@ class AllegroWebapiClient {
 
         return Promise.all(chunkQueue)
             .then((searchChunkResults) => {
-                let meta = {
-                    page,
-                    pageSize,
-                    totalCount: searchChunkResults[0].meta.totalCount,
-                    query
-                };
-                let data = _.reduce(searchChunkResults, (data, searchChunkResult) => data.concat(searchChunkResult.data), []).slice(0, pageSize);
+                let totalCount = searchChunkResults[0].meta.totalCount;
+                let pageCount = Math.ceil(totalCount / pageSize);
+
+                let offers = _.reduce(searchChunkResults, (data, searchChunkResult) => data.concat(searchChunkResult.data), []).slice(0, pageSize);
+
+                let meta = {page, pageSize, pageCount, totalCount, query};
+                let data = {offers};
 
                 return {meta, data};
             });
@@ -82,8 +82,9 @@ class AllegroWebapiClient {
                 }
 
                 let totalCount = result.itemsCount;
+                let chunkCount = Math.ceil(totalCount / chunkSize);
 
-                let meta = {chunk, chunkSize, totalCount, query};
+                let meta = {chunk, chunkSize, chunkCount, totalCount, query};
                 let data = result.itemsList && result.itemsList.item || [];
 
                 return resolve({meta, data});

@@ -11,7 +11,7 @@ class AllegroWebapiSanitizer {
     }
 
     _sanitizeItem(item) {
-        let id = _.get(item, "itemId", null);
+        let id = String(_.get(item, "itemId", null));
         let title = _.get(item, "itemTitle", null);
         let url = `http://allegro.pl/show_item.php?item=${id}`;
 
@@ -28,7 +28,7 @@ class AllegroWebapiSanitizer {
     }
 
     _sanitizeSellerInfo(sellerInfo) {
-        let id = _.get(sellerInfo, "userId", null);
+        let id = String(_.get(sellerInfo, "userId", null));
         let login = _.get(sellerInfo, "userLogin", null);
         let rating = _.get(sellerInfo, "userRating", null);
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
