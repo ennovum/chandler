@@ -3,7 +3,8 @@ let config = {
         "baseUrl": "//" + window.location.host + "/api",
         "resources": {
             "allegro": {
-                "listing": "/allegro/listing"
+                "listing": (query, page) => "//" + window.location.host + `/api/allegro-proxy/listing?query=${query}&page=${page}`,
+                "listingUserData": (userId) => "//" + window.location.host + `/api/allegro-proxy/listing-user-data?user-id=${userId}`
             }
         }
     }

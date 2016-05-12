@@ -1,8 +1,8 @@
 import angular from "angular";
 
 import {
-    AllegroClient
-} from "./../components/allegro-client/allegro-client.js";
+    AllegroListingCrawler
+} from "./../components/allegro-crawler/allegro-crawler.js";
 
 import {
     AllegroCostimizer
@@ -26,10 +26,14 @@ import {
     Fetcher
 } from "./../../shared/components/fetcher/fetcher.js";
 
+import {
+    Crawebler
+} from "./../../shared/components/crawebler/crawebler.js";
+
 function depend() {
     angular
-        .module("allegroClient", [])
-        .service("allegroClient", AllegroClient.factory);
+        .module("allegroCrawler", [])
+        .service("allegroListingCrawler", AllegroListingCrawler.service);
 
     angular
         .module("allegroCostimizer", [])
@@ -52,6 +56,10 @@ function depend() {
     angular
         .module("fetcher", [])
         .service("fetcher", Fetcher.factory);
+
+    angular
+        .module("crawebler", [])
+        .service("crawebler", Crawebler.factory);
 }
 
 export default depend;

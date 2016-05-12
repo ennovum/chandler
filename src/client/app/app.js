@@ -13,7 +13,7 @@ depend();
 angular
     .module("app", [
         "ngRoute",
-        "allegroClient",
+        "allegroCrawler",
         "allegroCostimizer",
         "costimizerUi",
         "toggler",

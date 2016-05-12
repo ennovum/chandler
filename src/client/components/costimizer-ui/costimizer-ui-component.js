@@ -1,9 +1,9 @@
 import _ from "lodash";
 
 class CostimizerUiComponent {
-    constructor($scope, allegroClient, allegroCostimizer) {
+    constructor($scope, allegroListingCrawler, allegroCostimizer) {
         this._$scope = $scope;
-        this._client = allegroClient;
+        this._listingCrawler = allegroListingCrawler;
         this._costimizer = allegroCostimizer;
 
         this.model = {
@@ -31,8 +31,8 @@ class CostimizerUiComponent {
             "items": []
         }));
 
-        this.sipPromises = _.map(searchSets, (searchSet) => this._client.sipSearch(searchSet.query, (result) => {
-            searchSet.items = searchSet.items.concat(result.data);
+        this.sipPromises = _.map(searchSets, (searchSet) => this._listingCrawler.sipListing(searchSet.query, (result) => {
+            searchSet.items = searchSet.items.concat(result.data.offers);
 
             return this._costimizer.costimizeSearch(searchSets)
                 .then((results) => {
@@ -45,8 +45,8 @@ class CostimizerUiComponent {
             .then(() => {
                 // nothing
             })
-            .catch(() => {
-                // TODO
+            .catch((err) => {
+                console.error(err); // TODO
             });
     }
 
@@ -90,7 +90,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroClient", "allegroCostimizer"];
+controller.$inject = ["$scope", "allegroListingCrawler", "allegroCostimizer"];
 
 const component = {
     template,
