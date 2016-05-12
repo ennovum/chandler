@@ -22,6 +22,10 @@ import {
     LoadingComponent
 } from "./../../shared/components/loading/loading.js";
 
+import {
+    Fetcher
+} from "./../../shared/components/fetcher/fetcher.js";
+
 function depend() {
     angular
         .module("allegroClient", [])
@@ -44,6 +48,10 @@ function depend() {
     angular
         .module("loading", [])
         .component("loading", LoadingComponent.component);
+
+    angular
+        .module("fetcher", [])
+        .service("fetcher", Fetcher.factory);
 }
 
 export default depend;

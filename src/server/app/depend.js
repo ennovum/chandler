@@ -11,11 +11,16 @@ import {
     AllegroCostimizer
 } from "./../../shared/components/allegro-costimizer/allegro-costimizer.js";
 
+import {
+    Fetcher
+} from "./../../shared/components/fetcher/fetcher.js";
+
 function depend(injector) {
     injector.register("allegroHandler", AllegroHandler.factory);
     injector.register("allegroWebapiClient", AllegroWebapiClient.factory);
     injector.register("allegroWebapiSanitizer", AllegroWebapiSanitizer.factory);
     injector.register("allegroCostimizer", AllegroCostimizer.factory);
+    injector.register("fetcher", Fetcher.factory);
 }
 
 export default depend;
