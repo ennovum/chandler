@@ -1,8 +1,4 @@
 import {
-    AllegroHandler
-} from "./../components/allegro-handler/allegro-handler.js";
-
-import {
     AllegroProxyHandler
 } from "./../components/allegro-proxy-handler/allegro-proxy-handler.js";
 
@@ -15,7 +11,6 @@ import {
 } from "./../../shared/components/fetcher/fetcher.js";
 
 function depend(injector) {
-    injector.register("allegroHandler", AllegroHandler.factory);
     injector.register("allegroProxyHandler", AllegroProxyHandler.factory);
     injector.register("allegroCostimizer", AllegroCostimizer.factory);
     injector.register("fetcher", Fetcher.factory);

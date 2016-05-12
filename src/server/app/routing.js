@@ -1,9 +1,5 @@
 let routing = {
     "routes": {
-        "/allegro/listing": {
-            "handler": "allegroHandler",
-            "method": "listing"
-        },
         "/allegro-proxy/listing": {
             "handler": "allegroProxyHandler",
             "method": "listing"
