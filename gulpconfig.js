@@ -27,10 +27,13 @@ var gulpconfig = {
         },
         "resolve": {
             "alias": {
-                "angularRoute": "angular-route",
-                "es6Promise": "es6-promise"
+                "es6Promise": "es6-promise",
+                "fetch": __dirname + "/src/shared/components/fetch/fetch.js",
+                "angularRoute": "angular-route"
             }
-        }
+        },
+        "plugins": [
+        ]
     },
     "nodepack": {
         "module": {
@@ -49,6 +52,7 @@ var gulpconfig = {
         },
         "externals": {
             "es6Promise": "commonjs es6-promise",
+            "fetch": "commonjs node-fetch",
             "express": "commonjs express",
             "lodash": "commonjs lodash",
             "morgan": "commonjs morgan",
@@ -59,7 +63,9 @@ var gulpconfig = {
         "node": {
             "__filename": true,
             "__dirname": true
-        }
+        },
+        "plugins": [
+        ]
     },
     "watch": {
         "interval": 1000,
