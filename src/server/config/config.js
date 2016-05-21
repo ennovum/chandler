@@ -1,7 +1,7 @@
 let config = {
     "server": {
         "root": __dirname + "/../../..",
-        "port": "8080",
+        "port": "80",
         "baseUrl": "/api"
     }
 };
