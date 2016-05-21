@@ -1,0 +1,9 @@
+@mixin flex-parent($direction) {
+    display: flex;
+    flex-direction: $direction;
+}
+
+@mixin flex-child($grow, $schrink) {
+    flex-grow: $grow;
+    flex-schrink: $schrink;
+}

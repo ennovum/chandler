@@ -1,3 +1,11 @@
+$button-background-color: rgba(100, 140, 140, 1);
+$button-border-color: $button-background-color;
+$button-active-background-color: rgba(120, 160, 160, 1);
+
+$secondary-button-background-color: rgba(140, 140, 140, 1);
+$secondary-button-border-color: $secondary-button-background-color;
+$secondary-button-active-background-color: rgba(160, 160, 160, 1);
+
 button,
 .button {
     padding: 5px 15px;

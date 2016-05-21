@@ -1,0 +1,35 @@
+@import './../../assets/styles/layout.scss';
+@import './../../assets/styles/button.scss';
+@import './../../assets/styles/input.scss';
+@import './../../assets/styles/table.scss';
+@import './../../assets/styles/top.scss';
+@import './../../assets/styles/mainmenu.scss';
+@import './../../assets/styles/drawer.scss';
+@import './../../assets/styles/loading.scss';
+@import './../../assets/styles/flex.scss';
+@import './../../assets/styles/clearfix.scss';
+
+costimizer {
+    @include flex-parent(column);
+    @include flex-child(1, 1)
+}
+
+.search-queries {
+    @include clearfix-clear-after();
+    margin: 0 0 0 -10px;
+}
+
+.search-query,
+.search-query-form,
+.search-submit {
+    float: left;
+    margin: 10px 0 0 10px;
+}
+
+.search-input {
+    min-width: 512px
+}
+
+.results-offers {
+    margin: 0;
+}

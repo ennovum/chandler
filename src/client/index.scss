@@ -1,16 +1,4 @@
 @import './../../node_modules/normalize.css/normalize';
-
-@import './assets/styles/config.scss';
 @import './assets/styles/global.scss';
 
-@import './assets/styles/clearfix.scss';
-@import './assets/styles/button.scss';
-@import './assets/styles/input.scss';
-@import './assets/styles/table.scss';
-
-@import './assets/styles/layout.scss';
-@import './assets/styles/top.scss';
-@import './assets/styles/mainmenu.scss';
-@import './assets/styles/drawer.scss';
-@import './assets/styles/costimizer.scss';
-@import './assets/styles/loading.scss';
+@import './components/costimizer-ui/costimizer-ui.scss';
