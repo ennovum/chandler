@@ -1,10 +1,8 @@
-import costimizerTpl from "./views/costimizer.html";
-
 let routing = {
     "defaultPath": "/costimizer",
     "routes": {
         "/costimizer": {
-            "template": costimizerTpl
+            "template": "<costimizer-ui />"
         }
     }
 };
