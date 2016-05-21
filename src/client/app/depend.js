@@ -35,6 +35,10 @@ import {
     Crawebler
 } from "./../../shared/components/crawebler/crawebler.js";
 
+import {
+    OnEnterDirective
+} from "./../../shared/components/keyboard/keyboard.js";
+
 function depend() {
     angular
         .module("allegroCrawler", [])
@@ -70,6 +74,10 @@ function depend() {
     angular
         .module("crawebler", [])
         .service("crawebler", Crawebler.factory);
+
+    angular
+        .module("keyboard", [])
+        .directive("onEnter", OnEnterDirective.directive);
 }
 
 export default depend;
