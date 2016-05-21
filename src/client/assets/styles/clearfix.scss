@@ -1,0 +1,6 @@
+@mixin clearfix-clear-after {
+    &:after {
+        content: '';
+        clear: both;
+    }
+}
