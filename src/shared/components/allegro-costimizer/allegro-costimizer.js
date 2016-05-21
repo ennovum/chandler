@@ -6,12 +6,13 @@ class AllegroCostimizer {
         let commonSellerIds = _.intersection(...sellerIdsList);
         let results = _.map(commonSellerIds, (commonSellerId) => {
             let seller = _.find(searchSets[0].items, (item) => item.seller.id === commonSellerId).seller;
+            let id = seller.id;
             let offers = _.map(searchSets, (searchSet) => ({
                 query: searchSet.query,
                 items: _.filter(searchSet.items, (item) => item.seller.id === commonSellerId)
             }));
 
-            return {seller, offers};
+            return {id, seller, offers};
         });
 
         return Promise.resolve(results);

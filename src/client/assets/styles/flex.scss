@@ -1,6 +1,7 @@
-@mixin flex-parent($direction) {
+@mixin flex-parent($direction, $wrap) {
     display: flex;
     flex-direction: $direction;
+    flex-wrap: $wrap;
 }
 
 @mixin flex-child($grow, $schrink) {

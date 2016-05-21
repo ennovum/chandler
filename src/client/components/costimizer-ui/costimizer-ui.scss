@@ -8,9 +8,10 @@
 @import './../../assets/styles/loading.scss';
 @import './../../assets/styles/flex.scss';
 @import './../../assets/styles/clearfix.scss';
+@import './../../assets/styles/cards.scss';
 
 costimizer {
-    @include flex-parent(column);
+    @include flex-parent(column, nowrap);
     @include flex-child(1, 1)
 }
 

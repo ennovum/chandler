@@ -40,7 +40,6 @@ li {
 }
 
 a,
-a:hover,
 .link {
     color: $std-link-color;
     text-decoration: none;
@@ -54,6 +53,10 @@ a:focus,
 .link:active,
 .link:focus {
     text-decoration: underline;
+}
+
+.clickable {
+    cursor: pointer;
 }
 
 .hidden {

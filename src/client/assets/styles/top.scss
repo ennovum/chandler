@@ -1,3 +1,9 @@
+@import './shadow.scss';
+
+.top {
+    @include box-shadow();
+}
+
 .topbar {
     padding: 10px 20px;
     background: rgba(68, 68, 68, 1);

@@ -4,20 +4,30 @@ $grid-head-background-color: rgba(240, 240, 240, 1);
 .grid {
     width: 100%;
     border: 0 solid $grid-border-color;
-    border-width: 1px 0 0 0;
+    border-width: 0 0 1px 0;
 }
 
 .grid-head {
-    padding: 15px 15px;
+    padding: 10px 15px;
     background: $grid-head-background-color;
     border: 0 solid $grid-border-color;
-    border-width: 0 0 1px 0;
+    border-width: 1px 0 0 0;
     font-weight: bold;
 }
 
 .grid-cell {
     padding: 10px 15px;
     border: 0 solid $grid-border-color;
-    border-width: 0 0 1px 0;
+    border-width: 1px 0 0 0;
     vertical-align: top;
+}
+
+.compact-grid {
+    .grid-head {
+        padding: 5px 5px;
+    }
+
+    .grid-cell {
+        padding: 5px 5px;
+    }
 }

@@ -1,0 +1,35 @@
+@import './flex.scss';
+@import './shadow.scss';
+
+$card-background-color: rgba(255, 255, 255, 1);
+$card-head-background-color: rgba(240, 240, 240, 1);
+
+.cards {
+    @include flex-parent(row, wrap);
+    padding: 10px;
+}
+
+.card {
+    @include flex-child(0, 0);
+    @include box-shadow();
+    margin: 10px;
+    background: $card-background-color;
+}
+
+.expanded-card {
+    width: 100%;
+}
+
+.card-head {
+    padding: 10px;
+    background: $card-head-background-color;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-raw-body {
+    padding: 0;
+}

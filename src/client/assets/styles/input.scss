@@ -1,8 +1,11 @@
+@import './transition.scss';
+
 $input-border-color: rgba(200, 200, 200, 1);
 $active-input-border-color: rgba(120, 160, 160, 1);
 
 input[type="text"],
 textarea {
+    @include transition(box-shadow, .25s, ease, 0)
     padding: 5px;
     background-color: rgba(255, 255, 255, 1);
     text-decoration: none;
@@ -11,9 +14,6 @@ textarea {
     color: rgba(0, 0, 0, 1);
     overflow: hidden;
     line-height: $std-line-height;
-    transition-property: background-color, box-shadow;
-    transition-duration: 0.25s;
-    transition-timing-function: ease;
 }
 
 input[type="text"]:focus,
@@ -30,6 +30,5 @@ input[type="text"]:active,
 textarea:active,
 input[type="text"]:focus,
 textarea:focus {
-    box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, .25);
-    transition-duration: 0.1s;
+    box-shadow: inset 0 1px 3px 1px rgba(0, 0, 0, .25);
 }

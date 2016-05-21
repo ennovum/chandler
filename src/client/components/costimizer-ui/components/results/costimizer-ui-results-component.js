@@ -2,44 +2,79 @@ class CostimizerUiResultsComponent {
     constructor() {
         this.queries; // via bindings
         this.results; // via bindings
+
+        this.selectedResultId = null;
+    }
+
+    selectResult(result) {
+        this.selectedResultId = result.id;
+    }
+
+    deselectResult(result) {
+        this.selectedResultId = null;
+    }
+
+    isSelectedResult(result) {
+        return this.selectedResultId === result.id;
+    }
+
+    toggleResult(result) {
+        this.isSelectedResult(result) ? this.deselectResult(result) : this.selectResult(result);
     }
 }
 
 const template = `
-    <table class="grid" ng-show="ctrl.results">
-        <tr class="grid-row">
-            <td class="grid-head">
-                Sellers
-            </td>
-            <td class="grid-head" colspan="{{ctrl.queries.length}}">
-                Offers
-            </td>
-        </tr>
-        <tr class="grid-row">
-            <td class="grid-head">
-            </td>
-            <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
-                "{{query}}"
-            </td>
-        </tr>
-        <tr class="grid-row" ng-repeat="result in ctrl.results" ng-if="ctrl.results.length">
-            <td class="grid-cell">
-                <a ng-href="{{result.seller.url}}" target="_blank">{{result.seller.login}}</a>
-            </td>
-            <td class="grid-cell" ng-repeat="offer in result.offers track by $index">
-                <ul class="results-offers">
-                    <li class="results-offer" ng-repeat="item in offer.items track by $index">
-                        <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-        <tr class="grid-row" ng-if="!ctrl.results.length">
-            <td class="grid-cell" colspan="{{1 + ctrl.queries.length}}">
-                <span>No results</span>
-            </td>
-        </tr>
-    </table>
+    <div class="cards" ng-if="ctrl.results.length">
+        <div class="card" ng-class="{'expanded-card': ctrl.isSelectedResult(result)}"
+            ng-repeat="result in ctrl.results"
+        >
+            <div class="clickable card-head"
+                ng-click="ctrl.toggleResult(result)"
+            >
+                <a ng-href="{{result.seller.url}}" target="_blank">{{result.seller.name}}</a>
+            </div>
+            <div class="clickable card-body card-raw-body"
+                ng-click="ctrl.toggleResult(result)"
+                ng-if="!ctrl.isSelectedResult(result)"
+            >
+                <table class="grid compact-grid">
+                    <tr class="grid-row" ng-repeat="offer in result.offers track by $index">
+                        <td class="grid-head">
+                            "{{offer.query}}"
+                        </td>
+                        <td class="grid-cell">
+                            {{offer.items.length}} offer(s)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-body card-raw-body"
+                ng-if="ctrl.isSelectedResult(result)"
+            >
+                <table class="grid">
+                    <tr class="grid-row">
+                        <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
+                            "{{query}}"
+                        </td>
+                    </tr>
+                    <tr class="grid-row">
+                        <td class="grid-cell" ng-repeat="offer in result.offers track by $index">
+                            <ol>
+                                <li class="results-offer" ng-repeat="item in offer.items track by $index">
+                                    <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="grid-row" ng-if="!ctrl.results.length">
+                        <td class="grid-cell" colspan="{{1 + ctrl.queries.length}}">
+                            <span>No results</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 `;
 
 const controller = (...args) => new CostimizerUiResultsComponent(...args);
