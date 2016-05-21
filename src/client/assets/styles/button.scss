@@ -12,8 +12,8 @@ button,
     transition-timing-function: ease;
 }
 
-.inline-button {
-    padding: 1px 5px;
+.icon-button {
+    padding: 5px 10px;
 }
 
 button:hover,
@@ -65,13 +65,15 @@ button.pressed,
 }
 
 .buttonset {
-    background: $buttonset-background-color;
-    border: 1px solid $buttonset-border-color;
-    border-radius: 5px;
-    overflow: hidden;
+    > * {
+        float: left;
+    }
 
-    button,
-    .button {
-        border: none;
+    > *:first-child {
+        border-radius: 5px 0 0 5px;
+    }
+
+    > *:last-child {
+        border-radius: 0 5px 5px 0;
     }
 }

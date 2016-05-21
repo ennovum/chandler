@@ -1,46 +1,73 @@
+import _ from "lodash";
+
 class CostimizerUiQueriesComponent {
-    constructor() {
-        this.model; // via bindings
+    constructor($element) {
+        this._el = $element[0];
+
+        this._queryInputEl = this._el.querySelector(".search-query-input");
+
+        this.queries; // via bindings
         this.onSubmit; // via bindings
+
+        this.model = {
+            queries: _.clone(this.queries) || [],
+            newQuery: ""
+        };
+
+        this._queryInputEl.focus();
+    }
+
+    submitQuery() {
+        if (this.model.newQuery !== "") {
+            this.addQuery();
+        }
+        else {
+            this.submitQueries();
+        }
     }
 
     addQuery() {
-        this.model.queries.push("");
+        this.model.queries.push(this.model.newQuery);
+        this.model.newQuery = "";
+        this._queryInputEl.focus();
     }
 
     removeQuery(index) {
         this.model.queries.splice(index, 1);
+        this._queryInputEl.focus();
     }
 
     submitQueries() {
-        this.onSubmit();
+        let queries = _.clone(this.model.queries);
+        this.onSubmit({queries});
     }
 }
 
 const template = `
-    <div class="search-queries" ng-show="ctrl.model.queries.length">
-        <div class="search-query" ng-repeat="query in ctrl.model.queries track by $index">
-            <input class="search-input" type="text" ng-model="ctrl.model.queries[$index]" placeholder="Enter a query" />
-            <button class="secondary-button search-button" ng-click="ctrl.removeQuery($index)">Remove the query</button>
-        </div>
-    </div>
-    <div class="search-buttons">
-        <button class="secondary-button search-button" ng-click="ctrl.addQuery()">Add a query</button>
-    </div>
-    <div class="search-buttons">
-        <button class="search-button" ng-click="ctrl.submitQueries()" ng-show="ctrl.model.queries.length">Search</button>
-    </div>
+    <section class="search-queries">
+        <section class="" ng-if="ctrl.model.queries.length">
+            <div class="buttonset search-query" ng-repeat="query in ctrl.model.queries track by $index">
+                <button class="secondary-button" ng-bind="query"></button>
+                <button class="icon-button" ng-click="ctrl.removeQuery($index)">&#10060;</button>
+            </div>
+        </section>
+        <section class="buttonset search-query-form">
+            <input class="input-text search-query-input" type="text" ng-model="ctrl.model.newQuery" placeholder="Enter a query" on-enter="ctrl.submitQuery()" />
+            <button class="icon-button" ng-click="ctrl.submitQuery()">&#10133;</button>
+        </section>
+        <button class="search-submit" ng-click="ctrl.submitQueries()">Submit</button>
+    </section>
 `;
 
 const controller = (...args) => new CostimizerUiQueriesComponent(...args);
-controller.$inject = [];
+controller.$inject = ["$element"];
 
 const component = {
     template,
     controller,
     controllerAs: "ctrl",
     bindings: {
-        model: "=",
+        queries: "=",
         onSubmit: "&"
     }
 };

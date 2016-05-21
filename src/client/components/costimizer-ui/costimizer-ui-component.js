@@ -7,12 +7,8 @@ class CostimizerUiComponent {
         this._sellerCrawler = sellerCrawler;
         this._costimizer = costimizer;
 
-        this.model = {
-            queries: [""]
-        };
-
         this.on = {
-            submitQueries: () => this.submitQueries(),
+            submitQueries: (queries) => this.submitQueries(queries),
             abortQueries: () => this.abortQueries()
         };
 
@@ -23,8 +19,8 @@ class CostimizerUiComponent {
         this.sipListingAllPromise = null;
     }
 
-    submitQueries() {
-        this.queries = _.clone(this.model.queries);
+    submitQueries(queries) {
+        this.queries = queries;
         this.results = null;
 
         this.searchSets = _.map(this.queries, (query) => ({
@@ -92,7 +88,7 @@ const template = `
         </div>
         <div class="drawer search-drawer" ng-show="tglr.is('query')">
             <div class="drawer-body">
-                <costimizer-ui-queries model="ctrl.model" on-submit="ctrl.on.submitQueries()"></costimizer-ui-queries>
+                <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
             </div>
         </div>
     </div>

@@ -4,24 +4,20 @@ costimizer {
     flex: 1 1;
 }
 
-.search-query {
-    margin: 0;
-    overflow: auto;
+.search-queries {
+    @include clearfix-clear-after();
+    margin: 0 0 0 -10px;
+}
+
+.search-query,
+.search-query-form,
+.search-submit {
+    float: left;
+    margin: 10px 0 0 10px;
 }
 
 .search-input {
     min-width: 512px
-}
-
-.search-buttons {
-    overflow: auto;
-}
-
-.search-input,
-.search-button {
-    display: block;
-    float: left;
-    margin: 10px 10px 0 0;
 }
 
 .results-offers {
