@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-import {trim} from '../trimmer/trimmer.js'
-
 const PARSER_MODE_HTML = 'text/html';
 
 class Crawebler {
@@ -25,11 +23,11 @@ class CraweblerElement {
     }
 
     text() {
-        return trim(this._el.innerText);
+        return _.trim(this._el.innerText);
     }
 
     attribute(name) {
-        return trim(this._el.getAttribute(name));
+        return _.trim(this._el.getAttribute(name));
     }
 }
 
