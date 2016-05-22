@@ -2,27 +2,57 @@ import _ from "lodash";
 
 class Costimizer {
     costimizeSearch(searchSets) {
-        let sellerIdsList = _.map(searchSets, (searchSet) => _.map(searchSet.items, (item) => item.seller.id));
-        let commonSellerIds = _.intersection(...sellerIdsList);
-        let results = _.map(commonSellerIds, (commonSellerId) => {
-            let seller = _.find(searchSets[0].items, (item) => item.seller.id === commonSellerId).seller;
-            let id = seller.id;
-            let offers = _.map(searchSets, (searchSet) => {
-                let query = searchSet.query;
-                let items = _.filter(searchSet.items, (item) => item.seller.id === commonSellerId);
-                let prices = {
-                    minimum: _.min(items, (item) => item.price).price,
-                    maximum: _.max(items, (item) => item.price).price,
-                    average: this._sanitizePrice(_.sum(items, (item) => item.price) / items.length)
-                };
+        let sellerIdsSets = _.map(searchSets, (searchSet) => _.map(searchSet.items, (item) => item.seller.id));
+        let commonSellerIds = _.intersection(...sellerIdsSets);
+        let results = this._evalResults(searchSets, commonSellerIds);
 
-                return {query, items, prices};
-            });
+        return Promise.resolve(results);
+    }
+
+    _evalResults(searchSets, sellerIds) {
+        let results = _.map(sellerIds, (sellerId) => {
+            let seller = this._evalSeller(searchSets, sellerId);
+            let id = seller.id;
+            let offers = this._evalOffers(searchSets, sellerId);
 
             return {id, seller, offers};
         });
 
-        return Promise.resolve(results);
+        return results;
+    }
+
+    _evalSeller(searchSets, sellerId) {
+        let seller = _.find(searchSets[0].items, (item) => item.seller.id === sellerId).seller;
+
+        return seller;
+    }
+
+    _evalOffers(searchSets, sellerId) {
+        let offers = _.map(searchSets, (searchSet) => this._evalOffer(searchSet, sellerId));
+
+        return offers;
+    }
+
+    _evalOffer(searchSet, sellerId) {
+        let query = searchSet.query;
+        let items = _.filter(searchSet.items, (item) => item.seller.id === sellerId);
+        let prices = this._evalOfferPrices(items);
+
+        return {query, items, prices};
+    }
+
+    _evalOfferPrices(offerItems) {
+        let itemsGroups = _.groupBy(offerItems, (item) => item.price.currency);
+        let prices = _.map(itemsGroups, (items) => {
+            let minimum = _.min(items, (item) => item.price.value).price.value;
+            let maximum = _.max(items, (item) => item.price.value).price.value;
+            let average = this._sanitizePrice(_.sum(items, (item) => item.price.value) / items.length);
+            let currency = items[0].price.currency;
+
+            return {minimum, maximum, average, currency};
+        });
+
+        return prices;
     }
 
     _sanitizePrice(rawPrice) {

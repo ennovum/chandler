@@ -1,4 +1,13 @@
+import _ from "lodash";
+
 import config from "./../../config/config.js";
+
+const CURRENCY_MAP = {
+    "": "",
+    "pln": "PLN",
+    "zł": "PLN",
+    "zł.": "PLN"
+};
 
 class AllegroListingCrawler {
     constructor(fetcher, crawebler, stock) {
@@ -94,8 +103,22 @@ class AllegroListingCrawler {
     }
 
     _sanitizePrice(rawPrice) {
-        let textPrice = rawPrice.replace("&nbsp;", "").split(/\s/)[0].replace(",", ".");
-        return Number(textPrice);
+        let rawPricePieces = _.trim(rawPrice).split(/\s/);
+        let value = this._sanitizePriceValue(rawPricePieces[0]);
+        let currency = this._sanitizePriceCurrency(rawPricePieces[1]);
+
+        return {value, currency};
+    }
+
+    _sanitizePriceValue(rawValue) {
+        let textValue = rawValue.replace("&nbsp;", "").replace(",", ".");
+        let value = Number(textValue);
+        return value;
+    }
+
+    _sanitizePriceCurrency(rawCurrency) {
+        let currency = CURRENCY_MAP[rawCurrency.toLowerCase()];
+        return currency;
     }
 }
 
