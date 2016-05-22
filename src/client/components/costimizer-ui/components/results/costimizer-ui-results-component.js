@@ -43,7 +43,14 @@ const template = `
                             "{{offer.query}}"
                         </td>
                         <td class="grid-cell">
-                            {{offer.items.length}} offer(s)
+                            <div>
+                                <span ng-if="offer.items.length === 1">1 offer</span>
+                                <span ng-if="offer.items.length > 1">{{offer.items.length}} offers</span>
+                            </div>
+                            <div ng-repeat="price in offer.prices">
+                                <span ng-if="price.minimum === price.maximum">{{price.minimum}} {{price.currency}}</span>
+                                <span ng-if="price.minimum !== price.maximum">{{price.minimum}} - {{price.maximum}} {{price.currency}}</span>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -61,7 +68,12 @@ const template = `
                         <td class="grid-cell" ng-repeat="offer in result.offers track by $index">
                             <ol>
                                 <li class="results-offer" ng-repeat="item in offer.items track by $index">
-                                    <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
+                                    <div>
+                                        <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
+                                    </div>
+                                    <div>
+                                        <span>{{item.price.value}} {{item.price.currency}}</span>
+                                    </div>
                                 </li>
                             </ol>
                         </td>
