@@ -8,8 +8,7 @@ var conf = _.get(require("./../../gulpconfig.js"), "sass", {});
 
 function sassJob(src, dest, opts) {
     opts = _.extend(_.extend({
-        logTag: gutil.colors.gray("[sass]"),
-        onError: sassErrorLog
+        logTag: gutil.colors.gray("[sass]")
     }, conf), opts);
 
     function sassErrorLog(err) {
@@ -19,7 +18,7 @@ function sassJob(src, dest, opts) {
 
     return function () {
         return gulp.src(src)
-            .pipe(sass(opts))
+            .pipe(sass(opts).on("error", sassErrorLog))
             .pipe(autoprefixer({
                 browsers: ["last 2 versions"],
                 cascade: false
