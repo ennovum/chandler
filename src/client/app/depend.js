@@ -6,8 +6,8 @@ import {
 } from "./../components/allegro-crawler/allegro-crawler.js";
 
 import {
-    AllegroCostimizer
-} from "./../../shared/components/allegro-costimizer/allegro-costimizer.js";
+    Costimizer
+} from "./../../shared/components/costimizer/costimizer.js";
 
 import {
     CostimizerUiComponent,
@@ -42,8 +42,8 @@ function depend() {
         .service("allegroSellerCrawler", AllegroSellerCrawler.service);
 
     angular
-        .module("allegroCostimizer", [])
-        .service("allegroCostimizer", AllegroCostimizer.factory);
+        .module("costimizer", [])
+        .service("costimizer", Costimizer.factory);
 
     angular
         .module("costimizerUi", [])

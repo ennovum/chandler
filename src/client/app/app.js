@@ -14,7 +14,7 @@ angular
     .module("app", [
         "ngRoute",
         "allegroCrawler",
-        "allegroCostimizer",
+        "costimizer",
         "costimizerUi",
         "loading",
         "fetcher",

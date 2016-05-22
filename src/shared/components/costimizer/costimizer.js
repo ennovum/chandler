@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-class AllegroCostimizer {
+class Costimizer {
     costimizeSearch(searchSets) {
         let sellerIdsList = _.map(searchSets, (searchSet) => _.map(searchSet.items, (item) => item.seller.id));
         let commonSellerIds = _.intersection(...sellerIdsList);
@@ -30,8 +30,8 @@ class AllegroCostimizer {
     }
 }
 
-AllegroCostimizer.factory = (...args) => new AllegroCostimizer(...args);
-AllegroCostimizer.factory.$inject = [];
+Costimizer.factory = (...args) => new Costimizer(...args);
+Costimizer.factory.$inject = [];
 
-export default AllegroCostimizer;
-export {AllegroCostimizer};
+export default Costimizer;
+export {Costimizer};

@@ -92,7 +92,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "allegroCostimizer"];
+controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "costimizer"];
 
 const component = {
     template,
