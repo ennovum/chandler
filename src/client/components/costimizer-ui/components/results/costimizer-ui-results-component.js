@@ -1,9 +1,26 @@
+import _ from "lodash";
+
 class CostimizerUiResultsComponent {
-    constructor() {
+    constructor($scope) {
         this.queries; // via bindings
         this.results; // via bindings
 
+        this.sortedResults = null;
         this.selectedResultId = null;
+
+        $scope.$watch(() => this.results, () => this._evalResults());
+    }
+
+    _evalResults() {
+        this.sortedResults = _.clone(this.results);
+        this.sortedResults = _.sortBy(this.sortedResults, (result) => {
+            return _.reduce(result.offers, (minimum, offer) => minimum + offer.prices[0].minimum, 0);
+        });
+        this.sortedResults.forEach((result) => {
+            result.offers.forEach((offer) => {
+                offer.items = _.sortBy(offer.items, (item) => item.price.value);
+            });
+        });
     }
 
     selectResult(result) {
@@ -26,7 +43,7 @@ class CostimizerUiResultsComponent {
 const template = `
     <div class="cards" ng-if="ctrl.results.length">
         <div class="card" ng-class="{'expanded-card': ctrl.isSelectedResult(result)}"
-            ng-repeat="result in ctrl.results"
+            ng-repeat="result in ctrl.sortedResults"
         >
             <div class="clickable card-head"
                 ng-click="ctrl.toggleResult(result)"
@@ -94,7 +111,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiResultsComponent(...args);
-controller.$inject = [];
+controller.$inject = ["$scope"];
 
 const component = {
     template,
