@@ -73,13 +73,11 @@ class AllegroListingCrawler {
     _digListingOffer(offerCrEl) {
         let id = offerCrEl.attribute('data-id');
         let title = offerCrEl.element('.offer-title').text();
-        let prices = [
-            offerCrEl.element('.offer-price .statement').text()
-        ];
+        let price = this._sanitizePrice(offerCrEl.element('.offer-price .statement').text());
         let url = `http://allegro.pl/show_item.php?item=${id}`;
         let photoUrls = JSON.parse(offerCrEl.element('.offer-photo').attribute('data-photo-urls'));
 
-        let offer = {id, title, prices, seller: null, url, photoUrls};
+        let offer = {id, title, price, seller: null, url, photoUrls};
 
         return this._digListingOfferSeller(offerCrEl)
             .then((seller) => offer.seller = seller)
@@ -93,6 +91,11 @@ class AllegroListingCrawler {
         let seller = {id, url};
 
         return Promise.resolve(seller);
+    }
+
+    _sanitizePrice(rawPrice) {
+        let textPrice = rawPrice.replace("&nbsp;", "").split(/\s/)[0].replace(",", ".");
+        return Number(textPrice);
     }
 }
 
