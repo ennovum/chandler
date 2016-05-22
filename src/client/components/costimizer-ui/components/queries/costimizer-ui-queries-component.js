@@ -21,19 +21,20 @@ class CostimizerUiQueriesComponent {
         if (this.model.newQuery !== "") {
             this.addQuery();
         }
-        else {
-            this.submitQueries();
-        }
     }
 
     addQuery() {
         this.model.queries.push(this.model.newQuery);
         this.model.newQuery = "";
+
+        this.submitQueries();
         this._queryInputEl.focus();
     }
 
     removeQuery(index) {
         this.model.queries.splice(index, 1);
+
+        this.submitQueries();
         this._queryInputEl.focus();
     }
 
@@ -53,9 +54,8 @@ const template = `
         </section>
         <section class="buttonset search-query-form">
             <input class="input-text search-query-input" type="text" ng-model="ctrl.model.newQuery" placeholder="Enter a query" on-enter="ctrl.submitQuery()" />
-            <button class="icon-button" ng-click="ctrl.submitQuery()">&#10133;</button>
+            <button class="icon-button" ng-click="ctrl.submitQuery()">Search</button>
         </section>
-        <button class="search-submit" ng-click="ctrl.submitQueries()">Submit</button>
     </section>
 `;
 
