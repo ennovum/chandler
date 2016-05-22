@@ -71,22 +71,13 @@ class CostimizerUiComponent {
 }
 
 const template = `
-    <div class="top" toggler="tglr" toggler-init="query">
+    <div class="top">
         <div class="topbar">
             <div class="logo">
-                <h3>Allegro Costimizer <span class="beta">beta</span></h3>
-            </div>
-            <div class="mainmenu">
-                <ul class="mainmenu-list">
-                    <li class="mainmenu-item">
-                        <button class="mainmenu-link" ng-click="tglr.toggle('query')" ng-class="{'pressed': tglr.is('query')}">
-                            <span class="button-label">Search</span>
-                        </button>
-                    </li>
-                </ul>
+                <h3>Costimizer <span class="beta">beta</span></h3>
             </div>
         </div>
-        <div class="drawer search-drawer" ng-show="tglr.is('query')">
+        <div class="drawer search-drawer">
             <div class="drawer-body">
                 <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
             </div>

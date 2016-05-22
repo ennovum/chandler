@@ -16,7 +16,6 @@ angular
         "allegroCrawler",
         "allegroCostimizer",
         "costimizerUi",
-        "toggler",
         "loading",
         "fetcher",
         "stock",

@@ -3,7 +3,6 @@
 @import './../../assets/styles/input.scss';
 @import './../../assets/styles/table.scss';
 @import './../../assets/styles/top.scss';
-@import './../../assets/styles/mainmenu.scss';
 @import './../../assets/styles/drawer.scss';
 @import './../../assets/styles/loading.scss';
 @import './../../assets/styles/flex.scss';
@@ -27,8 +26,8 @@ costimizer {
     margin: 10px 0 0 10px;
 }
 
-.search-input {
-    min-width: 512px
+.search-query-input {
+    min-width: 400px;
 }
 
 .results-offers {

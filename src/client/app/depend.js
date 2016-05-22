@@ -16,10 +16,6 @@ import {
 } from "./../components/costimizer-ui/costimizer-ui.js";
 
 import {
-    TogglerDirective
-} from "./../../shared/components/toggler/toggler.js";
-
-import {
     LoadingComponent
 } from "./../../shared/components/loading/loading.js";
 
@@ -54,10 +50,6 @@ function depend() {
         .component("costimizerUi", CostimizerUiComponent.component)
         .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
         .component("costimizerUiResults", CostimizerUiResultsComponent.component);
-
-    angular
-        .module("toggler", [])
-        .directive("toggler", TogglerDirective.directive);
 
     angular
         .module("loading", [])
