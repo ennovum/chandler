@@ -20,7 +20,8 @@ angular
         "fetcher",
         "stock",
         "crawebler",
-        "keyboard"
+        "keyboard",
+        "price"
     ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));

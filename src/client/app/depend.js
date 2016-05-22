@@ -35,6 +35,10 @@ import {
     OnEnterDirective
 } from "./../../shared/components/keyboard/keyboard.js";
 
+import {
+    PriceComponent
+} from "./../../shared/components/price/price.js";
+
 function depend() {
     angular
         .module("allegroCrawler", [])
@@ -70,6 +74,10 @@ function depend() {
     angular
         .module("keyboard", [])
         .directive("onEnter", OnEnterDirective.directive);
+
+    angular
+        .module("price", [])
+        .component("price", PriceComponent.component);
 }
 
 export default depend;
