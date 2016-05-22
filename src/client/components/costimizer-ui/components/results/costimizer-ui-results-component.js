@@ -48,8 +48,12 @@ const template = `
                                 <span ng-if="offer.items.length > 1">{{offer.items.length}} offers</span>
                             </div>
                             <div ng-repeat="price in offer.prices">
-                                <span ng-if="price.minimum === price.maximum">{{price.minimum}} {{price.currency}}</span>
-                                <span ng-if="price.minimum !== price.maximum">{{price.minimum}} - {{price.maximum}} {{price.currency}}</span>
+                                <span ng-if="price.minimum === price.maximum">
+                                    <price value="price.minimum" currency="price.currency"></price>
+                                </span>
+                                <span ng-if="price.minimum !== price.maximum">
+                                    <price value="price.minimum"></price> - <price value="price.maximum" currency="price.currency"></price>
+                                </span>
                             </div>
                         </td>
                     </tr>
@@ -72,7 +76,7 @@ const template = `
                                         <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
                                     </div>
                                     <div>
-                                        <span>{{item.price.value}} {{item.price.currency}}</span>
+                                        <price value="item.price.value" currency="item.price.currency"></price>
                                     </div>
                                 </li>
                             </ol>
