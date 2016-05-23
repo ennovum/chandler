@@ -48,7 +48,7 @@ const template = `
     <section class="search-queries">
         <section class="" ng-if="ctrl.model.queries.length">
             <div class="buttonset search-query" ng-repeat="query in ctrl.model.queries track by $index">
-                <button class="secondary-button" ng-bind="query"></button>
+                <button class="blind-button" ng-bind="query"></button>
                 <button class="icon-button" ng-click="ctrl.removeQuery($index)">&#10060;</button>
             </div>
         </section>

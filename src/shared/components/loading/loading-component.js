@@ -37,8 +37,8 @@ class LoadingComponent {
 
 const template = `
     <div class="loading" ng-if="ctrl.isLoading">
-        <span>Loading...</span>
-        <a ng-click="ctrl.abort()" ng-if="ctrl.isAbortable && !ctrl.isAborted">Abort</a>
+        <span class="loading-label">Loading...</span>
+        <a class="loading-abort" ng-click="ctrl.abort()" ng-if="ctrl.isAbortable && !ctrl.isAborted">Stop &#10060;</a>
     </div>
 `;
 

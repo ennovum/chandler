@@ -8,9 +8,13 @@ $secondary-button-background-color: rgba(140, 140, 140, 1);
 $secondary-button-border-color: $secondary-button-background-color;
 $secondary-button-active-background-color: rgba(160, 160, 160, 1);
 
+$blind-button-background-color: rgba(180, 180, 180, 1);
+$blind-button-border-color: rgba(140, 140, 140, 1);
+
 button,
 .button {
     @include transition(background-color box-shadow, .25s, ease, 0)
+    display: inline-block;
     padding: 5px 15px;
     background-color: $button-background-color;
     text-decoration: none;
@@ -71,7 +75,18 @@ button.pressed,
     background-color: $secondary-button-active-background-color;
 }
 
+.blind-button,
+.blind-button:hover,
+.blind-button:active,
+.blind-button:focus, {
+    background-color: $blind-button-background-color;
+    border-color: $blind-button-border-color;
+    box-shadow: none;
+}
+
 .buttonset {
+    display: inline-block;
+
     > * {
         float: left;
     }
@@ -82,5 +97,9 @@ button.pressed,
 
     > *:last-child {
         border-radius: 0 5px 5px 0;
+    }
+
+    > *:first-child:last-child {
+        border-radius: 5px;
     }
 }

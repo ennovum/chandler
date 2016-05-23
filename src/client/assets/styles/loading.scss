@@ -1,4 +1,20 @@
+@import './flex.scss';
+
+$loading-border-color: rgba(200, 200, 200, 1);
+
 .loading {
-    padding: 5px 10px;
+    @include flex-parent(row, nowrap);
+    justify-content: center;
+    padding: 10px;
     text-align: center;
+}
+
+.loading-label,
+.loading-abort {
+    @include flex-child(0, 0);
+    padding: 0 10px;
+}
+
+.loading-abort {
+    border-left: 1px solid $loading-border-color;
 }
