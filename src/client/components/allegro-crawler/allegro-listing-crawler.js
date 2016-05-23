@@ -8,6 +8,8 @@ const CURRENCY_MAP = {
     "zł": "PLN",
     "zł.": "PLN"
 };
+const PRICE_REGEX = /^\s*([\d\s,]+)\s+([^\d\s]+)/;
+const PRICE_WHITESPACE_REGEX = /\s+/;
 
 class AllegroListingCrawler {
     constructor(fetcher, crawebler, stock) {
@@ -103,15 +105,15 @@ class AllegroListingCrawler {
     }
 
     _sanitizePrice(rawPrice) {
-        let rawPricePieces = _.trim(rawPrice).split(/\s/);
-        let value = this._sanitizePriceValue(rawPricePieces[0]);
-        let currency = this._sanitizePriceCurrency(rawPricePieces[1]);
+        let rawPriceMatches = rawPrice.match(PRICE_REGEX);
+        let value = this._sanitizePriceValue(rawPriceMatches[1]);
+        let currency = this._sanitizePriceCurrency(rawPriceMatches[2]);
 
         return {value, currency};
     }
 
     _sanitizePriceValue(rawValue) {
-        let textValue = rawValue.replace("&nbsp;", "").replace(",", ".");
+        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, "").replace("&nbsp;", "").replace(",", ".");
         let value = Number(textValue);
         return value;
     }
