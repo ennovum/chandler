@@ -13,6 +13,7 @@ $grid-head-background-color: rgba(240, 240, 240, 1);
     border: 0 solid $grid-border-color;
     border-width: 1px 0 0 0;
     font-weight: bold;
+    vertical-align: top;
 }
 
 .grid-cell {

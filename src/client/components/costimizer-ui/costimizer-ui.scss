@@ -8,6 +8,7 @@
 @import './../../assets/styles/flex.scss';
 @import './../../assets/styles/clearfix.scss';
 @import './../../assets/styles/cards.scss';
+@import './../../assets/styles/transition.scss';
 
 costimizer {
     @include flex-parent(column, nowrap);
@@ -30,22 +31,27 @@ costimizer {
     min-width: 400px;
 }
 
-.results-offers {
-    margin: 0;
-}
-
-.results-cards {
-    .card {
-        width: 300px;
-    }
-
-    .expanded-card {
-        width: 100%;
-    }
-}
-
-.results-summary-grid {
+.results-items-grid {
     .grid-head {
-        width: 100px;
+        font-size: 1.2em;
+    }
+
+    .grid-label {
+        width: 200px;
+    }
+}
+
+.results-offers {
+    @include transition(margin max-height opacity, .25s, ease, 0)
+    max-height: 0;
+    margin: 0;
+    overflow: auto;
+    opacity: 0;
+
+    &.visible {
+        @include transition(margin max-height opacity, .25s, ease, 0)
+        max-height: 400px;
+        margin: 20px 0 0 0;
+        opacity: 1;
     }
 }
