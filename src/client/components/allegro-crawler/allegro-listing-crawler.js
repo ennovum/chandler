@@ -105,9 +105,9 @@ class AllegroListingCrawler {
     }
 
     _sanitizePrice(rawPrice) {
-        let rawPriceMatches = rawPrice.match(PRICE_REGEX);
-        let value = this._sanitizePriceValue(rawPriceMatches[1]);
-        let currency = this._sanitizePriceCurrency(rawPriceMatches[2]);
+        let [, rawValue, rawCurrency] = rawPrice.match(PRICE_REGEX);
+        let value = this._sanitizePriceValue(rawValue);
+        let currency = this._sanitizePriceCurrency(rawCurrency);
 
         return {value, currency};
     }

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import config from "./../../config/config.js";
 
 class AllegroSellerCrawler {
@@ -13,7 +15,9 @@ class AllegroSellerCrawler {
 
         return this._fetchListingOfferSellerData(id)
             .then((data) => {
-                seller.name = `Allegro / ${data.login}`;
+                let login = _.get(data, 'login', `? (${id})`);
+
+                seller.name = `Allegro / ${login}`;
                 seller.rating = data.rating;
             })
             .then(() => seller);
