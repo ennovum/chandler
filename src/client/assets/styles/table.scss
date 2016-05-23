@@ -31,3 +31,12 @@ $grid-head-background-color: rgba(240, 240, 240, 1);
         padding: 5px 5px;
     }
 }
+
+.naked-grid {
+    border-bottom-width: 0;
+
+    .grid-head:first-child,
+    .grid-cell:first-child {
+        border-bottom-width: 0;
+    }
+}

@@ -33,3 +33,19 @@ costimizer {
 .results-offers {
     margin: 0;
 }
+
+.results-cards {
+    .card {
+        width: 300px;
+    }
+
+    .expanded-card {
+        width: 100%;
+    }
+}
+
+.results-summary-grid {
+    .grid-head {
+        width: 100px;
+    }
+}

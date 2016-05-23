@@ -41,7 +41,7 @@ class CostimizerUiResultsComponent {
 }
 
 const template = `
-    <div class="cards" ng-if="ctrl.results.length">
+    <div class="cards results-cards" ng-if="ctrl.results.length">
         <div class="card" ng-class="{'expanded-card': ctrl.isSelectedResult(result)}"
             ng-repeat="result in ctrl.sortedResults"
         >
@@ -54,7 +54,7 @@ const template = `
                 ng-click="ctrl.toggleResult(result)"
                 ng-if="!ctrl.isSelectedResult(result)"
             >
-                <table class="grid compact-grid">
+                <table class="grid naked-grid compact-grid results-summary-grid">
                     <tr class="grid-row" ng-repeat="offer in result.offers track by $index">
                         <td class="grid-head">
                             "{{offer.query}}"
@@ -79,7 +79,7 @@ const template = `
             <div class="card-body card-raw-body"
                 ng-if="ctrl.isSelectedResult(result)"
             >
-                <table class="grid">
+                <table class="grid naked-grid results-items-grid">
                     <tr class="grid-row">
                         <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
                             "{{query}}"
