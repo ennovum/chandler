@@ -39,6 +39,10 @@ import {
     PriceComponent
 } from "./../../shared/components/price/price.js";
 
+import {
+    Debouncer
+} from "./../../shared/components/debouncer/debouncer.js";
+
 function depend() {
     angular
         .module("allegroCrawler", [])
@@ -78,6 +82,10 @@ function depend() {
     angular
         .module("price", [])
         .component("price", PriceComponent.component);
+
+    angular
+        .module("debouncer", [])
+        .service("debouncer", Debouncer.factory);
 }
 
 export default depend;

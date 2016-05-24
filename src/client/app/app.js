@@ -21,7 +21,8 @@ angular
         "stock",
         "crawebler",
         "keyboard",
-        "price"
+        "price",
+        "debouncer"
     ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
