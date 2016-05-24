@@ -44,6 +44,11 @@ class CostimizerUiComponent {
 
             return this._costimizer.costimizeSearch(this.searchSets)
                 .then((results) => {
+                    let isEqual = _.isEqual(results, this.results, (results, otherResults) => this._compareResults(results, otherResults));
+                    if (isEqual) {
+                        return Promise.resolve(this.results);
+                    }
+
                     this.results = results;
 
                     let sellerPromises = _.map(this.results, (result) => this._getSeller(result));
@@ -52,6 +57,28 @@ class CostimizerUiComponent {
                 })
                 .then(() => sipFn(this.results));
         });
+    }
+
+    _compareResults(results, otherResults) {
+        if (results === null || otherResults === null) {
+            return false;
+        }
+
+        let resultsCountEqual = results.length === otherResults.length;
+        if (!resultsCountEqual) {
+            return false;
+        }
+
+        let itemsCountEqual = _.every(results, (result, resultIndex) => {
+            return _.every(result.offers, (offer, offerIndex) => {
+                return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
+            });
+        });
+        if (!itemsCountEqual) {
+            return false;
+        }
+
+        return true;
     }
 
     _getSeller(result) {
