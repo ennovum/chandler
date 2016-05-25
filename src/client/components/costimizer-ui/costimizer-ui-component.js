@@ -18,7 +18,7 @@ class CostimizerUiComponent {
         this.queries = null;
         this.results = null;
 
-        this._resultsDebounce = null;
+        this._resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
 
         this.sipListingPromises = null;
         this.sipListingAllPromise = null;
@@ -33,23 +33,16 @@ class CostimizerUiComponent {
             "items": []
         }));
 
-        this._resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+        this.abortQueries();
 
-        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet, () => {
-            this._$scope.$apply(); // async promise
-        }));
-
+        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet));
         this.sipListingAllPromise = Promise.all(this.sipListingPromises)
-            .then(() => {
-                this._debouncer.destroy(this._resultsDebounce);
-                this._resultsDebounce = null;
-            })
             .catch((err) => {
                 console.error(err); // TODO
             });
     }
 
-    _sipListing(searchSet, sipFn) {
+    _sipListing(searchSet) {
         return this._listingCrawler.sipListing(searchSet.query, (result) => {
             searchSet.items = searchSet.items.concat(result.data.offers);
 
@@ -57,7 +50,7 @@ class CostimizerUiComponent {
                 .then((results) => {
                     let isEqual = _.isEqual(results, this.results, (results, otherResults) => this._compareResults(results, otherResults));
                     if (isEqual) {
-                        return Promise.resolve();
+                        return Promise.resolve(this.results);
                     }
 
                     let sellerPromises = _.map(results, (result) => {
@@ -68,7 +61,7 @@ class CostimizerUiComponent {
                     return Promise.all(sellerPromises)
                         .then(() => this._applyResults(results));
                 })
-                .then(() => sipFn(this.results));
+                .then(() => this.results);
         });
     }
 
@@ -95,9 +88,13 @@ class CostimizerUiComponent {
     }
 
     _applyResults(results) {
-        this._resultsDebounce.queue(() => {
-            this.results = results;
-            this._$scope.$apply(); // async debounce
+        return new Promise((resolve) => {
+            this._resultsDebounce.queue(() => {
+                this.results = results;
+                this._$scope.$apply(); // async debounce
+
+                resolve(results);
+            });
         });
     }
 
@@ -106,6 +103,10 @@ class CostimizerUiComponent {
     }
 
     abortQueries() {
+        if (!this.sipListingPromises) {
+            return;
+        }
+
         _.forEach(this.sipListingPromises, (sipPromise) => {
             sipPromise.abort();
         });

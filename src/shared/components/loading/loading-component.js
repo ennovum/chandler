@@ -19,9 +19,13 @@ class LoadingComponent {
         this.isAborted = false;
 
         if (this.promise) {
+            let lastPromise = this.promise;
+
             this.promise.then(() => {
-                this.isLoading = false;
-                this._$scope.$apply(); // async promise
+                if (lastPromise === this.promise) {
+                    this.isLoading = false;
+                    this._$scope.$apply(); // async promise
+                }
             });
         }
         else {
