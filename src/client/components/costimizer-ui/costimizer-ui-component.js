@@ -18,8 +18,6 @@ class CostimizerUiComponent {
         this.queries = null;
         this.results = null;
 
-        this._resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
-
         this.sipListingPromises = null;
         this.sipListingAllPromise = null;
     }
@@ -33,22 +31,27 @@ class CostimizerUiComponent {
             "items": []
         }));
 
+        let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+
         this.abortQueries();
 
-        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet));
+        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet, resultsDebounce));
         this.sipListingAllPromise = Promise.all(this.sipListingPromises)
+            .then(() => {
+                this._debouncer.destroy(resultsDebounce);
+            })
             .catch((err) => {
                 console.error(err); // TODO
             });
     }
 
-    _sipListing(searchSet) {
+    _sipListing(searchSet, resultsDebounce) {
         return this._listingCrawler.sipListing(searchSet.query, (result) => {
             searchSet.items = searchSet.items.concat(result.data.offers);
 
             return this._costimizer.costimizeSearch(this.searchSets)
                 .then((results) => {
-                    let isEqual = _.isEqual(results, this.results, (results, otherResults) => this._compareResults(results, otherResults));
+                    let isEqual = this._compareResults(results, this.results);
                     if (isEqual) {
                         return Promise.resolve(this.results);
                     }
@@ -59,37 +62,39 @@ class CostimizerUiComponent {
                     });
 
                     return Promise.all(sellerPromises)
-                        .then(() => this._applyResults(results));
+                        .then(() => this._applyResults(results, resultsDebounce));
                 })
                 .then(() => this.results);
         });
     }
 
     _compareResults(results, otherResults) {
-        if (results === null || otherResults === null) {
-            return false;
-        }
+        let isEqual = _.isEqual(results, otherResults, (results, otherResults) => {
+            if (results === null || otherResults === null) {
+                return false;
+            }
 
-        let resultsCountEqual = results.length === otherResults.length;
-        if (!resultsCountEqual) {
-            return false;
-        }
+            let resultsCountEqual = results.length === otherResults.length;
+            if (!resultsCountEqual) {
+                return false;
+            }
 
-        let itemsCountEqual = _.every(results, (result, resultIndex) => {
-            return _.every(result.offers, (offer, offerIndex) => {
-                return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
+            let itemsCountEqual = _.every(results, (result, resultIndex) => {
+                return _.every(result.offers, (offer, offerIndex) => {
+                    return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
+                });
             });
-        });
-        if (!itemsCountEqual) {
-            return false;
-        }
+            if (!itemsCountEqual) {
+                return false;
+            }
 
-        return true;
+            return true;
+        });
     }
 
-    _applyResults(results) {
+    _applyResults(results, resultsDebounce) {
         return new Promise((resolve) => {
-            this._resultsDebounce.queue(() => {
+            resultsDebounce.queue(() => {
                 this.results = results;
                 this._$scope.$apply(); // async debounce
 
