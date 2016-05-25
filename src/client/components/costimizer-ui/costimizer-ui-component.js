@@ -1,11 +1,14 @@
 import _ from "lodash";
 
+const RESULTS_DEBOUNCE_SPAN = 5000;
+
 class CostimizerUiComponent {
-    constructor($scope, listingCrawler, sellerCrawler, costimizer) {
+    constructor($scope, listingCrawler, sellerCrawler, costimizer, debouncer) {
         this._$scope = $scope;
         this._listingCrawler = listingCrawler;
         this._sellerCrawler = sellerCrawler;
         this._costimizer = costimizer;
+        this._debouncer = debouncer;
 
         this.on = {
             submitQueries: (queries) => this.submitQueries(queries),
@@ -14,6 +17,8 @@ class CostimizerUiComponent {
 
         this.queries = null;
         this.results = null;
+
+        this._resultsDebounce = null;
 
         this.sipListingPromises = null;
         this.sipListingAllPromise = null;
@@ -28,11 +33,17 @@ class CostimizerUiComponent {
             "items": []
         }));
 
+        this._resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+
         this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet, () => {
             this._$scope.$apply(); // async promise
         }));
 
         this.sipListingAllPromise = Promise.all(this.sipListingPromises)
+            .then(() => {
+                this._debouncer.destroy(this._resultsDebounce);
+                this._resultsDebounce = null;
+            })
             .catch((err) => {
                 console.error(err); // TODO
             });
@@ -46,14 +57,16 @@ class CostimizerUiComponent {
                 .then((results) => {
                     let isEqual = _.isEqual(results, this.results, (results, otherResults) => this._compareResults(results, otherResults));
                     if (isEqual) {
-                        return Promise.resolve(this.results);
+                        return Promise.resolve();
                     }
 
-                    this.results = results;
+                    let sellerPromises = _.map(results, (result) => {
+                        return this._getSeller(result)
+                            .then((seller) => result.seller = seller);
+                    });
 
-                    let sellerPromises = _.map(this.results, (result) => this._getSeller(result));
-
-                    return Promise.all(sellerPromises);
+                    return Promise.all(sellerPromises)
+                        .then(() => this._applyResults(results));
                 })
                 .then(() => sipFn(this.results));
         });
@@ -81,11 +94,15 @@ class CostimizerUiComponent {
         return true;
     }
 
+    _applyResults(results) {
+        this._resultsDebounce.queue(() => {
+            this.results = results;
+            this._$scope.$apply(); // async debounce
+        });
+    }
+
     _getSeller(result) {
-        return this._sellerCrawler.getListingOfferSeller(result.seller.id)
-            .then((seller) => {
-                result.seller = seller;
-            });
+        return this._sellerCrawler.getListingOfferSeller(result.seller.id);
     }
 
     abortQueries() {
@@ -119,7 +136,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "costimizer"];
+controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "costimizer", "debouncer"];
 
 const component = {
     template,

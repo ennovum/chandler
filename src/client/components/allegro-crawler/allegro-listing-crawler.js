@@ -36,11 +36,10 @@ class AllegroListingCrawler {
                 let hasNextPage = (result.meta.page + 1) < result.meta.pageCount;
 
                 if (!isAborted && hasNextPage) {
-                    done(result, false);
-                    return this._sipListingTail(query, page + 1, done, checkAborted);
+                    return done(result, false).then(() => this._sipListingTail(query, page + 1, done, checkAborted));
                 }
                 else {
-                    done(result, true);
+                    return done(result, true);
                 }
             });
     }
