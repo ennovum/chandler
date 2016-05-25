@@ -6,7 +6,7 @@ class CostimizerUiResultsComponent {
         this.results; // via bindings
 
         this.sortedResults = null;
-        this.selectedResultId = null;
+        this.selectedResultIds = [];
 
         $scope.$watch(() => this.results, () => this._evalResults());
     }
@@ -24,15 +24,19 @@ class CostimizerUiResultsComponent {
     }
 
     selectResult(result) {
-        this.selectedResultId = result.id;
+        this.selectedResultIds.push(result.id);
     }
 
     deselectResult(result) {
-        this.selectedResultId = null;
+        let index = this.selectedResultIds.indexOf(result.id);
+        if (index !== -1) {
+            this.selectedResultIds.splice(index, 1);
+        }
     }
 
     isSelectedResult(result) {
-        return this.selectedResultId === result.id;
+        let index = this.selectedResultIds.indexOf(result.id);
+        return index !== -1;
     }
 
     toggleResult(result) {
