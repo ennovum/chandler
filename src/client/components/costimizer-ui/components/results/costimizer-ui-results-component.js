@@ -69,7 +69,7 @@ const template = `
                         <price value="price.minimum"></price> - <price value="price.maximum" currency="price.currency"></price>
                     </span>
                 </div>
-                <ol class="results-offers" ng-class="{'visible': ctrl.isSelectedResult(result)}">
+                <ol class="results-offers" ng-if="ctrl.isSelectedResult(result)">
                     <li class="results-offer" ng-repeat="item in offer.items track by $index">
                         <div>
                             <a ng-href="{{item.url}}" target="_blank">{{item.title}}</a>
