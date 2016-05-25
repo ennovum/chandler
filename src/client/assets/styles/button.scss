@@ -3,13 +3,16 @@
 $button-background-color: rgba(100, 140, 140, 1);
 $button-border-color: $button-background-color;
 $button-active-background-color: rgba(120, 160, 160, 1);
+$button-text-color: rgba(255, 255, 255, 1);
 
 $secondary-button-background-color: rgba(140, 140, 140, 1);
 $secondary-button-border-color: $secondary-button-background-color;
 $secondary-button-active-background-color: rgba(160, 160, 160, 1);
+$secondary-button-text-color: $button-text-color;
 
 $blind-button-background-color: rgba(180, 180, 180, 1);
 $blind-button-border-color: rgba(140, 140, 140, 1);
+$blind-button-text-color: $button-text-color;
 
 button,
 .button {
@@ -20,7 +23,7 @@ button,
     text-decoration: none;
     border: 1px solid $button-border-color;
     border-radius: 5px;
-    color: rgba(255, 255, 255, 1);
+    color: $button-text-color;
     overflow: hidden;
 }
 
@@ -67,6 +70,7 @@ button.pressed,
 .secondary-button {
     background-color: $secondary-button-background-color;
     border-color: $secondary-button-border-color;
+    color: $secondary-button-text-color;
 }
 
 .secondary-button:hover,
@@ -81,6 +85,7 @@ button.pressed,
 .blind-button:focus, {
     background-color: $blind-button-background-color;
     border-color: $blind-button-border-color;
+    color: $blind-button-text-color;
     box-shadow: none;
 }
 
