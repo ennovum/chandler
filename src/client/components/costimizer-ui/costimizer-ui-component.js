@@ -18,25 +18,23 @@ class CostimizerUiComponent {
         this.queries = null;
         this.results = null;
 
-        this.sipListingPromises = null;
-        this.sipListingAllPromise = null;
+        this.sipSalePromises = null;
+        this.sipSaleAllPromise = null;
     }
 
     submitQueries(queries) {
         this.queries = queries;
         this.results = null;
 
-        this.searchSets = _.map(this.queries, (query) => ({
-            "query": query,
-            "items": []
-        }));
-
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
 
         this.abortQueries();
 
-        this.sipListingPromises = _.map(this.searchSets, (searchSet) => this._sipListing(searchSet, resultsDebounce));
-        this.sipListingAllPromise = Promise.all(this.sipListingPromises)
+        this.sipSalePromises = this._sipSale(queries, (results) => {
+            this._applyResults(results, resultsDebounce);
+        });
+
+        this.sipSaleAllPromise = Promise.all(this.sipSalePromises)
             .then(() => {
                 this._debouncer.destroy(resultsDebounce);
             })
@@ -45,61 +43,87 @@ class CostimizerUiComponent {
             });
     }
 
-    _sipListing(searchSet, resultsDebounce) {
+    _sipSale(queries, handleSip) {
+        let searchSets = _.map(queries, (query, index) => {
+            let items = [];
+            return {query, index, items};
+        });
+        let lastResults = null;
+
+        return this._sipListings(searchSets, (searchSet) => {
+            searchSets[searchSet.index] = searchSet;
+
+            return this._costimizeListings(searchSets)
+                .then((results) => {
+                    let isEqual = this._compareResults(results, lastResults);
+                    if (isEqual) {
+                        return Promise.resolve(lastResults);
+                    }
+
+                    lastResults = results;
+
+                    return this._decorateResults(results)
+                        .then(() => handleSip(results));
+                });
+        });
+    }
+
+    _sipListings(searchSets, handleSip) {
+        return _.map(searchSets, (searchSet) => this._sipListing(searchSet, handleSip));
+    }
+
+    _sipListing(searchSet, handleSip) {
         return this._listingCrawler.sipListing(searchSet.query, (result) => {
             searchSet.items = searchSet.items.concat(result.data.offers);
 
-            return this._costimizer.costimizeSearch(this.searchSets)
-                .then((results) => {
-                    let isEqual = this._compareResults(results, this.results);
-                    if (isEqual) {
-                        return Promise.resolve(this.results);
-                    }
-
-                    let sellerPromises = _.map(results, (result) => {
-                        return this._getSeller(result)
-                            .then((seller) => result.seller = seller);
-                    });
-
-                    return Promise.all(sellerPromises)
-                        .then(() => this._applyResults(results, resultsDebounce));
-                })
-                .then(() => this.results);
+            return handleSip(searchSet);
         });
+    }
+
+    _costimizeListings(searchSets) {
+        return this._costimizer.costimizeSearch(searchSets);
     }
 
     _compareResults(results, otherResults) {
-        let isEqual = _.isEqual(results, otherResults, (results, otherResults) => {
-            if (results === null || otherResults === null) {
-                return false;
-            }
-
-            let resultsCountEqual = results.length === otherResults.length;
-            if (!resultsCountEqual) {
-                return false;
-            }
-
-            let itemsCountEqual = _.every(results, (result, resultIndex) => {
-                return _.every(result.offers, (offer, offerIndex) => {
-                    return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
-                });
-            });
-            if (!itemsCountEqual) {
-                return false;
-            }
-
+        if (results === otherResults) {
             return true;
+        }
+
+        if (results === null || otherResults === null) {
+            return false;
+        }
+
+        let resultsCountEqual = results.length === otherResults.length;
+        if (!resultsCountEqual) {
+            return false;
+        }
+
+        let itemsCountEqual = _.every(results, (result, resultIndex) => {
+            return _.every(result.offers, (offer, offerIndex) => {
+                return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
+            });
         });
+        if (!itemsCountEqual) {
+            return false;
+        }
+
+        return true;
+    }
+
+    _decorateResults(results) {
+        let sellerPromises = _.map(results, (result) => {
+            return this._getSeller(result)
+                .then((seller) => result.seller = seller);
+        });
+
+        return Promise.all(sellerPromises)
+            .then(() => results);
     }
 
     _applyResults(results, resultsDebounce) {
-        return new Promise((resolve) => {
-            resultsDebounce.queue(() => {
-                this.results = results;
-                this._$scope.$apply(); // async debounce
-
-                resolve(results);
-            });
+        resultsDebounce.queue(() => {
+            this.results = results;
+            this._$scope.$apply(); // async debounce
         });
     }
 
@@ -108,15 +132,15 @@ class CostimizerUiComponent {
     }
 
     abortQueries() {
-        if (!this.sipListingPromises) {
+        if (!this.sipSalePromises) {
             return;
         }
 
-        _.forEach(this.sipListingPromises, (sipPromise) => {
-            sipPromise.abort();
+        _.forEach(this.sipSalePromises, (salePromise) => {
+            salePromise.abort();
         });
 
-        this.sipListingPromises = null;
+        this.sipSalePromises = null;
     }
 }
 
@@ -135,7 +159,7 @@ const template = `
     </div>
     <div class="main">
         <div class="content-box">
-            <loading promise="ctrl.sipListingAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
+            <loading promise="ctrl.sipSaleAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
             <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
         </div>
     </div>
