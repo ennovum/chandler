@@ -1,7 +1,6 @@
 class LoadingComponent {
-    constructor($scope, $q) {
+    constructor($scope) {
         this._$scope = $scope;
-        this._$q = $q;
 
         this.promise; // via bindings
         this.isAbortable; // via bindings
@@ -47,7 +46,7 @@ const template = `
 `;
 
 const controller = (...args) => new LoadingComponent(...args);
-controller.$inject = ["$scope", "$q"];
+controller.$inject = ["$scope"];
 
 const component = {
     template,

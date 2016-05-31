@@ -49,12 +49,12 @@ import {
 
 function depend() {
     angular
-        .module("allegroCrawler", [])
+        .module("allegroCrawler", ["fetcher", "crawebler", "stock"])
         .service("allegroListingCrawler", AllegroListingCrawler.service)
         .service("allegroSellerCrawler", AllegroSellerCrawler.service);
 
     angular
-        .module("allegroSale", [])
+        .module("allegroSale", ["allegroCrawler", "costimizer"])
         .service("allegroSale", AllegroSale.service);
 
     angular
@@ -62,7 +62,7 @@ function depend() {
         .service("costimizer", Costimizer.factory);
 
     angular
-        .module("costimizerUi", [])
+        .module("costimizerUi", ["allegroSale", "debouncer", "loading", "keyboard", "price"])
         .component("costimizerUi", CostimizerUiComponent.component)
         .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
         .component("costimizerUiResults", CostimizerUiResultsComponent.component);

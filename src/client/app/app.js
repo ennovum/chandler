@@ -13,17 +13,7 @@ depend();
 angular
     .module("app", [
         "ngRoute",
-        "allegroCrawler",
-        "allegroSale",
-        "costimizer",
-        "costimizerUi",
-        "loading",
-        "fetcher",
-        "stock",
-        "crawebler",
-        "keyboard",
-        "price",
-        "debouncer"
+        "costimizerUi"
     ])
     .config(["$routeProvider", ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
