@@ -1,6 +1,10 @@
 import angular from "angular";
 
 import {
+    config
+} from "./../config/config.js";
+
+import {
     AllegroListingCrawler,
     AllegroSellerCrawler
 } from "./../components/allegro-crawler/allegro-crawler.js";
@@ -49,7 +53,11 @@ import {
 
 function depend() {
     angular
-        .module("allegroCrawler", ["fetcher", "crawebler", "stock"])
+        .module("config", [])
+        .service("config", () => config);
+
+    angular
+        .module("allegroCrawler", ["config", "fetcher", "crawebler", "stock"])
         .service("allegroListingCrawler", AllegroListingCrawler.service)
         .service("allegroSellerCrawler", AllegroSellerCrawler.service);
 

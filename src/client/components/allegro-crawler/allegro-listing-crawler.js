@@ -1,7 +1,5 @@
 import _ from "lodash";
 
-import config from "./../../config/config.js";
-
 const CURRENCY_MAP = {
     "": "",
     "pln": "PLN",
@@ -12,7 +10,8 @@ const PRICE_REGEX = /^\s*([\d\s,]+)\s+([^\d\s]+)/;
 const PRICE_WHITESPACE_REGEX = /\s+/;
 
 class AllegroListingCrawler {
-    constructor(fetcher, crawebler, stock) {
+    constructor(config, fetcher, crawebler, stock) {
+        this._config = config;
         this._fetcher = fetcher;
         this._crawebler = crawebler;
         this._stock = stock;
@@ -53,7 +52,7 @@ class AllegroListingCrawler {
     _fetchListingSource(query, page) {
         return this._stock.have(
             `listingSource/${query}/${page}`,
-            () => this._fetcher.fetchText(config.api.resources.allegro.listing(query, page)));
+            () => this._fetcher.fetchText(this._config.api.resources.allegro.listing(query, page)));
     }
 
     _parseListingSource(query, page, source) {
@@ -125,7 +124,7 @@ class AllegroListingCrawler {
 }
 
 AllegroListingCrawler.service = (...args) => new AllegroListingCrawler(...args);
-AllegroListingCrawler.service.$inject = ['fetcher', 'crawebler', 'stock'];
+AllegroListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
 
 export default AllegroListingCrawler;
 export {AllegroListingCrawler};
