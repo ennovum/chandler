@@ -20,6 +20,7 @@ class Debouncer {
     destroy(debounce) {
         let index = this._debounces.indexOf(debounce);
         if (index !== -1) {
+            debounce.flush();
             this._debounces.splice(index, 1);
         }
 
@@ -74,6 +75,15 @@ class Debounce {
             this._fn = null
             this._lastRunTime = nowTime;
         }
+    }
+
+    flush() {
+        if (!this._fn) {
+            return;
+        }
+
+        this._fn();
+        this._fn = null
     }
 }
 
