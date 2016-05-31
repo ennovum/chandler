@@ -6,6 +6,10 @@ import {
 } from "./../components/allegro-crawler/allegro-crawler.js";
 
 import {
+    AllegroSale
+} from "./../components/allegro-sale/allegro-sale.js";
+
+import {
     Costimizer
 } from "./../../shared/components/costimizer/costimizer.js";
 
@@ -48,6 +52,10 @@ function depend() {
         .module("allegroCrawler", [])
         .service("allegroListingCrawler", AllegroListingCrawler.service)
         .service("allegroSellerCrawler", AllegroSellerCrawler.service);
+
+    angular
+        .module("allegroSale", [])
+        .service("allegroSale", AllegroSale.service);
 
     angular
         .module("costimizer", [])

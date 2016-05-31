@@ -3,11 +3,9 @@ import _ from "lodash";
 const RESULTS_DEBOUNCE_SPAN = 5000;
 
 class CostimizerUiComponent {
-    constructor($scope, listingCrawler, sellerCrawler, costimizer, debouncer) {
+    constructor($scope, allegroSale, debouncer) {
         this._$scope = $scope;
-        this._listingCrawler = listingCrawler;
-        this._sellerCrawler = sellerCrawler;
-        this._costimizer = costimizer;
+        this._allegroSale = allegroSale;
         this._debouncer = debouncer;
 
         this.on = {
@@ -30,7 +28,7 @@ class CostimizerUiComponent {
 
         this.abortQueries();
 
-        this.sipSalePromises = this._sipSale(queries, (results) => {
+        this.sipSalePromises = this._allegroSale.sipSale(queries, (results) => {
             this._applyResults(results, resultsDebounce);
         });
 
@@ -43,92 +41,11 @@ class CostimizerUiComponent {
             });
     }
 
-    _sipSale(queries, handleSip) {
-        let searchSets = _.map(queries, (query, index) => {
-            let items = [];
-            return {query, index, items};
-        });
-        let lastResults = null;
-
-        return this._sipListings(searchSets, (searchSet) => {
-            searchSets[searchSet.index] = searchSet;
-
-            return this._costimizeListings(searchSets)
-                .then((results) => {
-                    let isEqual = this._compareResults(results, lastResults);
-                    if (isEqual) {
-                        return Promise.resolve(lastResults);
-                    }
-
-                    lastResults = results;
-
-                    return this._decorateResults(results)
-                        .then(() => handleSip(results));
-                });
-        });
-    }
-
-    _sipListings(searchSets, handleSip) {
-        return _.map(searchSets, (searchSet) => this._sipListing(searchSet, handleSip));
-    }
-
-    _sipListing(searchSet, handleSip) {
-        return this._listingCrawler.sipListing(searchSet.query, (result) => {
-            searchSet.items = searchSet.items.concat(result.data.offers);
-
-            return handleSip(searchSet);
-        });
-    }
-
-    _costimizeListings(searchSets) {
-        return this._costimizer.costimizeSearch(searchSets);
-    }
-
-    _compareResults(results, otherResults) {
-        if (results === otherResults) {
-            return true;
-        }
-
-        if (results === null || otherResults === null) {
-            return false;
-        }
-
-        let resultsCountEqual = results.length === otherResults.length;
-        if (!resultsCountEqual) {
-            return false;
-        }
-
-        let itemsCountEqual = _.every(results, (result, resultIndex) => {
-            return _.every(result.offers, (offer, offerIndex) => {
-                return offer.items.length === otherResults[resultIndex].offers[offerIndex].items.length;
-            });
-        });
-        if (!itemsCountEqual) {
-            return false;
-        }
-
-        return true;
-    }
-
-    _decorateResults(results) {
-        let sellerPromises = _.map(results, (result) => {
-            return this._getSeller(result)
-                .then((seller) => result.seller = seller);
-        });
-
-        return Promise.all(sellerPromises)
-            .then(() => results);
-    }
-
     _applyResults(results, resultsDebounce) {
         resultsDebounce.queue(() => {
             this.results = results;
             this._$scope.$apply(); // async debounce
         });
-    }
-
-    _getSeller(result) {
-        return this._sellerCrawler.getListingOfferSeller(result.seller.id);
     }
 
     abortQueries() {
@@ -166,7 +83,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroListingCrawler", "allegroSellerCrawler", "costimizer", "debouncer"];
+controller.$inject = ["$scope", "allegroSale", "debouncer"];
 
 const component = {
     template,
