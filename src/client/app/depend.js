@@ -7,11 +7,11 @@ import {
 import {
     AllegroListingCrawler,
     AllegroSellerCrawler
-} from "./../components/allegro-crawler/allegro-crawler.js";
+} from "./../../shared/components/allegro-crawler/allegro-crawler.js";
 
 import {
     AllegroSale
-} from "./../components/allegro-sale/allegro-sale.js";
+} from "./../../shared/components/allegro-sale/allegro-sale.js";
 
 import {
     Costimizer
