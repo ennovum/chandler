@@ -51,6 +51,10 @@ import {
     Debouncer
 } from "./../../shared/components/debouncer/debouncer.js";
 
+import {
+    AutofocusDirective
+} from "./../../shared/components/input/input.js";
+
 function depend() {
     angular
         .module("config", [])
@@ -102,6 +106,10 @@ function depend() {
     angular
         .module("debouncer", [])
         .service("debouncer", Debouncer.factory);
+
+    angular
+        .module("input", [])
+        .directive("autofocus", AutofocusDirective.directive);
 }
 
 export default depend;
