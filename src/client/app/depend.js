@@ -40,7 +40,8 @@ import {
 } from "./../../shared/components/crawebler/crawebler.js";
 
 import {
-    OnEnterDirective
+    OnEnterDirective,
+    OnEscDirective
 } from "./../../shared/components/keyboard/keyboard.js";
 
 import {
@@ -97,7 +98,8 @@ function depend() {
 
     angular
         .module("keyboard", [])
-        .directive("onEnter", OnEnterDirective.directive);
+        .directive("onEnter", OnEnterDirective.directive)
+        .directive("onEsc", OnEscDirective.directive);
 
     angular
         .module("price", [])

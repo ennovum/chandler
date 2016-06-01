@@ -5,9 +5,15 @@ class OnEnterDirective {
         let onEnterParsing = $parse($attrs.onEnter);
 
         $element[0].addEventListener("keypress", (event) => {
+            if (event.defaultPrevented) {
+                return;
+            }
+
             if (event.keyCode === KEYCODE_ENTER) {
                 onEnterParsing($scope);
                 $scope.$apply();
+
+                event.preventDefault();
             }
         });
     }
