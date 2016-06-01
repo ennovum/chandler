@@ -45,6 +45,15 @@ class CostimizerUiQueriesComponent {
         this.model.query = this.model.queries[index];
     }
 
+    cancelEditQuery() {
+        this.editedIndex = null;
+        this.model.query = "";
+    }
+
+    submitEditQuery() {
+        this.updateQuery(this.editedIndex);
+    }
+
     isEditedQuery(query) {
         return this.hasEditedQuery() && this.model.queries[this.editedIndex] === query;
     }
@@ -67,8 +76,8 @@ const template = `
                 <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)">&#10060;</button>
             </div>
             <div class="buttonset search-query-form" ng-if="ctrl.isEditedQuery(query)">
-                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.query" placeholder="Update the query" on-enter="ctrl.updateQuery($index)" autofocus />
-                <button class="icon-button" ng-click="ctrl.updateQuery($index)">
+                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.query" placeholder="Update the query" on-enter="ctrl.submitEditQuery()" on-esc="ctrl.cancelEditQuery()" autofocus />
+                <button class="icon-button" ng-click="ctrl.submitEditQuery()">
                     <span>Save search</span>
                 </button>
             </div>
