@@ -31,7 +31,16 @@ class AbstractSale {
     }
 
     _sipListings(searchSets, handleSip) {
-        return _.map(searchSets, (searchSet) => this._sipListing(searchSet, handleSip));
+        let promises = _.map(searchSets, (searchSet) => this._sipListing(searchSet, handleSip));
+        let promise = Promise.all(promises);
+
+        promise.isAborted = false;
+        promise.abort = () => {
+            _.forEach(promises, (promise) => promise.abort());
+            promise.isAborted = true;
+        };
+
+        return promise;
     }
 
     _sipListing(searchSet, handleSip) {

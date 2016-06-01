@@ -16,24 +16,26 @@ class CostimizerUiComponent {
         this.queries = null;
         this.results = null;
 
-        this.sipSalePromises = null;
-        this.sipSaleAllPromise = null;
+        this.sipSalePromise = null;
     }
 
     submitQueries(queries) {
         this.queries = queries;
         this.results = null;
 
-        let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
-
         this.abortQueries();
 
-        this.sipSalePromises = this._allegroSale.sipSale(queries, (results) => {
+        let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+
+        let sipSalePromise = this.sipSalePromise = this._allegroSale.sipSale(queries, (results) => {
             this._applyResults(results, resultsDebounce);
         });
 
-        this.sipSaleAllPromise = Promise.all(this.sipSalePromises)
+        sipSalePromise
             .then(() => {
+                if (!sipSalePromise.isAborted) {
+                    resultsDebounce.flush();
+                }
                 this._debouncer.destroy(resultsDebounce);
             })
             .catch((err) => {
@@ -49,15 +51,11 @@ class CostimizerUiComponent {
     }
 
     abortQueries() {
-        if (!this.sipSalePromises) {
+        if (!this.sipSalePromise) {
             return;
         }
 
-        _.forEach(this.sipSalePromises, (salePromise) => {
-            salePromise.abort();
-        });
-
-        this.sipSalePromises = null;
+        this.sipSalePromise.abort();
     }
 }
 
@@ -76,7 +74,7 @@ const template = `
     </div>
     <div class="main">
         <div class="content-box">
-            <loading promise="ctrl.sipSaleAllPromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
+            <loading promise="ctrl.sipSalePromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
             <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
         </div>
     </div>

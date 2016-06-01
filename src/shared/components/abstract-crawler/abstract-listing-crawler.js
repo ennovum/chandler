@@ -18,12 +18,13 @@ class AbstractListingCrawler {
     }
 
     sipListing(query, done) {
-        let isAborted = false;
-        let checkAborted = () => isAborted;
-        let abort = () => isAborted = true;
-
+        let checkAborted = () => promise.isAborted;
         let promise = this._sipListingTail(query, 0, done, checkAborted);
-        promise.abort = abort;
+        
+        promise.isAborted = false;
+        promise.abort = () => {
+            promise.isAborted = true;
+        };
 
         return promise;
     }
