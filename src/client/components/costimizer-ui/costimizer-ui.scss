@@ -21,13 +21,18 @@ costimizer {
 
 .search-query,
 .search-query-form,
-.search-submit {
+.search-add {
     float: left;
     margin: 10px 0 0 10px;
 }
 
 .search-query-input {
-    min-width: 400px;
+    width: 150px;
+}
+
+.search-query-input:focus,
+.search-query-add-input {
+    width: 300px;
 }
 
 .results-items-grid {

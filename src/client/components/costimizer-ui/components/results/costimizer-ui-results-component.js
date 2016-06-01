@@ -101,8 +101,8 @@ const component = {
     controller,
     controllerAs: "ctrl",
     bindings: {
-        queries: "=",
-        results: "="
+        queries: "<",
+        results: "<"
     }
 };
 
