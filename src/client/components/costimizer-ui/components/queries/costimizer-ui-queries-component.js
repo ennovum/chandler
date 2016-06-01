@@ -4,41 +4,56 @@ class CostimizerUiQueriesComponent {
     constructor($element) {
         this._el = $element[0];
 
-        this._queryInputEl = this._el.querySelector(".search-query-input");
-
         this.queries; // via bindings
         this.onSubmit; // via bindings
 
         this.model = {
             queries: _.clone(this.queries) || [],
-            newQuery: ""
+            query: ""
         };
-
-        this._queryInputEl.focus();
-    }
-
-    submitQuery() {
-        if (this.model.newQuery !== "") {
-            this.addQuery();
-        }
+        this.editedIndex = null;
     }
 
     addQuery() {
-        this.model.queries.push(this.model.newQuery);
-        this.model.newQuery = "";
+        if (_.trim(this.model.query) === "") {
+            return;
+        }
 
-        this.submitQueries();
-        this._queryInputEl.focus();
+        this.model.queries.push(this.model.query);
+        this.model.query = "";
+
+        this._submitQueries();
     }
 
     removeQuery(index) {
         this.model.queries.splice(index, 1);
 
-        this.submitQueries();
-        this._queryInputEl.focus();
+        this._submitQueries();
     }
 
-    submitQueries() {
+    updateQuery(index) {
+        this.model.queries[index] = this.model.query;
+
+        this.editedIndex = null;
+        this.model.query = "";
+
+        this._submitQueries();
+    }
+
+    editQuery(index) {
+        this.editedIndex = index;
+        this.model.query = this.model.queries[index];
+    }
+
+    isEditedQuery(query) {
+        return this.hasEditedQuery() && this.model.queries[this.editedIndex] === query;
+    }
+
+    hasEditedQuery() {
+        return this.editedIndex !== null;
+    }
+
+    _submitQueries() {
         let queries = _.clone(this.model.queries);
         this.onSubmit({queries});
     }
@@ -46,15 +61,31 @@ class CostimizerUiQueriesComponent {
 
 const template = `
     <section class="search-queries">
-        <section class="" ng-if="ctrl.model.queries.length">
-            <div class="buttonset search-query" ng-repeat="query in ctrl.model.queries track by $index">
-                <button class="blind-button" ng-bind="query"></button>
-                <button class="icon-button" ng-click="ctrl.removeQuery($index)">&#10060;</button>
+        <section ng-repeat="query in ctrl.model.queries track by $index">
+            <div class="buttonset search-query" ng-if="!ctrl.isEditedQuery(query)">
+                <button class="blind-button search-query-update-button" ng-click="ctrl.editQuery($index)" ng-bind="query"></button>
+                <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)">&#10060;</button>
+            </div>
+            <div class="buttonset search-query-form" ng-if="ctrl.isEditedQuery(query)">
+                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.query" placeholder="Update the query" on-enter="ctrl.updateQuery($index)" autofocus />
+                <button class="icon-button" ng-click="ctrl.updateQuery($index)">
+                    <span>Save search</span>
+                </button>
             </div>
         </section>
-        <section class="buttonset search-query-form">
-            <input class="input-text search-query-input" type="text" ng-model="ctrl.model.newQuery" placeholder="Enter a query" on-enter="ctrl.submitQuery()" />
-            <button class="icon-button" ng-click="ctrl.submitQuery()">Search</button>
+        <section ng-if="!ctrl.hasEditedQuery()">
+            <div class="buttonset search-query-form" ng-if="!ctrl.model.queries.length">
+                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.query" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
+                <button class="icon-button" ng-click="ctrl.addQuery()">
+                    <span>Search</span>
+                </button>
+            </div>
+            <div class="buttonset search-query-form" ng-if="ctrl.model.queries.length">
+                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.query" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
+                <button class="icon-button" ng-click="ctrl.addQuery()">
+                    <span>Add search</span>
+                </button>
+            </div>
         </section>
     </section>
 `;

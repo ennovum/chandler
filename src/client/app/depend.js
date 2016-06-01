@@ -74,7 +74,7 @@ function depend() {
         .service("costimizer", Costimizer.factory);
 
     angular
-        .module("costimizerUi", ["allegroSale", "debouncer", "loading", "keyboard", "price"])
+        .module("costimizerUi", ["allegroSale", "debouncer", "loading", "keyboard", "price", "input"])
         .component("costimizerUi", CostimizerUiComponent.component)
         .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
         .component("costimizerUiResults", CostimizerUiResultsComponent.component);
