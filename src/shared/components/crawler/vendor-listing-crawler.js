@@ -9,7 +9,7 @@ const CURRENCY_MAP = {
 const PRICE_REGEX = /^\s*([\d\s,]+)\s+([^\d\s]+)/;
 const PRICE_WHITESPACE_REGEX = /\s+/;
 
-class AbstractListingCrawler {
+class VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         this._config = config;
         this._fetcher = fetcher;
@@ -78,8 +78,8 @@ class AbstractListingCrawler {
     }
 }
 
-AbstractListingCrawler.service = (...args) => new AbstractListingCrawler(...args);
-AbstractListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
+VendorListingCrawler.service = (...args) => new VendorListingCrawler(...args);
+VendorListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
 
-export default AbstractListingCrawler;
-export {AbstractListingCrawler};
+export default VendorListingCrawler;
+export {VendorListingCrawler};

@@ -1,8 +1,8 @@
 import _ from "lodash";
 
-import AbstractListingCrawler from "./abstract-listing-crawler.js";
+import VendorListingCrawler from "./vendor-listing-crawler.js";
 
-class AllegroListingCrawler extends AbstractListingCrawler {
+class AllegroListingCrawler extends VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
 

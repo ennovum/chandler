@@ -1,8 +1,8 @@
 import _ from "lodash";
 
-import AbstractSale from "./abstract-sale.js";
+import VendorSale from "./vendor-sale.js";
 
-class AllegroSale extends AbstractSale {
+class AllegroSale extends VendorSale {
     constructor(allegroListingCrawler, allegroSellerCrawler, costimizer) {
         super(costimizer);
 

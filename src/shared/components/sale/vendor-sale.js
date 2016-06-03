@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-class AbstractSale {
+class VendorSale {
     constructor(costimizer) {
         this._costimizer = costimizer;
     }
@@ -82,8 +82,8 @@ class AbstractSale {
     }
 }
 
-AbstractSale.service = (...args) => new AbstractSale(...args);
-AbstractSale.service.$inject = ["costimizer"];
+VendorSale.service = (...args) => new VendorSale(...args);
+VendorSale.service.$inject = ["costimizer"];
 
-export default AbstractSale;
-export {AbstractSale};
+export default VendorSale;
+export {VendorSale};

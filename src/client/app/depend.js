@@ -10,6 +10,7 @@ import {
 } from "./../../shared/components/crawler/crawler.js";
 
 import {
+    Sale,
     AllegroSale
 } from "./../../shared/components/sale/sale.js";
 
@@ -68,6 +69,7 @@ function depend() {
 
     angular
         .module("sale", ["crawler", "costimizer"])
+        .service("sale", Sale.service)
         .service("allegroSale", AllegroSale.service);
 
     angular

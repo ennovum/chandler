@@ -3,9 +3,9 @@ import _ from "lodash";
 const RESULTS_DEBOUNCE_SPAN = 5000;
 
 class CostimizerUiComponent {
-    constructor($scope, allegroSale, debouncer) {
+    constructor($scope, sale, debouncer) {
         this._$scope = $scope;
-        this._allegroSale = allegroSale;
+        this._sale = sale;
         this._debouncer = debouncer;
 
         this.on = {
@@ -27,7 +27,7 @@ class CostimizerUiComponent {
 
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
 
-        let sipSalePromise = this.sipSalePromise = this._allegroSale.sipSale(queries, (results) => {
+        let sipSalePromise = this.sipSalePromise = this._sale.sipSale(queries, (results) => {
             this._applyResults(results, resultsDebounce);
         });
 
@@ -81,7 +81,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "allegroSale", "debouncer"];
+controller.$inject = ["$scope", "sale", "debouncer"];
 
 const component = {
     template,
