@@ -7,11 +7,11 @@ import {
 import {
     AllegroListingCrawler,
     AllegroSellerCrawler
-} from "./../../shared/components/allegro-crawler/allegro-crawler.js";
+} from "./../../shared/components/crawler/crawler.js";
 
 import {
     AllegroSale
-} from "./../../shared/components/allegro-sale/allegro-sale.js";
+} from "./../../shared/components/sale/sale.js";
 
 import {
     Costimizer
@@ -62,12 +62,12 @@ function depend() {
         .service("config", () => config);
 
     angular
-        .module("allegroCrawler", ["config", "fetcher", "crawebler", "stock"])
+        .module("crawler", ["config", "fetcher", "crawebler", "stock"])
         .service("allegroListingCrawler", AllegroListingCrawler.service)
         .service("allegroSellerCrawler", AllegroSellerCrawler.service);
 
     angular
-        .module("allegroSale", ["allegroCrawler", "costimizer"])
+        .module("sale", ["crawler", "costimizer"])
         .service("allegroSale", AllegroSale.service);
 
     angular
@@ -75,7 +75,7 @@ function depend() {
         .service("costimizer", Costimizer.factory);
 
     angular
-        .module("costimizerUi", ["allegroSale", "debouncer", "loading", "keyboard", "price", "input"])
+        .module("costimizerUi", ["sale", "debouncer", "loading", "keyboard", "price", "input"])
         .component("costimizerUi", CostimizerUiComponent.component)
         .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
         .component("costimizerUiResults", CostimizerUiResultsComponent.component);

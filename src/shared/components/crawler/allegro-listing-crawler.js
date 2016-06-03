@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import AbstractListingCrawler from "./../abstract-crawler/abstract-listing-crawler.js";
+import AbstractListingCrawler from "./abstract-listing-crawler.js";
 
 class AllegroListingCrawler extends AbstractListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
