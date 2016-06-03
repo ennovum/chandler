@@ -1,13 +1,16 @@
 @import './shadow.scss';
 
+$topbar-background-color: rgba(68, 68, 68, 1);
+$topbar-text-color: rgba(255, 255, 255, 1);
+
 .top {
     @include box-shadow();
 }
 
 .topbar {
     padding: 10px 20px;
-    background: rgba(68, 68, 68, 1);
-    color: rgba(255, 255, 255, 1);
+    background: $topbar-background-color;
+    color: $topbar-text-color;
     overflow: auto;
 }
 
@@ -19,7 +22,7 @@
     font-weight: normal;
     line-height: 32px;
     cursor: default;
-    color: rgba(255, 255, 255, 1);
+    color: $topbar-text-color;
 }
 
 .logo h3 {

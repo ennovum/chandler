@@ -63,7 +63,7 @@ const template = `
     <div class="top">
         <div class="topbar">
             <div class="logo">
-                <h3>Costimizer <span class="beta">beta</span></h3>
+                <h3>Chandler <span class="beta">beta</span></h3>
             </div>
         </div>
         <div class="drawer search-drawer">

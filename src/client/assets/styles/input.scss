@@ -6,7 +6,7 @@ $active-input-border-color: rgba(120, 160, 160, 1);
 input[type="text"],
 textarea {
     @include transition(width max-width height max-height box-shadow, .15s, ease, 0);
-    padding: 5px;
+    padding: 5px 10px;
     background-color: rgba(255, 255, 255, 1);
     text-decoration: none;
     border: 1px solid $input-border-color;
