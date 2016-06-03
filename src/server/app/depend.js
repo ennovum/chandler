@@ -3,8 +3,8 @@ import {
 } from "./../config/config.js";
 
 import {
-    AllegroProxyHandler
-} from "./../components/allegro-proxy-handler/allegro-proxy-handler.js";
+    ProxyHandler
+} from "./../components/proxy-handler/proxy-handler.js";
 
 import {
     Fetcher
@@ -12,7 +12,7 @@ import {
 
 function depend(injector) {
     injector.set("config", config);
-    injector.register("allegroProxyHandler", AllegroProxyHandler.factory);
+    injector.register("proxyHandler", ProxyHandler.factory);
     injector.register("fetcher", Fetcher.factory);
 }
 
