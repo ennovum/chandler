@@ -18,15 +18,79 @@ class CraweblerElement {
         return new CraweblerElement(this._el.querySelector(selector));
     }
 
+    child(index) {
+        if (!this._el) {
+            return undefined;
+        }
+
+        if (index < 0) {
+            index += this._el.childNodes.length;
+        }
+        
+        return new CraweblerElement(this._el.childNodes[index]);
+    }
+
+    previous() {
+        if (!this._el) {
+            return new CraweblerElement(undefined);
+        }
+
+        return new CraweblerElement(this._el.previousSibling);
+    }
+
+    previousElement() {
+        if (!this._el) {
+            return new CraweblerElement(undefined);
+        }
+
+        return new CraweblerElement(this._el.previousElementSibling);
+    }
+
+    next() {
+        if (!this._el) {
+            return new CraweblerElement(undefined);
+        }
+
+        return new CraweblerElement(this._el.nextSibling);
+    }
+
+    nextElement() {
+        if (!this._el) {
+            return new CraweblerElement(undefined);
+        }
+
+        return new CraweblerElement(this._el.nextElementSibling);
+    }
+
     collection(selector) {
+        if (!this._el) {
+            return new CraweblerCollection(undefined);
+        }
+
         return new CraweblerCollection(this._el.querySelectorAll(selector));
     }
 
     text() {
-        return _.trim(this._el.innerText);
+        if (!this._el) {
+            return undefined;
+        }
+
+        return _.trim(this._el.textContent);
+    }
+
+    number() {
+        if (!this._el) {
+            return undefined;
+        }
+
+        return Number(this.text());
     }
 
     attribute(name) {
+        if (!this._el) {
+            return undefined;
+        }
+
         return _.trim(this._el.getAttribute(name));
     }
 }
@@ -36,7 +100,19 @@ class CraweblerCollection {
         this._coll = coll;
     }
 
+    element(index) {
+        if (!this._coll) {
+            return new CraweblerElement(undefined);
+        }
+
+        return new CraweblerElement(this._coll[index]);
+    }
+
     count() {
+        if (!this._coll) {
+            return undefined;
+        }
+
         return this._coll.length;
     }
 
