@@ -78,7 +78,7 @@ class VendorSale {
     }
 
     _decorateResults(results) {
-        return Promise.reject(); // abstract
+        return Promise.resolve(results);
     }
 }
 

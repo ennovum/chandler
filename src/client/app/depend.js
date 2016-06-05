@@ -6,12 +6,14 @@ import {
 
 import {
     AllegroListingCrawler,
-    AllegroSellerCrawler
+    AllegroSellerCrawler,
+    CeneoListingCrawler
 } from "./../../shared/components/crawler/crawler.js";
 
 import {
     Sale,
-    AllegroSale
+    AllegroSale,
+    CeneoSale
 } from "./../../shared/components/sale/sale.js";
 
 import {
@@ -65,12 +67,14 @@ function depend() {
     angular
         .module("crawler", ["config", "fetcher", "crawebler", "stock"])
         .service("allegroListingCrawler", AllegroListingCrawler.service)
-        .service("allegroSellerCrawler", AllegroSellerCrawler.service);
+        .service("allegroSellerCrawler", AllegroSellerCrawler.service)
+        .service("ceneoListingCrawler", CeneoListingCrawler.service);
 
     angular
         .module("sale", ["crawler", "costimizer"])
         .service("sale", Sale.service)
-        .service("allegroSale", AllegroSale.service);
+        .service("allegroSale", AllegroSale.service)
+        .service("ceneoSale", CeneoSale.service);
 
     angular
         .module("costimizer", [])
