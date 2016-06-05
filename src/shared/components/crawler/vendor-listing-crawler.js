@@ -1,14 +1,5 @@
 import _ from "lodash";
 
-const CURRENCY_MAP = {
-    "": "",
-    "pln": "PLN",
-    "zł": "PLN",
-    "zł.": "PLN"
-};
-const PRICE_REGEX = /^\s*([\d\s,]+)\s+([^\d\s]+)/;
-const PRICE_WHITESPACE_REGEX = /\s+/;
-
 class VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         this._config = config;
@@ -56,25 +47,6 @@ class VendorListingCrawler {
 
     _parseListingSource(query, page, source) {
         return Promise.reject(); // abstract
-    }
-
-    _sanitizePrice(rawPrice) {
-        let [, rawValue, rawCurrency] = rawPrice.match(PRICE_REGEX);
-        let value = this._sanitizePriceValue(rawValue);
-        let currency = this._sanitizePriceCurrency(rawCurrency);
-
-        return {value, currency};
-    }
-
-    _sanitizePriceValue(rawValue) {
-        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, "").replace("&nbsp;", "").replace(",", ".");
-        let value = Number(textValue);
-        return value;
-    }
-
-    _sanitizePriceCurrency(rawCurrency) {
-        let currency = CURRENCY_MAP[rawCurrency.toLowerCase()];
-        return currency;
     }
 }
 

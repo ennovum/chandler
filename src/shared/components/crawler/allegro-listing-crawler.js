@@ -2,6 +2,13 @@ import _ from "lodash";
 
 import VendorListingCrawler from "./vendor-listing-crawler.js";
 
+const CURRENCY_MAP = {
+    "": "PLN",
+    "zł": "PLN"
+};
+const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
+const PRICE_WHITESPACE_REGEX = /\s+/;
+
 class AllegroListingCrawler extends VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
@@ -35,10 +42,9 @@ class AllegroListingCrawler extends VendorListingCrawler {
 
     _digListingMeta(query, page, listingCrDoc) {
         let pageSize = listingCrDoc.collection('#listing-offers .offers .offer').count();
-        let pageCount = listingCrDoc.element('#listing .pagination .last').text();
-        let totalCount = null; // not available
+        let pageCount = listingCrDoc.element('#listing .pagination .last').number();
 
-        let meta = {page, pageSize, pageCount, totalCount, query};
+        let meta = {page, pageSize, pageCount, query};
 
         return Promise.resolve(meta);
     }
@@ -64,6 +70,25 @@ class AllegroListingCrawler extends VendorListingCrawler {
         let seller = {id, url};
 
         return Promise.resolve(seller);
+    }
+
+    _sanitizePrice(rawPrice) {
+        let [, rawValue, rawCurrency] = rawPrice.match(PRICE_REGEX);
+        let value = this._sanitizePriceValue(rawValue);
+        let currency = this._sanitizePriceCurrency(rawCurrency);
+
+        return {value, currency};
+    }
+
+    _sanitizePriceValue(rawValue) {
+        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, "").replace("&nbsp;", "").replace(",", ".");
+        let value = Number(textValue);
+        return value;
+    }
+
+    _sanitizePriceCurrency(rawCurrency) {
+        let currency = CURRENCY_MAP[rawCurrency.toLowerCase()];
+        return currency;
     }
 }
 

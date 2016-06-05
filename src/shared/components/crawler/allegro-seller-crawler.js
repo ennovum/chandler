@@ -20,10 +20,11 @@ class AllegroSellerCrawler {
 
     _parseListingOfferSellerData(data) {
         let id = data.id;
-        let login = _.get(data, 'login', `? (${id})`);
-        let name = `Allegro / ${login}`;
+        let name = _.get(data, 'login', `? (${id})`);
         let rating = data.rating;
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
+
+        name = `allegro.pl / ${name}`;
 
         let seller = {id, name, rating, url};
 
