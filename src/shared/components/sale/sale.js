@@ -8,23 +8,29 @@ class Sale {
 	}
 
 	sipSale(queries, handleSip) {
-		let allegroResults = [];
-		let ceneoResults = [];
-		let results;
+		let allegroSale = {results: [], progress: 0};
+		let ceneoSale = {results: [], progress: 0};
+		let combinedSale = {results: [], progress: 0};
 
-		let allegroPromise = this._allegroSale.sipSale(queries, (results) => {
-			allegroResults = results;
-			results = [].concat(allegroResults, ceneoResults);
-			handleSip(results);
+		let allegroPromise = this._allegroSale.sipSale(queries, (sale) => {
+			allegroSale = sale;
+
+			combinedSale.results = [].concat(allegroSale.results, ceneoSale.results);
+			combinedSale.progress = (allegroSale.progress + ceneoSale.progress) / 2;
+
+			handleSip(combinedSale);
 		});
-		let ceneoPromise = this._ceneoSale.sipSale(queries, (results) => {
-			ceneoResults = results;
-			results = [].concat(allegroResults, ceneoResults);
-			handleSip(results);
+		let ceneoPromise = this._ceneoSale.sipSale(queries, (sale) => {
+			ceneoSale = sale;
+
+			combinedSale.results = [].concat(allegroSale.results, ceneoSale.results);
+			combinedSale.progress = (allegroSale.progress + ceneoSale.progress) / 2;
+
+			handleSip(combinedSale);
 		});
 
 		let promise = Promise.all([allegroPromise, ceneoPromise])
-			.then(() => results);
+			.then(() => combinedSale);
 
 		promise.abort = () => {
 			allegroPromise.abort();

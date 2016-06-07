@@ -27,8 +27,8 @@ class CostimizerUiComponent {
 
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
 
-        let sipSalePromise = this.sipSalePromise = this._sale.sipSale(queries, (results) => {
-            this._applyResults(results, resultsDebounce);
+        let sipSalePromise = this.sipSalePromise = this._sale.sipSale(queries, (sale) => {
+            this._applyResults(sale.results, resultsDebounce);
         });
 
         sipSalePromise

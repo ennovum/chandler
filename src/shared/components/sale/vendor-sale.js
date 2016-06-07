@@ -8,7 +8,9 @@ class VendorSale {
     sipSale(queries, handleSip) {
         let searchSets = _.map(queries, (query, index) => {
             let items = [];
-            return {query, index, items};
+            let progress = 0;
+
+            return {query, index, items, progress};
         });
         let lastResults = null;
 
@@ -24,8 +26,11 @@ class VendorSale {
 
                     lastResults = results;
 
-                    return this._decorateResults(results)
-                        .then(() => handleSip(results));
+                    let progress = _.sum(searchSets, (searchSet) => searchSet.progress) / searchSets.length;
+                    let sale = {results, progress};
+
+                    return this._decorateSale(sale)
+                        .then((sale) => handleSip(sale));
                 });
         });
     }
@@ -77,8 +82,8 @@ class VendorSale {
         return true;
     }
 
-    _decorateResults(results) {
-        return Promise.resolve(results);
+    _decorateSale(sale) {
+        return Promise.resolve(sale);
     }
 }
 

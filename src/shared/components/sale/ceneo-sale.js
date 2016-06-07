@@ -12,6 +12,7 @@ class CeneoSale extends VendorSale {
     _sipListing(searchSet, handleSip) {
         return this._ceneoListingCrawler.sipListing(searchSet.query, (result) => {
             searchSet.items = searchSet.items.concat(result.data.offers);
+            searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
 
             return handleSip(searchSet);
         });

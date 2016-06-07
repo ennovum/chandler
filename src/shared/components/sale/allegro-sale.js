@@ -13,19 +13,20 @@ class AllegroSale extends VendorSale {
     _sipListing(searchSet, handleSip) {
         return this._allegroListingCrawler.sipListing(searchSet.query, (result) => {
             searchSet.items = searchSet.items.concat(result.data.offers);
+            searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
 
             return handleSip(searchSet);
         });
     }
 
-    _decorateResults(results) {
-        let sellerPromises = _.map(results, (result) => {
+    _decorateSale(sale) {
+        let sellerPromises = _.map(sale.results, (result) => {
             return this._getSeller(result)
                 .then((seller) => result.seller = seller);
         });
 
         return Promise.all(sellerPromises)
-            .then(() => results);
+            .then(() => sale);
     }
 
     _getSeller(result) {
