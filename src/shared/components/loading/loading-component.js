@@ -3,6 +3,7 @@ class LoadingComponent {
         this._$scope = $scope;
 
         this.promise; // via bindings
+        this.progress; // via bindings
         this.isAbortable; // via bindings
         this.onAbort; // via bindings
 
@@ -40,7 +41,7 @@ class LoadingComponent {
 
 const template = `
     <div class="loading" ng-if="ctrl.isLoading">
-        <span class="loading-label">Loading...</span>
+        <span class="loading-label">Loading... {{ctrl.progress * 100 | number:0}}%</span>
         <a class="loading-abort" ng-click="ctrl.abort()" ng-if="ctrl.isAbortable && !ctrl.isAborted">Stop &#10060;</a>
     </div>
 `;
@@ -54,6 +55,7 @@ const component = {
     controllerAs: "ctrl",
     bindings: {
         promise: "=",
+        progress: "=",
         isAbortable: "=",
         onAbort: "&"
     }

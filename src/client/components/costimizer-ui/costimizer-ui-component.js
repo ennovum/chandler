@@ -15,6 +15,7 @@ class CostimizerUiComponent {
 
         this.queries = null;
         this.results = null;
+        this.progress = null;
 
         this.sipSalePromise = null;
     }
@@ -22,6 +23,7 @@ class CostimizerUiComponent {
     submitQueries(queries) {
         this.queries = queries;
         this.results = null;
+        this.progress = 0;
 
         this.abortQueries();
 
@@ -29,6 +31,8 @@ class CostimizerUiComponent {
 
         let sipSalePromise = this.sipSalePromise = this._sale.sipSale(queries, (sale) => {
             this._applyResults(sale.results, resultsDebounce);
+            this.progress = sale.progress;
+            this._$scope.$apply(); // async promise
         });
 
         sipSalePromise
@@ -74,7 +78,7 @@ const template = `
     </div>
     <div class="main">
         <div class="content-box">
-            <loading promise="ctrl.sipSalePromise" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
+            <loading promise="ctrl.sipSalePromise" progress="ctrl.progress" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
             <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
         </div>
     </div>
