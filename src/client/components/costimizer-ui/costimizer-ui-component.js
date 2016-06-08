@@ -3,9 +3,9 @@ import _ from 'lodash';
 const RESULTS_DEBOUNCE_SPAN = 5000;
 
 class CostimizerUiComponent {
-    constructor($scope, sale, debouncer) {
+    constructor($scope, saleMix, debouncer) {
         this._$scope = $scope;
-        this._sale = sale;
+        this._saleMix = saleMix;
         this._debouncer = debouncer;
 
         this.on = {
@@ -29,9 +29,9 @@ class CostimizerUiComponent {
 
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
 
-        let sipSalePromise = this.sipSalePromise = this._sale.sipSale(queries, (sale) => {
-            this._applyResults(sale.results, resultsDebounce);
-            this.progress = sale.progress;
+        let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(queries, (saleMix) => {
+            this._applyResults(saleMix.results, resultsDebounce);
+            this.progress = saleMix.progress;
             this._$scope.$apply(); // async promise
         });
 
@@ -85,7 +85,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ['$scope', 'sale', 'debouncer'];
+controller.$inject = ['$scope', 'saleMix', 'debouncer'];
 
 const component = {
     template,

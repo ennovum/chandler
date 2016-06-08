@@ -11,9 +11,9 @@ import {
 } from './../../shared/components/crawler/crawler.js';
 
 import {
-    Sale,
     AllegroSale,
-    CeneoSale
+    CeneoSale,
+    SaleMix
 } from './../../shared/components/sale/sale.js';
 
 import {
@@ -72,9 +72,9 @@ function depend() {
 
     angular
         .module('sale', ['crawler', 'costimizer'])
-        .service('sale', Sale.service)
         .service('allegroSale', AllegroSale.service)
-        .service('ceneoSale', CeneoSale.service);
+        .service('ceneoSale', CeneoSale.service)
+        .service('saleMix', SaleMix.service);
 
     angular
         .module('costimizer', [])
