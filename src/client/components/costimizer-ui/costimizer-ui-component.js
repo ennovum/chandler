@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 const RESULTS_DEBOUNCE_SPAN = 5000;
+const VENDOR_ID_ALLEGRO = 'allegro';
+const VENDOR_ID_CENEO = 'ceneo';
 
 class CostimizerUiComponent {
     constructor($scope, saleMix, debouncer) {
@@ -28,8 +30,9 @@ class CostimizerUiComponent {
         this.abortQueries();
 
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+        let vendorIds = [VENDOR_ID_ALLEGRO, VENDOR_ID_CENEO];
 
-        let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(queries, (saleMix) => {
+        let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(vendorIds, queries, (saleMix) => {
             this._applyResults(saleMix.results, resultsDebounce);
             this.progress = saleMix.progress;
             this._$scope.$apply(); // async promise
