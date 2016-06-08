@@ -4,7 +4,7 @@ class OnEscDirective {
     constructor($scope, $element, $attrs, $parse) {
         let onEscParsing = $parse($attrs.onEsc);
 
-        $element[0].addEventListener("keyup", (event) => { // no keypress for ESC key
+        $element[0].addEventListener('keyup', (event) => { // no keypress for ESC key
             if (event.defaultPrevented) {
                 return;
             }
@@ -20,10 +20,10 @@ class OnEscDirective {
 }
 
 const controller = (...args) => new OnEscDirective(...args);
-controller.$inject = ["$scope", "$element", "$attrs", "$parse"];
+controller.$inject = ['$scope', '$element', '$attrs', '$parse'];
 
 const directive = () => ({
-    restrict: "A",
+    restrict: 'A',
     controller
 });
 

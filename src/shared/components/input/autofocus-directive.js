@@ -5,10 +5,10 @@ class AutofocusDirective {
 }
 
 const controller = (...args) => new AutofocusDirective(...args);
-controller.$inject = ["$scope", "$element", "$attrs"];
+controller.$inject = ['$scope', '$element', '$attrs'];
 
 const directive = () => ({
-    restrict: "A",
+    restrict: 'A',
     controller
 });
 

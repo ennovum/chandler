@@ -1,123 +1,123 @@
-import angular from "angular";
+import angular from 'angular';
 
 import {
     config
-} from "./../config/config.js";
+} from './../config/config.js';
 
 import {
     AllegroListingCrawler,
     AllegroSellerCrawler,
     CeneoListingCrawler
-} from "./../../shared/components/crawler/crawler.js";
+} from './../../shared/components/crawler/crawler.js';
 
 import {
     Sale,
     AllegroSale,
     CeneoSale
-} from "./../../shared/components/sale/sale.js";
+} from './../../shared/components/sale/sale.js';
 
 import {
     Costimizer
-} from "./../../shared/components/costimizer/costimizer.js";
+} from './../../shared/components/costimizer/costimizer.js';
 
 import {
     CostimizerUiComponent,
     CostimizerUiQueriesComponent,
     CostimizerUiResultsComponent,
-} from "./../components/costimizer-ui/costimizer-ui.js";
+} from './../components/costimizer-ui/costimizer-ui.js';
 
 import {
     LoadingComponent
-} from "./../../shared/components/loading/loading.js";
+} from './../../shared/components/loading/loading.js';
 
 import {
     Fetcher
-} from "./../../shared/components/fetcher/fetcher.js";
+} from './../../shared/components/fetcher/fetcher.js';
 
 import {
     Stock
-} from "./../../shared/components/stock/stock.js";
+} from './../../shared/components/stock/stock.js';
 
 import {
     Crawebler
-} from "./../../shared/components/crawebler/crawebler.js";
+} from './../../shared/components/crawebler/crawebler.js';
 
 import {
     OnEnterDirective,
     OnEscDirective
-} from "./../../shared/components/keyboard/keyboard.js";
+} from './../../shared/components/keyboard/keyboard.js';
 
 import {
     PriceComponent
-} from "./../../shared/components/price/price.js";
+} from './../../shared/components/price/price.js';
 
 import {
     Debouncer
-} from "./../../shared/components/debouncer/debouncer.js";
+} from './../../shared/components/debouncer/debouncer.js';
 
 import {
     AutofocusDirective
-} from "./../../shared/components/input/input.js";
+} from './../../shared/components/input/input.js';
 
 function depend() {
     angular
-        .module("config", [])
-        .service("config", () => config);
+        .module('config', [])
+        .service('config', () => config);
 
     angular
-        .module("crawler", ["config", "fetcher", "crawebler", "stock"])
-        .service("allegroListingCrawler", AllegroListingCrawler.service)
-        .service("allegroSellerCrawler", AllegroSellerCrawler.service)
-        .service("ceneoListingCrawler", CeneoListingCrawler.service);
+        .module('crawler', ['config', 'fetcher', 'crawebler', 'stock'])
+        .service('allegroListingCrawler', AllegroListingCrawler.service)
+        .service('allegroSellerCrawler', AllegroSellerCrawler.service)
+        .service('ceneoListingCrawler', CeneoListingCrawler.service);
 
     angular
-        .module("sale", ["crawler", "costimizer"])
-        .service("sale", Sale.service)
-        .service("allegroSale", AllegroSale.service)
-        .service("ceneoSale", CeneoSale.service);
+        .module('sale', ['crawler', 'costimizer'])
+        .service('sale', Sale.service)
+        .service('allegroSale', AllegroSale.service)
+        .service('ceneoSale', CeneoSale.service);
 
     angular
-        .module("costimizer", [])
-        .service("costimizer", Costimizer.factory);
+        .module('costimizer', [])
+        .service('costimizer', Costimizer.factory);
 
     angular
-        .module("costimizerUi", ["sale", "debouncer", "loading", "keyboard", "price", "input"])
-        .component("costimizerUi", CostimizerUiComponent.component)
-        .component("costimizerUiQueries", CostimizerUiQueriesComponent.component)
-        .component("costimizerUiResults", CostimizerUiResultsComponent.component);
+        .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input'])
+        .component('costimizerUi', CostimizerUiComponent.component)
+        .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)
+        .component('costimizerUiResults', CostimizerUiResultsComponent.component);
 
     angular
-        .module("loading", [])
-        .component("loading", LoadingComponent.component);
+        .module('loading', [])
+        .component('loading', LoadingComponent.component);
 
     angular
-        .module("fetcher", [])
-        .service("fetcher", Fetcher.factory);
+        .module('fetcher', [])
+        .service('fetcher', Fetcher.factory);
 
     angular
-        .module("stock", [])
-        .service("stock", Stock.factory);
+        .module('stock', [])
+        .service('stock', Stock.factory);
 
     angular
-        .module("crawebler", [])
-        .service("crawebler", Crawebler.factory);
+        .module('crawebler', [])
+        .service('crawebler', Crawebler.factory);
 
     angular
-        .module("keyboard", [])
-        .directive("onEnter", OnEnterDirective.directive)
-        .directive("onEsc", OnEscDirective.directive);
+        .module('keyboard', [])
+        .directive('onEnter', OnEnterDirective.directive)
+        .directive('onEsc', OnEscDirective.directive);
 
     angular
-        .module("price", [])
-        .component("price", PriceComponent.component);
+        .module('price', [])
+        .component('price', PriceComponent.component);
 
     angular
-        .module("debouncer", [])
-        .service("debouncer", Debouncer.factory);
+        .module('debouncer', [])
+        .service('debouncer', Debouncer.factory);
 
     angular
-        .module("input", [])
-        .directive("autofocus", AutofocusDirective.directive);
+        .module('input', [])
+        .directive('autofocus', AutofocusDirective.directive);
 }
 
 export default depend;

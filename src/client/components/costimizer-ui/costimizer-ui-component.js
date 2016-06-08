@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const RESULTS_DEBOUNCE_SPAN = 5000;
 
@@ -85,12 +85,12 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ["$scope", "sale", "debouncer"];
+controller.$inject = ['$scope', 'sale', 'debouncer'];
 
 const component = {
     template,
     controller,
-    controllerAs: "ctrl",
+    controllerAs: 'ctrl',
     bindings: {}
 };
 

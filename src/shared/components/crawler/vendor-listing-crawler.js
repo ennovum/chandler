@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 class VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
@@ -11,7 +11,7 @@ class VendorListingCrawler {
     sipListing(query, done) {
         let checkAborted = () => promise.isAborted;
         let promise = this._sipListingTail(query, 0, done, checkAborted);
-        
+
         promise.isAborted = false;
         promise.abort = () => {
             promise.isAborted = true;

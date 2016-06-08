@@ -1,5 +1,5 @@
-import AllegroSale from "./allegro-sale.js";
-import CeneoSale from "./ceneo-sale.js";
+import AllegroSale from './allegro-sale.js';
+import CeneoSale from './ceneo-sale.js';
 
 class Sale {
 	constructor(allegroSale, ceneoSale) {
@@ -55,7 +55,7 @@ class Sale {
 }
 
 Sale.service = (...args) => new Sale(...args);
-Sale.service.$inject = ["allegroSale", "ceneoSale"];
+Sale.service.$inject = ['allegroSale', 'ceneoSale'];
 
 export default {Sale, AllegroSale, CeneoSale};
 export {Sale, AllegroSale, CeneoSale};

@@ -4,7 +4,7 @@ class OnEnterDirective {
     constructor($scope, $element, $attrs, $parse) {
         let onEnterParsing = $parse($attrs.onEnter);
 
-        $element[0].addEventListener("keypress", (event) => {
+        $element[0].addEventListener('keypress', (event) => {
             if (event.defaultPrevented) {
                 return;
             }
@@ -20,10 +20,10 @@ class OnEnterDirective {
 }
 
 const controller = (...args) => new OnEnterDirective(...args);
-controller.$inject = ["$scope", "$element", "$attrs", "$parse"];
+controller.$inject = ['$scope', '$element', '$attrs', '$parse'];
 
 const directive = () => ({
-    restrict: "A",
+    restrict: 'A',
     controller
 });
 

@@ -1,3 +1,3 @@
-import PriceComponent from "./price-component.js";
+import PriceComponent from './price-component.js';
 
 export {PriceComponent};

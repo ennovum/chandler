@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const CHECK_INTERVAL_TIME = 1000;
 

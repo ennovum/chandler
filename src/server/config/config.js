@@ -1,8 +1,8 @@
 let config = {
-    "server": {
-        "root": __dirname + "/../../..",
-        "port": "80",
-        "baseUrl": "/api"
+    'server': {
+        'root': __dirname + '/../../..',
+        'port': '80',
+        'baseUrl': '/api'
     }
 };
 

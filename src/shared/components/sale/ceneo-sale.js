@@ -1,6 +1,6 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-import VendorSale from "./vendor-sale.js";
+import VendorSale from './vendor-sale.js';
 
 class CeneoSale extends VendorSale {
     constructor(ceneoListingCrawler, costimizer) {
@@ -20,7 +20,7 @@ class CeneoSale extends VendorSale {
 }
 
 CeneoSale.service = (...args) => new CeneoSale(...args);
-CeneoSale.service.$inject = ["ceneoListingCrawler", "costimizer"];
+CeneoSale.service.$inject = ['ceneoListingCrawler', 'costimizer'];
 
 export default CeneoSale;
 export {CeneoSale};

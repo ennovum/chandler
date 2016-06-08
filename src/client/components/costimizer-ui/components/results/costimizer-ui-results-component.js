@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 class CostimizerUiResultsComponent {
     constructor($scope) {
@@ -94,15 +94,15 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiResultsComponent(...args);
-controller.$inject = ["$scope"];
+controller.$inject = ['$scope'];
 
 const component = {
     template,
     controller,
-    controllerAs: "ctrl",
+    controllerAs: 'ctrl',
     bindings: {
-        queries: "<",
-        results: "<"
+        queries: '<',
+        results: '<'
     }
 };
 

@@ -1,10 +1,10 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-import VendorListingCrawler from "./vendor-listing-crawler.js";
+import VendorListingCrawler from './vendor-listing-crawler.js';
 
 const CURRENCY_MAP = {
-    "": "PLN",
-    "zł": "PLN"
+    '': 'PLN',
+    'zł': 'PLN'
 };
 const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
 const PRICE_WHITESPACE_REGEX = /\s+/;
@@ -81,7 +81,7 @@ class AllegroListingCrawler extends VendorListingCrawler {
     }
 
     _sanitizePriceValue(rawValue) {
-        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, "").replace("&nbsp;", "").replace(",", ".");
+        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, '').replace('&nbsp;', '').replace(',', '.');
         let value = Number(textValue);
         return value;
     }

@@ -3,8 +3,8 @@ class PriceComponent {
         this.value; // via bindings
         this.currency; // via bindings
 
-        this.textValue = "";
-        this.textCurrency = "";
+        this.textValue = '';
+        this.textCurrency = '';
 
         $scope.$watch(() => this.value, () => this._evalValue())
         $scope.$watch(() => this.currency, () => this._evalCurrency())
@@ -25,15 +25,15 @@ const template = `
 `;
 
 const controller = (...args) => new PriceComponent(...args);
-controller.$inject = ["$scope"];
+controller.$inject = ['$scope'];
 
 const component = {
     template,
     controller,
-    controllerAs: "ctrl",
+    controllerAs: 'ctrl',
     bindings: {
-        value: "=",
-        currency: "="
+        value: '=',
+        currency: '='
     }
 };
 

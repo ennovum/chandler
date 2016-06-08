@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 class CostimizerUiQueriesComponent {
     constructor($scope, $element) {
@@ -10,7 +10,7 @@ class CostimizerUiQueriesComponent {
         this.queries = [];
         this.model = {
             queries: [],
-            newQuery: ""
+            newQuery: ''
         };
 
         $scope.$watch(() => this.sourceQueries, () => this._applyQueries());
@@ -28,7 +28,7 @@ class CostimizerUiQueriesComponent {
     addQuery() {
         this.queries.push(this.model.newQuery);
         this.model.queries.push(this.model.newQuery);
-        this.model.newQuery = "";
+        this.model.newQuery = '';
 
         this._submitQueries();
     }
@@ -56,11 +56,11 @@ class CostimizerUiQueriesComponent {
     }
 
     isValidQuery(index) {
-        return _.trim(this.model.queries[index]) !== "";
+        return _.trim(this.model.queries[index]) !== '';
     }
 
     isValidNewQuery() {
-        return _.trim(this.model.newQuery) !== "";
+        return _.trim(this.model.newQuery) !== '';
     }
 
     isPristineQuery(index) {
@@ -110,15 +110,15 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiQueriesComponent(...args);
-controller.$inject = ["$scope", "$element"];
+controller.$inject = ['$scope', '$element'];
 
 const component = {
     template,
     controller,
-    controllerAs: "ctrl",
+    controllerAs: 'ctrl',
     bindings: {
-        sourceQueries: "<queries",
-        onSubmit: "&"
+        sourceQueries: '<queries',
+        onSubmit: '&'
     }
 };
 

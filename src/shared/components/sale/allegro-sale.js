@@ -1,6 +1,6 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-import VendorSale from "./vendor-sale.js";
+import VendorSale from './vendor-sale.js';
 
 class AllegroSale extends VendorSale {
     constructor(allegroListingCrawler, allegroSellerCrawler, costimizer) {
@@ -35,7 +35,7 @@ class AllegroSale extends VendorSale {
 }
 
 AllegroSale.service = (...args) => new AllegroSale(...args);
-AllegroSale.service.$inject = ["allegroListingCrawler", "allegroSellerCrawler", "costimizer"];
+AllegroSale.service.$inject = ['allegroListingCrawler', 'allegroSellerCrawler', 'costimizer'];
 
 export default AllegroSale;
 export {AllegroSale};

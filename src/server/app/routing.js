@@ -1,8 +1,8 @@
 let routing = {
-    "routes": {
-        "/proxy/": {
-            "handler": "proxyHandler",
-            "method": "proxy"
+    'routes': {
+        '/proxy/': {
+            'handler': 'proxyHandler',
+            'method': 'proxy'
         }
     }
 };

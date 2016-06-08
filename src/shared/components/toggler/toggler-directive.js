@@ -24,10 +24,10 @@ class TogglerDirective {
 }
 
 const controller = (...args) => new TogglerDirective(...args);
-controller.$inject = ["$scope", "$element", "$attrs"];
+controller.$inject = ['$scope', '$element', '$attrs'];
 
 const directive = () => ({
-    restrict: "A",
+    restrict: 'A',
     controller
 });
 

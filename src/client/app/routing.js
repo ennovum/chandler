@@ -1,8 +1,8 @@
 let routing = {
-    "defaultPath": "/costimizer",
-    "routes": {
-        "/costimizer": {
-            "template": "<costimizer-ui />"
+    'defaultPath': '/costimizer',
+    'routes': {
+        '/costimizer': {
+            'template': '<costimizer-ui />'
         }
     }
 };

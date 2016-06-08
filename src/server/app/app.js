@@ -1,13 +1,13 @@
-import es6Promise from "es6Promise";
-import express from "express";
-import morgan from "morgan";
-import _ from "lodash";
+import es6Promise from 'es6Promise';
+import express from 'express';
+import morgan from 'morgan';
+import _ from 'lodash';
 
-import Injector from "./../../shared/components/injector/injector.js";
+import Injector from './../../shared/components/injector/injector.js';
 
-import depend from "./depend.js";
-import config from "./../config/config.js";
-import routing from "./routing.js";
+import depend from './depend.js';
+import config from './../config/config.js';
+import routing from './routing.js';
 
 es6Promise.polyfill();
 
@@ -24,13 +24,13 @@ class App {
         this._app = express();
 
         this._app.use(express.static(config.server.root));
-        this._app.use(morgan("combined"));
+        this._app.use(morgan('combined'));
     }
 
     _configure() {
         _.forEach(routing.routes, (route, path) => {
             let handler = injector.get(route.handler);
-            let method = route.method || "handle";
+            let method = route.method || 'handle';
 
             this._app.all(config.server.baseUrl + path, (req, res) => handler[method](req, res));
         });

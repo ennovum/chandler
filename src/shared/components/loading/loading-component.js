@@ -47,17 +47,17 @@ const template = `
 `;
 
 const controller = (...args) => new LoadingComponent(...args);
-controller.$inject = ["$scope"];
+controller.$inject = ['$scope'];
 
 const component = {
     template,
     controller,
-    controllerAs: "ctrl",
+    controllerAs: 'ctrl',
     bindings: {
-        promise: "=",
-        progress: "=",
-        isAbortable: "=",
-        onAbort: "&"
+        promise: '=',
+        progress: '=',
+        isAbortable: '=',
+        onAbort: '&'
     }
 };
 
