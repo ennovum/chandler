@@ -21,8 +21,8 @@ class AllegroListingCrawler extends VendorListingCrawler {
 
     _fetchListingSource(query, page) {
         return this._stock.have(
-            `allegro/listingSource/${query}/${page}`,
-            () => this._fetcher.fetchText(this._config.api.resources.allegro.listing(query, page)));
+            `allegro/listingSource/${query.phrase}/${page}`,
+            () => this._fetcher.fetchText(this._config.api.resources.allegro.listing(query.phrase, page)));
     }
 
     _parseListingSource(query, page, source) {

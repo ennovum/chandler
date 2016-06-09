@@ -50,7 +50,7 @@ const template = `
             <td class="grid-head grid-label">
             </td>
             <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
-                "{{query}}"
+                "{{query.phrase}}"
             </td>
         </tr>
         <tr class="grid-row" ng-repeat="result in ctrl.sortedResults">

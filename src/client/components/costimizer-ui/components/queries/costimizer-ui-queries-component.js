@@ -10,26 +10,34 @@ class CostimizerUiQueriesComponent {
         this.queries = [];
         this.model = {
             queries: [],
-            newQuery: ''
+            newQuery: null
         };
+
+        this._resetNewQuery();
 
         $scope.$watch(() => this.sourceQueries, () => this._applyQueries());
     }
 
+    _resetNewQuery() {
+        this.model.newQuery = {phrase: ''};
+    }
+
     _applyQueries() {
-        _.forEach(this.sourceQueries, (query) => {
-            if (this.model.queries.indexOf(query) === -1) {
-                this.queries.push(query);
-                this.model.queries.push(query);
+        _.forEach(this.sourceQueries, (sourceQuery) => {
+            if (!_.find(this.model.queries, (modelQuery) => modelQuery.phrase === sourceQuery.phrase)) {
+                this.queries.push(sourceQuery);
+                this.model.queries.push(sourceQuery);
             }
         });
     }
 
     addQuery() {
-        this.queries.push(this.model.newQuery);
-        this.model.queries.push(this.model.newQuery);
-        this.model.newQuery = '';
+        let modelNewQuery = this.model.newQuery;
 
+        this.queries.push(modelNewQuery);
+        this.model.queries.push(modelNewQuery);
+        
+        this._resetNewQuery();
         this._submitQueries();
     }
 
@@ -56,19 +64,21 @@ class CostimizerUiQueriesComponent {
     }
 
     isValidQuery(index) {
-        return _.trim(this.model.queries[index]) !== '';
+        let modelQuery = this.model.queries[index];
+        return _.trim(modelQuery.phrase) !== '';
     }
 
     isValidNewQuery() {
-        return _.trim(this.model.newQuery) !== '';
+        let modelNewQuery = this.model.newQuery;
+        return _.trim(modelNewQuery.phrase) !== '';
     }
 
     isPristineQuery(index) {
-        return this.model.queries[index] === this.queries[index];
+        return this.model.queries[index].phrase === this.queries[index].phrase;
     }
 
     _submitQueries() {
-        let queries = _.filter(this.queries, (query) => !!_.trim(query));
+        let queries = _.filter(this.queries, (query) => !!_.trim(query.phrase));
         this.onSubmit({queries});
     }
 }
@@ -77,7 +87,7 @@ const template = `
     <section class="search-queries">
         <section ng-repeat="query in ctrl.queries track by $index">
             <div class="buttonset search-query-form">
-                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.queries[$index]" placeholder="Set the query" on-enter="ctrl.submitQuery($index)" />
+                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.queries[$index].phrase" placeholder="Set the query" on-enter="ctrl.submitQuery($index)" />
                 <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="ctrl.isValidQuery($index) && !ctrl.isPristineQuery($index)">
                     <span>&#128270; Set search</span>
                 </button>
@@ -87,13 +97,13 @@ const template = `
         </section>
         <section>
             <div class="buttonset search-query" ng-if="!ctrl.queries.length">
-                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
+                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
                 <button class="icon-button" ng-click="ctrl.addQuery()">
                     <span>&#128270; Search</span>
                 </button>
             </div>
             <div class="buttonset search-query" ng-if="ctrl.queries.length">
-                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
+                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
                 <button class="icon-button" ng-click="ctrl.addQuery()">
                     <span>&#128270; Add search</span>
                 </button>

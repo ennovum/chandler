@@ -2,9 +2,9 @@ let config = {
     'api': {
         'resources': {
             'allegro': {
-                'listing': (query, page) => {
-                    let encodedQuery = encodeURIComponent(query);
-                    let url = `http://allegro.pl/listing/listing.php?order=t&string=${encodedQuery}&p=${page}`;
+                'listing': (phrase, page) => {
+                    let encodedPhrase = encodeURIComponent(phrase);
+                    let url = `http://allegro.pl/listing/listing.php?order=t&string=${encodedPhrase}&p=${page}`;
                     let encodedUrl = encodeURIComponent(url);
                     return '//' + window.location.host + `/api/proxy?url=${encodedUrl}`
                 },
@@ -15,9 +15,9 @@ let config = {
                 }
             },
             'ceneo': {
-                'listing': (query, page) => {
-                    let encodedQuery = encodeURIComponent(query);
-                    let url = `http://www.ceneo.pl/;szukaj-${encodedQuery};0020-30-0-0-{page+1}.htm`;
+                'listing': (phrase, page) => {
+                    let encodedPhrase = encodeURIComponent(phrase);
+                    let url = `http://www.ceneo.pl/;szukaj-${encodedPhrase};0020-30-0-0-{page+1}.htm`;
                     let encodedUrl = encodeURIComponent(url);
                     return '//' + window.location.host + `/api/proxy?url=${encodedUrl}`
                 },

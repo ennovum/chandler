@@ -20,8 +20,8 @@ class CeneoListingCrawler extends VendorListingCrawler {
 
     _fetchListingSource(query, page) {
         return this._stock.have(
-            `ceneo/listingSource/${query}/${page}`,
-            () => this._fetcher.fetchText(this._config.api.resources.ceneo.listing(query, page)));
+            `ceneo/listingSource/${query.phrase}/${page}`,
+            () => this._fetcher.fetchText(this._config.api.resources.ceneo.listing(query.phrase, page)));
     }
 
     _parseListingSource(query, page, source) {
