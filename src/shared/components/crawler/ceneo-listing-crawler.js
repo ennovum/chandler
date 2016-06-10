@@ -1,8 +1,6 @@
-import _ from 'lodash';
+import AggregatorListingCrawler from './aggregator-listing-crawler.js';
 
-import VendorListingCrawler from './vendor-listing-crawler.js';
-
-class CeneoListingCrawler extends VendorListingCrawler {
+class CeneoListingCrawler extends AggregatorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
 
@@ -18,25 +16,6 @@ class CeneoListingCrawler extends VendorListingCrawler {
             () => this._fetcher.fetchText(this._config.api.resources.ceneo.listing(query.phrase, page)));
     }
 
-    _parseListingSource(query, page, source) {
-        let listingCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(listingCrDoc);
-    }
-
-    _getListing(query, page, listingCrDoc) {
-        let listing = {meta: null, data: {offers: null}};
-
-        return this._digListingMeta(query, page, listingCrDoc)
-            .then((meta) => listing.meta = meta)
-            .then(() => this._findListingProducts(listingCrDoc))
-            .then((listingProductCrColl) => this._getListingProducts(listingProductCrColl))
-            .then((products) => {
-                listing.data.offers = _.reduce(products, (offers, product) => offers.concat(product.offers), []);
-            })
-            .then(() => listing);
-    }
-
     _digListingMeta(query, page, listingCrDoc) {
         let pageSize = listingCrDoc.collection('.category-list-body .cat-prod-row').count();
         let pageCount = listingCrDoc.element('.pagination > ul > li:not(.page-arrow)').number();
@@ -50,19 +29,6 @@ class CeneoListingCrawler extends VendorListingCrawler {
         let listingProductCrColl = listingCrDoc.collection('.category-list-body .cat-prod-row');
 
         return Promise.resolve(listingProductCrColl);
-    }
-
-    _getListingProducts(listingProductCrColl) {
-        return Promise.all(listingProductCrColl.map((listingProductCrEl) => {
-            let listingProduct;
-            let product;
-
-            return this._digListingProduct(listingProductCrEl)
-                .then((_listingProduct) => listingProduct = _listingProduct)
-                .then(() => this._fetchProductSource(listingProduct))
-                .then((source) => this._parseProductSource(source))
-                .then((productCrDoc) => this._getProduct(productCrDoc));
-        }));
     }
 
     _digListingProduct(listingProductCrEl) {
@@ -81,23 +47,6 @@ class CeneoListingCrawler extends VendorListingCrawler {
             () => this._fetcher.fetchText(this._config.api.resources.ceneo.product(id)));
     }
 
-    _parseProductSource(source) {
-        let productCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(productCrDoc);
-    }
-
-    _getProduct(productCrDoc) {
-        let product;
-
-        return this._digProduct(productCrDoc)
-            .then((_product) => product = _product)
-            .then(() => this._findProductOffers(productCrDoc))
-            .then((productOfferCrColl) => this._getProductOffers(productOfferCrColl))
-            .then((productOffers) => product.offers = productOffers)
-            .then(() => product);
-    }
-
     _digProduct(productCrDoc) {
         let id = productCrDoc.element('.offer-summary .go-to-shop').attribute('data-productid') ||
             productCrDoc.element('.product-meta .clipboard-add').attribute('data-pid');
@@ -111,18 +60,6 @@ class CeneoListingCrawler extends VendorListingCrawler {
         let productOfferCrColl = productCrDoc.collection('.product-offers .product-offer');
 
         return Promise.resolve(productOfferCrColl);
-    }
-
-    _getProductOffers(productOfferCrColl) {
-        return Promise.all(productOfferCrColl.map((productOfferCrEl) => {
-            let productOffer;
-
-            return this._digProductOffer(productOfferCrEl)
-                .then((_productOffer) => productOffer = _productOffer)
-                .then(() => this._digListingOfferSeller(productOfferCrEl))
-                .then((productOfferSeller) => productOffer.seller = productOfferSeller)
-                .then(() => productOffer);
-        }));
     }
 
     _digProductOffer(productOfferCrEl) {

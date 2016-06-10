@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const CURRENCY_MAP = {
     '': 'PLN',
     'zł': 'PLN'
@@ -50,14 +48,6 @@ class VendorListingCrawler {
         return this._fetchListingSource(query, page)
             .then((source) => this._parseListingSource(query, page, source))
             .then((listingCrDoc) => this._getListing(query, page, listingCrDoc));
-    }
-
-    _fetchListingSource(query, page) {
-        return Promise.reject(); // abstract
-    }
-
-    _parseListingSource(query, page, source) {
-        return Promise.reject(); // abstract
     }
 
     _sanitizePrice(rawPrice) {

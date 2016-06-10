@@ -1,8 +1,6 @@
-import _ from 'lodash';
+import BrokerListingCrawler from './broker-listing-crawler.js';
 
-import VendorListingCrawler from './vendor-listing-crawler.js';
-
-class AllegroListingCrawler extends VendorListingCrawler {
+class AllegroListingCrawler extends BrokerListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
 
@@ -18,23 +16,6 @@ class AllegroListingCrawler extends VendorListingCrawler {
             () => this._fetcher.fetchText(this._config.api.resources.allegro.listing(query.phrase, page)));
     }
 
-    _parseListingSource(query, page, source) {
-        let listingCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(listingCrDoc);
-    }
-
-    _getListing(query, page, listingCrDoc) {
-        let listing = {meta: null, data: {offers: null}};
-
-        return this._digListingMeta(query, page, listingCrDoc)
-            .then((listingMeta) => listing.meta = listingMeta)
-            .then(() => this._findListingOffers(listingCrDoc))
-            .then((listingOfferCrColl) => this._getListingOffers(listingOfferCrColl))
-            .then((listingOffers) => listing.data.offers = listingOffers)
-            .then(() => listing);
-    }
-
     _digListingMeta(query, page, listingCrDoc) {
         let pageSize = listingCrDoc.collection('#listing-offers .offers .offer').count();
         let pageCount = listingCrDoc.element('#listing .pagination .last').number();
@@ -48,18 +29,6 @@ class AllegroListingCrawler extends VendorListingCrawler {
         let listingOfferCrColl = listingCrDoc.collection('#listing-offers .offers .offer');
 
         return Promise.resolve(listingOfferCrColl);
-    }
-
-    _getListingOffers(listingOfferCrColl) {
-        return Promise.all(listingOfferCrColl.map((listingOfferCrEl) => {
-            let listingOffer;
-
-            return this._digListingOffer(listingOfferCrEl)
-                .then((_listingOffer) => listingOffer = _listingOffer)
-                .then(() => this._digListingOfferSeller(listingOfferCrEl))
-                .then((listingOfferSeller) => listingOffer.seller = listingOfferSeller)
-                .then(() => listingOffer);
-        }));
     }
 
     _digListingOffer(listingOfferCrEl) {
