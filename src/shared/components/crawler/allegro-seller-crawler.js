@@ -9,7 +9,7 @@ class AllegroSellerCrawler {
 
     getListingOfferSeller(id) {
         return this._fetchListingOfferSellerData(id)
-            .then((data) => this._parseListingOfferSellerData(data));
+            .then((listingOfferSellerData) => this._digListingOfferSeller(listingOfferSellerData));
     }
 
     _fetchListingOfferSellerData(id) {
@@ -18,10 +18,10 @@ class AllegroSellerCrawler {
             () => this._fetcher.fetchJSON(this._config.api.resources.allegro.listingUserData(id)));
     }
 
-    _parseListingOfferSellerData(data) {
-        let id = data.id;
-        let name = _.get(data, 'login', `? (${id})`);
-        let rating = data.rating;
+    _digListingOfferSeller(listingOfferSellerData) {
+        let id = listingOfferSellerData.id;
+        let name = _.get(listingOfferSellerData, 'login', `? (${id})`);
+        let rating = listingOfferSellerData.rating;
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
 
         name = `allegro.pl / ${name}`;

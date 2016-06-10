@@ -2,12 +2,6 @@ import _ from 'lodash';
 
 import VendorListingCrawler from './vendor-listing-crawler.js';
 
-const CURRENCY_MAP = {
-    '': 'PLN',
-    'zł': 'PLN'
-};
-const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
-
 class CeneoListingCrawler extends VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
@@ -27,18 +21,20 @@ class CeneoListingCrawler extends VendorListingCrawler {
     _parseListingSource(query, page, source) {
         let listingCrDoc = this._crawebler.crawl(source);
 
-        let parsing = {meta: null, data: {offers: null}};
+        return Promise.resolve(listingCrDoc);
+    }
+
+    _getListing(query, page, listingCrDoc) {
+        let listing = {meta: null, data: {offers: null}};
 
         return this._digListingMeta(query, page, listingCrDoc)
-            .then((meta) => parsing.meta = meta)
-            .then(() => {
-                let productCrColl = listingCrDoc.collection('.category-list-body .cat-prod-row');
-                return Promise.all(productCrColl.map((productCrEl) => this._digListingProduct(productCrEl)));
-            })
+            .then((meta) => listing.meta = meta)
+            .then(() => this._findListingProducts(listingCrDoc))
+            .then((listingProductCrColl) => this._getListingProducts(listingProductCrColl))
             .then((products) => {
-                parsing.data.offers = _.reduce(products, (offers, product) => offers.concat(product.offers), []);
+                listing.data.offers = _.reduce(products, (offers, product) => offers.concat(product.offers), []);
             })
-            .then(() => parsing);
+            .then(() => listing);
     }
 
     _digListingMeta(query, page, listingCrDoc) {
@@ -50,46 +46,95 @@ class CeneoListingCrawler extends VendorListingCrawler {
         return Promise.resolve(meta);
     }
 
-    _digListingProduct(productCrEl) {
-        let id = productCrEl.attribute('data-pid');
+    _findListingProducts(listingCrDoc) {
+        let listingProductCrColl = listingCrDoc.collection('.category-list-body .cat-prod-row');
 
-        return this._fetchProductSource(id)
-            .then((source) => this._parseProductSource(id, source));
+        return Promise.resolve(listingProductCrColl);
     }
 
-    _fetchProductSource(id) {
+    _getListingProducts(listingProductCrColl) {
+        return Promise.all(listingProductCrColl.map((listingProductCrEl) => {
+            let listingProduct;
+            let product;
+
+            return this._digListingProduct(listingProductCrEl)
+                .then((_listingProduct) => listingProduct = _listingProduct)
+                .then(() => this._fetchProductSource(listingProduct))
+                .then((source) => this._parseProductSource(source))
+                .then((productCrDoc) => this._getProduct(productCrDoc));
+        }));
+    }
+
+    _digListingProduct(listingProductCrEl) {
+        let id = listingProductCrEl.attribute('data-pid');
+
+        let listingProduct = {id};
+
+        return Promise.resolve(listingProduct);
+    }
+
+    _fetchProductSource(listingProduct) {
+        let id = listingProduct.id;
+
         return this._stock.have(
             `ceneo/productSource/${id}`,
             () => this._fetcher.fetchText(this._config.api.resources.ceneo.product(id)));
     }
 
-    _parseProductSource(id, source) {
+    _parseProductSource(source) {
         let productCrDoc = this._crawebler.crawl(source);
 
-        let product = {id, offers: null};
+        return Promise.resolve(productCrDoc);
+    }
 
-        return this._digProductOffers(id, productCrDoc)
-            .then((offers) => product.offers = offers)
+    _getProduct(productCrDoc) {
+        let product;
+
+        return this._digProduct(productCrDoc)
+            .then((_product) => product = _product)
+            .then(() => this._findProductOffers(productCrDoc))
+            .then((productOfferCrColl) => this._getProductOffers(productOfferCrColl))
+            .then((productOffers) => product.offers = productOffers)
             .then(() => product);
     }
 
-    _digProductOffers(id, productCrDoc) {
-        let productOfferCrColl = productCrDoc.collection('.product-offers .product-offer');
+    _digProduct(productCrDoc) {
+        let id = productCrDoc.element('.offer-summary .go-to-shop').attribute('data-productid') ||
+            productCrDoc.element('.product-meta .clipboard-add').attribute('data-pid');
 
-        return Promise.all(productOfferCrColl.map((productOfferCrEl) => this._digProductOffer(id, productOfferCrEl)));
+        let product = {id, offers: null};
+
+        return Promise.resolve(product);
     }
 
-    _digProductOffer(id, productOfferCrEl) {
+    _findProductOffers(productCrDoc) {
+        let productOfferCrColl = productCrDoc.collection('.product-offers .product-offer');
+
+        return Promise.resolve(productOfferCrColl);
+    }
+
+    _getProductOffers(productOfferCrColl) {
+        return Promise.all(productOfferCrColl.map((productOfferCrEl) => {
+            let productOffer;
+
+            return this._digProductOffer(productOfferCrEl)
+                .then((_productOffer) => productOffer = _productOffer)
+                .then(() => this._digListingOfferSeller(productOfferCrEl))
+                .then((productOfferSeller) => productOffer.seller = productOfferSeller)
+                .then(() => productOffer);
+        }));
+    }
+
+    _digProductOffer(productOfferCrEl) {
+        let id = productOfferCrEl.attribute('data-productid');
         let title = productOfferCrEl.element('.product-name').text();
         let price = this._sanitizePrice(productOfferCrEl.element('.product-price').text());
         let url = `http://www.ceneo.pl/${id}`;
         let photoUrls = []; // TODO
 
-        let offer = {id, title, price, seller: null, url, photoUrls};
+        let productOffer = {id, title, price, seller: null, url, photoUrls};
 
-        return this._digListingOfferSeller(productOfferCrEl)
-            .then((seller) => offer.seller = seller)
-            .then(() => offer);
+        return Promise.resolve(productOffer);
     }
 
     _digListingOfferSeller(productOfferCrEl) {
@@ -102,28 +147,9 @@ class CeneoListingCrawler extends VendorListingCrawler {
 
         name = `ceneo.pl / ${name}`;
 
-        let seller = {id, name, rating, url};
+        let productOfferSeller = {id, name, rating, url};
 
-        return Promise.resolve(seller);
-    }
-
-    _sanitizePrice(rawPrice) {
-        let [, rawValue, rawCurrency] = rawPrice.match(PRICE_REGEX);
-        let value = this._sanitizePriceValue(rawValue);
-        let currency = this._sanitizePriceCurrency(rawCurrency);
-
-        return {value, currency};
-    }
-
-    _sanitizePriceValue(rawValue) {
-        let textValue = rawValue.replace(',', '.');
-        let value = Number(textValue);
-        return value;
-    }
-
-    _sanitizePriceCurrency(rawCurrency) {
-        let currency = CURRENCY_MAP[rawCurrency.toLowerCase()];
-        return currency;
+        return Promise.resolve(productOfferSeller);
     }
 }
 

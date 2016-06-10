@@ -1,11 +1,21 @@
 import _ from 'lodash';
 
+const CURRENCY_MAP = {
+    '': 'PLN',
+    'zł': 'PLN'
+};
+const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
+const PRICE_WHITESPACE_REGEX = /(\s|&nbsp;)+/;
+
 class VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         this._config = config;
         this._fetcher = fetcher;
         this._crawebler = crawebler;
         this._stock = stock;
+
+        this._currencyMap = CURRENCY_MAP;
+        this._priceRegex = PRICE_REGEX;
     }
 
     sipListing(query, done) {
@@ -38,7 +48,8 @@ class VendorListingCrawler {
 
     _getListingPage(query, page) {
         return this._fetchListingSource(query, page)
-            .then((source) => this._parseListingSource(query, page, source));
+            .then((source) => this._parseListingSource(query, page, source))
+            .then((listingCrDoc) => this._getListing(query, page, listingCrDoc));
     }
 
     _fetchListingSource(query, page) {
@@ -47,6 +58,25 @@ class VendorListingCrawler {
 
     _parseListingSource(query, page, source) {
         return Promise.reject(); // abstract
+    }
+
+    _sanitizePrice(rawPrice) {
+        let [, rawValue, rawCurrency] = rawPrice.match(this._priceRegex);
+        let value = this._sanitizePriceValue(rawValue);
+        let currency = this._sanitizePriceCurrency(rawCurrency);
+
+        return {value, currency};
+    }
+
+    _sanitizePriceValue(rawValue) {
+        let textValue = rawValue.replace(this._priceWhitespaceRegex, '').replace(',', '.');
+        let value = Number(textValue);
+        return value;
+    }
+
+    _sanitizePriceCurrency(rawCurrency) {
+        let currency = this._currencyMap[rawCurrency.toLowerCase()];
+        return currency;
     }
 }
 

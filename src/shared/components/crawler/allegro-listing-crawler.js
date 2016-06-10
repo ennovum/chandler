@@ -2,13 +2,6 @@ import _ from 'lodash';
 
 import VendorListingCrawler from './vendor-listing-crawler.js';
 
-const CURRENCY_MAP = {
-    '': 'PLN',
-    'zł': 'PLN'
-};
-const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
-const PRICE_WHITESPACE_REGEX = /\s+/;
-
 class AllegroListingCrawler extends VendorListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
         super(config, fetcher, crawebler, stock);
@@ -28,67 +21,66 @@ class AllegroListingCrawler extends VendorListingCrawler {
     _parseListingSource(query, page, source) {
         let listingCrDoc = this._crawebler.crawl(source);
 
-        let parsing = {meta: null, data: {offers: null}};
+        return Promise.resolve(listingCrDoc);
+    }
+
+    _getListing(query, page, listingCrDoc) {
+        let listing = {meta: null, data: {offers: null}};
 
         return this._digListingMeta(query, page, listingCrDoc)
-            .then((meta) => parsing.meta = meta)
-            .then(() => {
-                let offerCrColl = listingCrDoc.collection('#listing-offers .offers .offer');
-                return Promise.all(offerCrColl.map((offerCrEl) => this._digListingOffer(offerCrEl)));
-            })
-            .then((offers) => parsing.data.offers = offers)
-            .then(() => parsing);
+            .then((listingMeta) => listing.meta = listingMeta)
+            .then(() => this._findListingOffers(listingCrDoc))
+            .then((listingOfferCrColl) => this._getListingOffers(listingOfferCrColl))
+            .then((listingOffers) => listing.data.offers = listingOffers)
+            .then(() => listing);
     }
 
     _digListingMeta(query, page, listingCrDoc) {
         let pageSize = listingCrDoc.collection('#listing-offers .offers .offer').count();
         let pageCount = listingCrDoc.element('#listing .pagination .last').number();
 
-        let meta = {page, pageSize, pageCount, query};
+        let listingMeta = {page, pageSize, pageCount, query};
 
-        return Promise.resolve(meta);
+        return Promise.resolve(listingMeta);
     }
 
-    _digListingOffer(offerCrEl) {
-        let id = offerCrEl.attribute('data-id');
-        let title = offerCrEl.element('.offer-title').text();
-        let price = this._sanitizePrice(offerCrEl.element('.offer-price .statement').text());
+    _findListingOffers(listingCrDoc) {
+        let listingOfferCrColl = listingCrDoc.collection('#listing-offers .offers .offer');
+
+        return Promise.resolve(listingOfferCrColl);
+    }
+
+    _getListingOffers(listingOfferCrColl) {
+        return Promise.all(listingOfferCrColl.map((listingOfferCrEl) => {
+            let listingOffer;
+
+            return this._digListingOffer(listingOfferCrEl)
+                .then((_listingOffer) => listingOffer = _listingOffer)
+                .then(() => this._digListingOfferSeller(listingOfferCrEl))
+                .then((listingOfferSeller) => listingOffer.seller = listingOfferSeller)
+                .then(() => listingOffer);
+        }));
+    }
+
+    _digListingOffer(listingOfferCrEl) {
+        let id = listingOfferCrEl.attribute('data-id');
+        let title = listingOfferCrEl.element('.offer-title').text();
+        let price = this._sanitizePrice(listingOfferCrEl.element('.offer-price .statement').text());
         let url = `http://allegro.pl/show_item.php?item=${id}`;
-        let photoUrls = JSON.parse(offerCrEl.element('.offer-photo').attribute('data-photo-urls'));
+        let photoUrls = JSON.parse(listingOfferCrEl.element('.offer-photo').attribute('data-photo-urls'));
 
-        let offer = {id, title, price, seller: null, url, photoUrls};
+        let listingOffer = {id, title, price, seller: null, url, photoUrls};
 
-        return this._digListingOfferSeller(offerCrEl)
-            .then((seller) => offer.seller = seller)
-            .then(() => offer);
+        return Promise.resolve(listingOffer);
     }
 
-    _digListingOfferSeller(offerCrEl) {
-        let id = offerCrEl.element('.offer-info').attribute('data-seller-id');
+    _digListingOfferSeller(listingOfferCrEl) {
+        let id = listingOfferCrEl.element('.offer-info').attribute('data-seller-id');
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
 
-        let seller = {id, url};
+        let listingOfferSeller = {id, url};
 
-        return Promise.resolve(seller);
-    }
-
-    _sanitizePrice(rawPrice) {
-        let [, rawValue, rawCurrency] = rawPrice.match(PRICE_REGEX);
-        let value = this._sanitizePriceValue(rawValue);
-        let currency = this._sanitizePriceCurrency(rawCurrency);
-
-        return {value, currency};
-    }
-
-    _sanitizePriceValue(rawValue) {
-        let textValue = rawValue.replace(PRICE_WHITESPACE_REGEX, '').replace('&nbsp;', '').replace(',', '.');
-        let value = Number(textValue);
-        return value;
-    }
-
-    _sanitizePriceCurrency(rawCurrency) {
-        let currency = CURRENCY_MAP[rawCurrency.toLowerCase()];
-        return currency;
+        return Promise.resolve(listingOfferSeller);
     }
 }
 
