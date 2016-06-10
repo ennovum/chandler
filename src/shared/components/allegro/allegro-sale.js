@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import VendorSale from './vendor-sale.js';
+import VendorSale from './../sale/vendor-sale.js';
 
 class AllegroSale extends VendorSale {
     constructor(allegroListingCrawler, allegroSellerCrawler, costimizer) {

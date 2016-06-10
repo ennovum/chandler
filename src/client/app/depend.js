@@ -7,12 +7,15 @@ import {
 import {
     AllegroListingCrawler,
     AllegroSellerCrawler,
-    CeneoListingCrawler
-} from './../../shared/components/crawler/crawler.js';
+    AllegroSale
+} from './../../shared/components/allegro/allegro.js';
 
 import {
-    AllegroSale,
-    CeneoSale,
+    CeneoListingCrawler,
+    CeneoSale
+} from './../../shared/components/ceneo/ceneo.js';
+
+import {
     SaleMix
 } from './../../shared/components/sale/sale.js';
 
@@ -65,15 +68,18 @@ function depend() {
         .service('config', () => config);
 
     angular
-        .module('crawler', ['config', 'fetcher', 'crawebler', 'stock'])
+        .module('allegro', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
         .service('allegroListingCrawler', AllegroListingCrawler.service)
         .service('allegroSellerCrawler', AllegroSellerCrawler.service)
-        .service('ceneoListingCrawler', CeneoListingCrawler.service);
+        .service('allegroSale', AllegroSale.service);
 
     angular
-        .module('sale', ['crawler', 'costimizer'])
-        .service('allegroSale', AllegroSale.service)
-        .service('ceneoSale', CeneoSale.service)
+        .module('ceneo', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
+        .service('ceneoListingCrawler', CeneoListingCrawler.service)
+        .service('ceneoSale', CeneoSale.service);
+
+    angular
+        .module('sale', ['allegro', 'ceneo'])
         .service('saleMix', SaleMix.service);
 
     angular

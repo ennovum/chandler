@@ -1,4 +1,4 @@
-import BrokerListingCrawler from './broker-listing-crawler.js';
+import BrokerListingCrawler from './../crawler/broker-listing-crawler.js';
 
 class AllegroListingCrawler extends BrokerListingCrawler {
     constructor(config, fetcher, crawebler, stock) {
