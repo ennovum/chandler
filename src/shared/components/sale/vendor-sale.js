@@ -49,6 +49,15 @@ class VendorSale {
     }
 
     _sipListing(searchSet, handleSip) {
+        return this._sipVendorListing(searchSet, (result) => {
+            searchSet.items = searchSet.items.concat(result.data.offers);
+            searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
+
+            return handleSip(searchSet);
+        });
+    }
+
+    _sipVendorListing(searchSet, handleSip) {
         return Promise.reject(); // abstract
     }
 
