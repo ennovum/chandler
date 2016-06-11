@@ -3,13 +3,10 @@ import _ from 'lodash';
 import VendorListingCrawler from './vendor-listing-crawler.js';
 
 class AggregatorListingCrawler extends VendorListingCrawler {
-    constructor(config, fetcher, crawebler, stock) {
-        super(config, fetcher, crawebler, stock);
+    constructor(crawebler) {
+        super();
 
-        this._config = config;
-        this._fetcher = fetcher;
         this._crawebler = crawebler;
-        this._stock = stock;
     }
 
     _parseListingSource(query, page, source) {
@@ -75,7 +72,7 @@ class AggregatorListingCrawler extends VendorListingCrawler {
 }
 
 AggregatorListingCrawler.service = (...args) => new AggregatorListingCrawler(...args);
-AggregatorListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
+AggregatorListingCrawler.service.$inject = ['crawebler'];
 
 export default AggregatorListingCrawler;
 export {AggregatorListingCrawler};

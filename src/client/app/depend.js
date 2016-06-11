@@ -7,11 +7,13 @@ import {
 import {
     AllegroListingCrawler,
     AllegroSellerCrawler,
+    AllegroLinker,
     AllegroSale
 } from './../../shared/components/allegro/allegro.js';
 
 import {
     CeneoListingCrawler,
+    CeneoLinker,
     CeneoSale
 } from './../../shared/components/ceneo/ceneo.js';
 
@@ -71,11 +73,13 @@ function depend() {
         .module('allegro', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
         .service('allegroListingCrawler', AllegroListingCrawler.service)
         .service('allegroSellerCrawler', AllegroSellerCrawler.service)
+        .service('allegroLinker', AllegroLinker.service)
         .service('allegroSale', AllegroSale.service);
 
     angular
         .module('ceneo', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
         .service('ceneoListingCrawler', CeneoListingCrawler.service)
+        .service('ceneoLinker', CeneoLinker.service)
         .service('ceneoSale', CeneoSale.service);
 
     angular

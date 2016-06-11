@@ -1,19 +1,21 @@
 import BrokerListingCrawler from './../crawler/broker-listing-crawler.js';
 
 class AllegroListingCrawler extends BrokerListingCrawler {
-    constructor(config, fetcher, crawebler, stock) {
-        super(config, fetcher, crawebler, stock);
+    constructor(allegroLinker, fetcher, crawebler, stock) {
+        super(crawebler);
 
-        this._config = config;
+        this._allegroLinker = allegroLinker;
         this._fetcher = fetcher;
         this._crawebler = crawebler;
         this._stock = stock;
     }
 
     _fetchListingSource(query, page) {
+        let url = this._allegroLinker.getListingURL(query.phrase, page);
+
         return this._stock.have(
             `allegro/listingSource/${query.phrase}/${page}`,
-            () => this._fetcher.fetchText(this._config.api.resources.allegro.listing(query.phrase, page)));
+            () => this._fetcher.fetchText(url));
     }
 
     _digListingMeta(query, page, listingCrDoc) {
@@ -54,7 +56,7 @@ class AllegroListingCrawler extends BrokerListingCrawler {
 }
 
 AllegroListingCrawler.service = (...args) => new AllegroListingCrawler(...args);
-AllegroListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
+AllegroListingCrawler.service.$inject = ['allegroLinker', 'fetcher', 'crawebler', 'stock'];
 
 export default AllegroListingCrawler;
 export {AllegroListingCrawler};

@@ -1,19 +1,21 @@
 import AggregatorListingCrawler from './../crawler/aggregator-listing-crawler.js';
 
 class CeneoListingCrawler extends AggregatorListingCrawler {
-    constructor(config, fetcher, crawebler, stock) {
-        super(config, fetcher, crawebler, stock);
+    constructor(ceneoLinker, fetcher, crawebler, stock) {
+        super(crawebler);
 
-        this._config = config;
+        this._ceneoLinker = ceneoLinker;
         this._fetcher = fetcher;
         this._crawebler = crawebler;
         this._stock = stock;
     }
 
     _fetchListingSource(query, page) {
+        let url = this._ceneoLinker.getListingURL(query.phrase, page);
+
         return this._stock.have(
             `ceneo/listingSource/${query.phrase}/${page}`,
-            () => this._fetcher.fetchText(this._config.api.resources.ceneo.listing(query.phrase, page)));
+            () => this._fetcher.fetchText(url));
     }
 
     _digListingMeta(query, page, listingCrDoc) {
@@ -41,10 +43,11 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
 
     _fetchProductSource(listingProduct) {
         let id = listingProduct.id;
+        let url = this._ceneoLinker.getProductURL(id);
 
         return this._stock.have(
             `ceneo/productSource/${id}`,
-            () => this._fetcher.fetchText(this._config.api.resources.ceneo.product(id)));
+            () => this._fetcher.fetchText(url));
     }
 
     _digProduct(productCrDoc) {
@@ -91,7 +94,7 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
 }
 
 CeneoListingCrawler.service = (...args) => new CeneoListingCrawler(...args);
-CeneoListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
+CeneoListingCrawler.service.$inject = ['ceneoLinker', 'fetcher', 'crawebler', 'stock'];
 
 export default CeneoListingCrawler;
 export {CeneoListingCrawler};

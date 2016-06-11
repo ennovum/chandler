@@ -6,12 +6,7 @@ const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
 const PRICE_WHITESPACE_REGEX = /(\s|&nbsp;)+/;
 
 class VendorListingCrawler {
-    constructor(config, fetcher, crawebler, stock) {
-        this._config = config;
-        this._fetcher = fetcher;
-        this._crawebler = crawebler;
-        this._stock = stock;
-
+    constructor() {
         this._currencyMap = CURRENCY_MAP;
         this._priceRegex = PRICE_REGEX;
     }
@@ -71,7 +66,7 @@ class VendorListingCrawler {
 }
 
 VendorListingCrawler.service = (...args) => new VendorListingCrawler(...args);
-VendorListingCrawler.service.$inject = ['config', 'fetcher', 'crawebler', 'stock'];
+VendorListingCrawler.service.$inject = [];
 
 export default VendorListingCrawler;
 export {VendorListingCrawler};

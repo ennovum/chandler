@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 class AllegroSellerCrawler {
-    constructor(config, fetcher, stock) {
-        this._config = config;
+    constructor(allegroLinker, fetcher, stock) {
+        this._allegroLinker = allegroLinker;
         this._fetcher = fetcher;
         this._stock = stock;
     }
@@ -13,9 +13,11 @@ class AllegroSellerCrawler {
     }
 
     _fetchListingOfferSellerData(id) {
+        let url = this._allegroLinker.getListingUserDataURL(id);
+
         return this._stock.have(
             `allegro/listingOfferSellerData/${id}`,
-            () => this._fetcher.fetchJSON(this._config.api.resources.allegro.listingUserData(id)));
+            () => this._fetcher.fetchJSON(url));
     }
 
     _digListingOfferSeller(listingOfferSellerData) {
@@ -33,7 +35,7 @@ class AllegroSellerCrawler {
 }
 
 AllegroSellerCrawler.service = (...args) => new AllegroSellerCrawler(...args);
-AllegroSellerCrawler.service.$inject = ['config', 'fetcher', 'stock'];
+AllegroSellerCrawler.service.$inject = ['allegroLinker', 'fetcher', 'stock'];
 
 export default AllegroSellerCrawler;
 export {AllegroSellerCrawler};
