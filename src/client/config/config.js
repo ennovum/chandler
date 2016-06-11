@@ -1,10 +1,10 @@
 let config = {
     'api': {
         'allegro': {
-            'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
+            'proxy': (url) => 'http://cors.io/?u=' + encodeURIComponent(url)
         },
         'ceneo': {
-            'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
+            'proxy': (url) => 'http://cors.io/?u=' + encodeURIComponent(url)
         }
     }
 };
