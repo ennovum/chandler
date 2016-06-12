@@ -7,12 +7,6 @@ class BrokerListingCrawler extends VendorListingCrawler {
         this._crawebler = crawebler;
     }
 
-    _parseListingSource(query, page, source) {
-        let listingCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(listingCrDoc);
-    }
-
     _getListing(query, page, listingCrDoc) {
         let listing = {meta: null, data: {offers: null}};
 

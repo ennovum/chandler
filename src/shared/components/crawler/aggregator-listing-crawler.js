@@ -9,12 +9,6 @@ class AggregatorListingCrawler extends VendorListingCrawler {
         this._crawebler = crawebler;
     }
 
-    _parseListingSource(query, page, source) {
-        let listingCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(listingCrDoc);
-    }
-
     _getListing(query, page, listingCrDoc) {
         let listing = {meta: null, data: {offers: null}};
 
@@ -36,15 +30,9 @@ class AggregatorListingCrawler extends VendorListingCrawler {
             return this._digListingProduct(listingProductCrEl)
                 .then((_listingProduct) => listingProduct = _listingProduct)
                 .then(() => this._fetchProductSource(listingProduct))
-                .then((source) => this._parseProductSource(source))
+                .then((source) => this._parseSource(source))
                 .then((productCrDoc) => this._getProduct(productCrDoc));
         }));
-    }
-
-    _parseProductSource(source) {
-        let productCrDoc = this._crawebler.crawl(source);
-
-        return Promise.resolve(productCrDoc);
     }
 
     _getProduct(productCrDoc) {

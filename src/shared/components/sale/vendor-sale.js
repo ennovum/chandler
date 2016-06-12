@@ -56,6 +56,36 @@ class VendorSale {
         return promise;
     }
 
+    _sipListing(searchSet, handleSip) {
+        let query = searchSet.query;
+
+        let checkAborted = () => promise.isAborted;
+        let promise = this._sipListingTail(query, 0, handleSip, checkAborted);
+
+        promise.isAborted = false;
+        promise.abort = () => {
+            promise.isAborted = true;
+        };
+
+        return promise;
+    }
+
+    _sipListingTail(query, page, handleSip, checkAborted) {
+        return this._fetchListingPage(query, page)
+            .then((result) => {
+                let isAborted = checkAborted();
+                let hasNextPage = (result.meta.page + 1) < result.meta.pageCount;
+
+                if (!isAborted && hasNextPage) {
+                    return Promise.resolve(handleSip(result, false))
+                        .then(() => this._sipListingTail(query, page + 1, handleSip, checkAborted));
+                }
+                else {
+                    return Promise.resolve(handleSip(result, true));
+                }
+            });
+    }
+
     _costimizeListings(searchSets) {
         return this._costimizer.costimizeSearch(searchSets);
     }
