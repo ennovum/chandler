@@ -9,7 +9,7 @@ class CeneoSale extends VendorSale {
         this._ceneoListingCrawler = ceneoListingCrawler;
     }
 
-    _sipVendorListing(searchSet, handleSip) {
+    _sipListing(searchSet, handleSip) {
         return this._ceneoListingCrawler.sipListing(searchSet.query, handleSip);
     }
 }

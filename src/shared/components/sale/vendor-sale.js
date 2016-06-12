@@ -36,7 +36,15 @@ class VendorSale {
     }
 
     _sipListings(searchSets, handleSip) {
-        let promises = _.map(searchSets, (searchSet) => this._sipListing(searchSet, handleSip));
+        let promises = _.map(searchSets, (searchSet) => {
+            return this._sipListing(searchSet, (result) => {
+                searchSet.items = searchSet.items.concat(result.data.offers);
+                searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
+
+                return handleSip(searchSet);
+            });
+        });
+
         let promise = Promise.all(promises);
 
         promise.isAborted = false;
@@ -46,19 +54,6 @@ class VendorSale {
         };
 
         return promise;
-    }
-
-    _sipListing(searchSet, handleSip) {
-        return this._sipVendorListing(searchSet, (result) => {
-            searchSet.items = searchSet.items.concat(result.data.offers);
-            searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
-
-            return handleSip(searchSet);
-        });
-    }
-
-    _sipVendorListing(searchSet, handleSip) {
-        return Promise.reject(); // abstract
     }
 
     _costimizeListings(searchSets) {

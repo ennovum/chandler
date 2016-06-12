@@ -10,7 +10,7 @@ class AllegroSale extends VendorSale {
         this._allegroSellerCrawler = allegroSellerCrawler;
     }
 
-    _sipVendorListing(searchSet, handleSip) {
+    _sipListing(searchSet, handleSip) {
         return this._allegroListingCrawler.sipListing(searchSet.query, handleSip);
     }
 
