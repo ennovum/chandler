@@ -9,6 +9,7 @@ class VendorListingCrawler {
     constructor() {
         this._currencyMap = CURRENCY_MAP;
         this._priceRegex = PRICE_REGEX;
+        this._priceWhitespaceRegex = PRICE_WHITESPACE_REGEX;
     }
 
     getListingPage(query, page) {
