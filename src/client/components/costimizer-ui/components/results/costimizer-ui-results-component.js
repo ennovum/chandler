@@ -48,9 +48,10 @@ const template = `
     <table class="grid results-items-grid" ng-if="ctrl.results">
         <tr class="grid-row">
             <td class="grid-head grid-label">
+                Sellers ({{ctrl.sortedResults.length}})
             </td>
             <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
-                "{{query.phrase}}"
+                Offers for "{{query.phrase}}"
             </td>
         </tr>
         <tr class="grid-row" ng-repeat="result in ctrl.sortedResults">
