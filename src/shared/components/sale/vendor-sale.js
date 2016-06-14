@@ -38,7 +38,7 @@ class VendorSale {
     _sipListings(searchSets, handleSip) {
         let promises = _.map(searchSets, (searchSet) => {
             return this._sipListing(searchSet, (result) => {
-                searchSet.items = searchSet.items.concat(result.data.offers);
+                searchSet.items = searchSet.items.concat(result.offers);
                 searchSet.progress = (result.meta.page + 1) / result.meta.pageCount;
 
                 return handleSip(searchSet);

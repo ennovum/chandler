@@ -8,13 +8,13 @@ class BrokerListingCrawler extends VendorListingCrawler {
     }
 
     _getListing(query, page, listingCrDoc) {
-        let listing = {meta: null, data: {offers: null}};
+        let listing = {meta: null, offers: null};
 
         return this._digListingMeta(query, page, listingCrDoc)
             .then((listingMeta) => listing.meta = listingMeta)
             .then(() => this._findListingOffers(listingCrDoc))
             .then((listingOfferCrColl) => this._getListingOffers(listingOfferCrColl))
-            .then((listingOffers) => listing.data.offers = listingOffers)
+            .then((listingOffers) => listing.offers = listingOffers)
             .then(() => listing);
     }
 

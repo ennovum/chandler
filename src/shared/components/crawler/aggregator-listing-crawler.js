@@ -10,14 +10,14 @@ class AggregatorListingCrawler extends VendorListingCrawler {
     }
 
     _getListing(query, page, listingCrDoc) {
-        let listing = {meta: null, data: {offers: null}};
+        let listing = {meta: null, offers: null};
 
         return this._digListingMeta(query, page, listingCrDoc)
             .then((meta) => listing.meta = meta)
             .then(() => this._findListingProducts(listingCrDoc))
             .then((listingProductCrColl) => this._getListingProducts(listingProductCrColl))
             .then((products) => {
-                listing.data.offers = _.reduce(products, (offers, product) => offers.concat(product.offers), []);
+                listing.offers = _.reduce(products, (offers, product) => offers.concat(product.offers), []);
             })
             .then(() => listing);
     }
