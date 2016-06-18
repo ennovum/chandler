@@ -34,8 +34,11 @@ gulp.task("client.scripts:lint", jobs.eslint(src + client + "/**/*.js"));
 gulp.task("client.styles:build", jobs.sass(src + client + "/*.scss", dev + client + "/"));
 gulp.task("client.styles:dev", jobs.watch(src + client + "/**/*.scss", {tasks: ["client.styles:build"]}));
 
-gulp.task("client:build", jobs.run(["client.documents:build", "client.scripts:build", "client.styles:build"]));
-gulp.task("client:dev", jobs.run(["client.documents:dev", "client.scripts:dev", "client.styles:dev"]));
+gulp.task("client.images:build", jobs.copy(src + client + "/assets/images/*", dev + client + "/assets/images"));
+gulp.task("client.images:dev", jobs.watch(src + client + "/assets/images/*", {tasks: ["client.images:build"]}));
+
+gulp.task("client:build", jobs.run(["client.documents:build", "client.scripts:build", "client.styles:build", "client.images:build"]));
+gulp.task("client:dev", jobs.run(["client.documents:dev", "client.scripts:dev", "client.styles:dev", "client.images:dev"]));
 gulp.task("client:lint", jobs.run("client.scripts:lint"));
 
 gulp.task("server.scripts:build", jobs.nodepack(src + server + "/*.js", dev + server + "/", {target: "node"}));
