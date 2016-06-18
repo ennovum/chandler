@@ -1,0 +1,33 @@
+@import './shadow.scss';
+
+$sidebar-background-color: rgba(218, 218, 218, 1);
+
+$logo-background-color: rgba(64, 64, 64, 1);
+$logo-text-color: rgba(255, 255, 255, 1);
+
+.sidebar {
+    @include box-shadow();
+    background: $sidebar-background-color;
+    z-index: 10;
+}
+
+.logo {
+    padding: 9px 10px;
+    background: $logo-background-color;
+    color: $logo-text-color;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 32px;
+}
+
+.logo h3 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.logo .beta {
+    font-size: 14px;
+    line-height: 20px;
+}

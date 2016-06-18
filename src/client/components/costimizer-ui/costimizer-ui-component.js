@@ -67,23 +67,15 @@ class CostimizerUiComponent {
 }
 
 const template = `
-    <div class="top">
-        <div class="topbar">
-            <div class="logo">
-                <h3>Chandler <span class="beta">beta</span></h3>
-            </div>
+    <div class="sidebar">
+        <div class="logo">
+            <h3>Chandler <span class="beta">beta</span></h3>
         </div>
-        <div class="drawer search-drawer">
-            <div class="drawer-body">
-                <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
-            </div>
-        </div>
+        <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
     </div>
     <div class="main">
-        <div class="content-box">
-            <loading promise="ctrl.sipSalePromise" progress="ctrl.progress" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
-            <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
-        </div>
+        <loading promise="ctrl.sipSalePromise" progress="ctrl.progress" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
+        <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
     </div>
 `;
 

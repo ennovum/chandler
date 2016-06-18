@@ -1,8 +1,9 @@
+@import './flex.scss';
+
 html,
 body {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1;
+    @include flex-parent(column, nowrap);
+    @include flex-child(1, 1);
     width: 100%;
     height: 100%;
 }
@@ -15,11 +16,4 @@ body {
     font-size: $std-font-size;
     line-height: $std-line-height;
     color: rgba(0, 0, 0, 1);
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1;
-    overflow: auto;
 }

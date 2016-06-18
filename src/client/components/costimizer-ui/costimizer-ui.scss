@@ -1,38 +1,59 @@
 @import './../../assets/styles/layout.scss';
+@import './../../assets/styles/sidebar.scss';
 @import './../../assets/styles/button.scss';
 @import './../../assets/styles/input.scss';
 @import './../../assets/styles/table.scss';
-@import './../../assets/styles/top.scss';
-@import './../../assets/styles/drawer.scss';
 @import './../../assets/styles/loading.scss';
 @import './../../assets/styles/flex.scss';
-@import './../../assets/styles/clearfix.scss';
 @import './../../assets/styles/cards.scss';
 
-costimizer {
-    @include flex-parent(column, nowrap);
+$search-query-border-color: rgba(184, 184, 184, 1);
+
+costimizer-ui {
+    @include flex-parent(row, nowrap);
     @include flex-child(1, 1)
 }
 
-.search-queries {
-    @include clearfix-clear-after();
-    margin: 0 0 0 -10px;
+.sidebar {
+    @include flex-child(0, 0);
+    width: 250px;
+    overflow: auto;
+}
+
+costimizer-ui-queries {
+    display: block;
 }
 
 .search-query,
 .search-query-form,
 .search-add {
-    float: left;
-    margin: 10px 0 0 10px;
+    padding: 10px;
+    border-top: 1px solid $search-query-border-color;
+
+    &:first-child {
+        border-top-width: 0;
+    }
 }
 
-.search-query-input {
-    width: 150px;
+.search-add {
+    text-align: center;
 }
 
-.search-query-input:focus,
-.search-query-add-input {
-    width: 300px;
+.search-query-section {
+    margin: 10px 0 0 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.search-query-buttonset {
+    width: 100%;
+}
+
+.main {
+    @include flex-child(1, 1);
+    overflow: auto;
 }
 
 .results-items-grid {
