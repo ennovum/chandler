@@ -93,54 +93,52 @@ class CostimizerUiQueriesComponent {
 }
 
 const template = `
-    <section class="search-queries">
-        <div class="search-query" ng-repeat="query in ctrl.queries track by $index">
-            <section class="buttonset search-query-buttonset search-query-section">
-                <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.queries[$index].phrase" placeholder="Set the query" on-enter="ctrl.submitQuery($index)" />
-                <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
-                    <span>&#128270;</span>
-                </button>
-                <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)" ng-if="ctrl.isPristineQuery($index)">
-                    <span>&#10060;</span>
-                </button>
-            </section>
-            <!--<section class="search-query-section">
-                <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
-                    <span>&#128270; Set search</span>
-                </button>
-                <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)" ng-if="ctrl.isPristineQuery($index)">
-                    <span>&#10060; Remove search</span>
-                </button>
-            </section>-->
-        </div>
-        <div class="search-query-form" ng-if="!ctrl.queries.length">
-            <section class="buttonset search-query-buttonset search-query-section">
-                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
-                <button class="icon-button" ng-click="ctrl.addQuery()">
-                    <span>&#128270;</span>
-                </button>
-            </section>
-            <!--<section class="search-query-section">
-                <button class="icon-button" ng-click="ctrl.addQuery()">
-                    <span>&#128270; Search</span>
-                </button>
-            </section>-->
-        </div>
-        <div class="search-query-form" ng-if="ctrl.queries.length">
-            <section class="buttonset search-query-buttonset search-query-section">
-                <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
-                <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
-                    <span>&#128270;</span>
-                </button>
-            </section>
-        </div>
-        <div class="search-add">
-            <section class="search-query-section">
-                <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
-                    <span>&#10133; Add another search</span>
-                </button>
-            </section>
-        </div>
+    <section class="search-query" ng-repeat="query in ctrl.queries track by $index">
+        <section class="buttonset search-query-buttonset search-query-section">
+            <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.queries[$index].phrase" placeholder="Set the query" on-enter="ctrl.submitQuery($index)" />
+            <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
+                <span>&#128270;</span>
+            </button>
+            <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)" ng-if="ctrl.isPristineQuery($index)">
+                <span>&#10060;</span>
+            </button>
+        </section>
+        <!--<section class="search-query-section">
+            <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
+                <span>&#128270; Set search</span>
+            </button>
+            <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)" ng-if="ctrl.isPristineQuery($index)">
+                <span>&#10060; Remove search</span>
+            </button>
+        </section>-->
+    </section>
+    <section class="search-query-form" ng-if="!ctrl.queries.length">
+        <section class="buttonset search-query-buttonset search-query-section">
+            <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
+            <button class="icon-button" ng-click="ctrl.addQuery()">
+                <span>&#128270;</span>
+            </button>
+        </section>
+        <!--<section class="search-query-section">
+            <button class="icon-button" ng-click="ctrl.addQuery()">
+                <span>&#128270; Search</span>
+            </button>
+        </section>-->
+    </section>
+    <section class="search-query-form" ng-if="ctrl.queries.length">
+        <section class="buttonset search-query-buttonset search-query-section">
+            <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
+            <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
+                <span>&#128270;</span>
+            </button>
+        </section>
+    </section>
+    <section class="search-add">
+        <section class="search-query-section">
+            <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
+                <span>&#10133; Add another search</span>
+            </button>
+        </section>
     </section>
 `;
 

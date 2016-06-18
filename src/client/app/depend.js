@@ -27,6 +27,7 @@ import {
 
 import {
     CostimizerUiComponent,
+    CostimizerUiIntroComponent,
     CostimizerUiQueriesComponent,
     CostimizerUiResultsComponent,
 } from './../components/costimizer-ui/costimizer-ui.js';
@@ -93,6 +94,7 @@ function depend() {
     angular
         .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input'])
         .component('costimizerUi', CostimizerUiComponent.component)
+        .component('costimizerUiIntro', CostimizerUiIntroComponent.component)
         .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)
         .component('costimizerUiResults', CostimizerUiResultsComponent.component);
 

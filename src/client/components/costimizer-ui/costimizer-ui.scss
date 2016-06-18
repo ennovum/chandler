@@ -1,26 +1,85 @@
 @import './../../assets/styles/layout.scss';
-@import './../../assets/styles/sidebar.scss';
 @import './../../assets/styles/button.scss';
 @import './../../assets/styles/input.scss';
 @import './../../assets/styles/table.scss';
 @import './../../assets/styles/loading.scss';
 @import './../../assets/styles/flex.scss';
-@import './../../assets/styles/cards.scss';
+@import './../../assets/styles/shadow.scss';
 
-$search-query-border-color: rgba(184, 184, 184, 1);
+$sidebar-background-color: rgba(240, 240, 240, 1);
+
+$logo-background-color: rgba(64, 64, 64, 1);
+$logo-text-color: rgba(255, 255, 255, 1);
+
+$search-query-border-color: rgba(218, 218, 218, 1);
 
 costimizer-ui {
     @include flex-parent(row, nowrap);
     @include flex-child(1, 1)
 }
 
-.sidebar {
+.main {
+    @include flex-parent(column, nowrap);
+    @include flex-child(1, 1);
+    overflow: auto;
+}
+
+.logo {
     @include flex-child(0, 0);
+    padding: 9px 20px;
+    background: $logo-background-color;
+    color: $logo-text-color;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 32px;
+}
+
+.logo h3 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.logo .beta {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+costimizer-ui-intro {
+    @include flex-parent(row, nowrap);
+    @include flex-child(1, 1);
+    align-items: center;
+    justify-content: center;
+    background: url('assets/images/intro.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.search-intro-form {
+    @include flex-child(1, 1);
+    max-width: 500px;
+}
+
+.search-intro-section {
+    margin: 50px 0 0 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.sidebar {
+    @include flex-parent(column, nowrap);
+    @include flex-child(0, 0);
+    @include box-shadow();
+    background: $sidebar-background-color;
+    z-index: 10;
     width: 250px;
     overflow: auto;
 }
 
 costimizer-ui-queries {
+    @include flex-child(1, 1);
     display: block;
 }
 
@@ -49,11 +108,6 @@ costimizer-ui-queries {
 
 .search-query-buttonset {
     width: 100%;
-}
-
-.main {
-    @include flex-child(1, 1);
-    overflow: auto;
 }
 
 .results-items-grid {

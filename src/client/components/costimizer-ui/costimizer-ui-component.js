@@ -67,13 +67,19 @@ class CostimizerUiComponent {
 }
 
 const template = `
-    <div class="sidebar">
+    <div class="main" ng-if="!ctrl.queries">
+        <div class="logo">
+            <h3>Chandler <span class="beta">beta</span></h3>
+        </div>
+        <costimizer-ui-intro on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-intro>
+    </div>
+    <div class="sidebar" ng-if="ctrl.queries">
         <div class="logo">
             <h3>Chandler <span class="beta">beta</span></h3>
         </div>
         <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
     </div>
-    <div class="main">
+    <div class="main" ng-if="ctrl.queries">
         <loading promise="ctrl.sipSalePromise" progress="ctrl.progress" is-abortable="true" on-abort="ctrl.on.abortQueries()"></loading>
         <costimizer-ui-results queries="ctrl.queries" results="ctrl.results"></costimizer-ui-results>
     </div>
