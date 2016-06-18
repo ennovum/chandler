@@ -4,7 +4,7 @@
     flex-wrap: $wrap;
 }
 
-@mixin flex-child($grow, $schrink) {
+@mixin flex-child($grow, $shrink) {
     flex-grow: $grow;
-    flex-schrink: $schrink;
+    flex-shrink: $shrink;
 }
