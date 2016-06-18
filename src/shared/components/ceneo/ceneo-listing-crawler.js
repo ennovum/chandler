@@ -78,7 +78,7 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
     }
 
     _digListingOfferSeller(productOfferCrEl) {
-        let id = 'ceneo:' + productOfferCrEl.attribute('data-shop');
+        let id = productOfferCrEl.attribute('data-shop');
         let name = productOfferCrEl.element('.cell-store-logo .store-logo img').attribute('alt') ||
             productOfferCrEl.element('.cell-store-logo .displayed-shop-name').text();
         let rating = productOfferCrEl.element('.cell-store-review .screen-reader-text').text().replace('Ocena ', '').replace(/\s/g, '');

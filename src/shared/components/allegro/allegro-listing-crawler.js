@@ -46,7 +46,7 @@ class AllegroListingCrawler extends BrokerListingCrawler {
     }
 
     _digListingOfferSeller(listingOfferCrEl) {
-        let id = 'allegro:' + listingOfferCrEl.element('.offer-info').attribute('data-seller-id');
+        let id = listingOfferCrEl.element('.offer-info').attribute('data-seller-id');
         let url = `http://allegro.pl/show_user.php?uid=${id}`;
 
         let listingOfferSeller = {id, url};
