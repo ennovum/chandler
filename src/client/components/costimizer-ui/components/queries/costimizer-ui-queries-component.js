@@ -25,18 +25,20 @@ class CostimizerUiQueriesComponent {
     _applyQueries() {
         _.forEach(this.sourceQueries, (sourceQuery) => {
             if (!_.find(this.model.queries, (modelQuery) => modelQuery.phrase === sourceQuery.phrase)) {
-                this.queries.push(sourceQuery);
-                this.model.queries.push(sourceQuery);
+                let phrase = sourceQuery.phrase;
+
+                this.queries.push({phrase});
+                this.model.queries.push({phrase});
             }
         });
     }
 
     addQuery() {
-        let modelNewQuery = this.model.newQuery;
+        let phrase = this.model.newQuery.phrase;
 
-        this.queries.push(modelNewQuery);
-        this.model.queries.push(modelNewQuery);
-        
+        this.queries.push({phrase});
+        this.model.queries.push({phrase});
+
         this._resetNewQuery();
         this._submitQueries();
     }
