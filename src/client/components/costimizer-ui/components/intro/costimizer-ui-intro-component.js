@@ -28,7 +28,7 @@ class CostimizerUiIntroComponent {
     }
 
     _submitQueries() {
-        let queries = _.filter(this.queries, (query) => !!_.trim(query.phrase));
+        let queries = _.clone(this.queries);
         this.onSubmit({queries});
     }
 }
@@ -41,7 +41,12 @@ const template = `
                 <span>&#128270; Search</span>
             </button>
         </section>
-        <section class="search-intro-section">
+        <section class="search-intro-section search-intro-add">
+            <button class="icon-button" ng-click="ctrl.addQuery()">
+                <span>&#10133; Add another search</span>
+            </button>
+        </section>
+        <section class="search-intro-section search-intro-description">
             <p>Welcome! <strong>Chandler</strong> lets you search products on <strong>Allegro</strong> & <strong>Ceneo</strong> in one place.</p>
             <p>What is uniqe about <strong>Chandler</strong> is that you can specify <strong>multiple searches</strong> and you will receive results from <strong>sellers that offer everything</strong> you are looking for.</p>
         </section>

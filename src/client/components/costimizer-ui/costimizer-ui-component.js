@@ -32,7 +32,9 @@ class CostimizerUiComponent {
         let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
         let vendorIds = [VENDOR_ID_ALLEGRO, VENDOR_ID_CENEO];
 
-        let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(vendorIds, queries, (saleMix) => {
+        let validQueries = _.filter(queries, (query) => !!_.trim(query.phrase));
+
+        let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(vendorIds, validQueries, (saleMix) => {
             this._applyResults(saleMix.results, resultsDebounce);
             this.progress = saleMix.progress;
             this._$scope.$apply(); // async promise

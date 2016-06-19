@@ -80,7 +80,7 @@ class CostimizerUiQueriesComponent {
     }
 
     _submitQueries() {
-        let queries = _.filter(this.queries, (query) => !!_.trim(query.phrase));
+        let queries = _.clone(this.queries);
         this.onSubmit({queries});
     }
 }

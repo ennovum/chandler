@@ -61,11 +61,19 @@ costimizer-ui-intro {
 }
 
 .search-intro-section {
-    margin: 50px 0 0 0;
+    margin: 10px 0 0 0;
 
     &:first-child {
         margin-top: 0;
     }
+}
+
+.search-intro-add {
+    text-align: center;
+}
+
+.search-intro-description {
+    margin: 50px 0 0 0;
 }
 
 .sidebar {
