@@ -43,13 +43,6 @@ class CostimizerUiQueriesComponent {
         this._submitQueries();
     }
 
-    addEmptyQuery() {
-        let phrase = '';
-
-        this.queries.push({phrase});
-        this.model.queries.push({phrase});
-    }
-
     removeQuery(index) {
         this.queries.splice(index, 1);
         this.model.queries.splice(index, 1);
@@ -128,14 +121,14 @@ const template = `
     <section class="search-query-form" ng-if="ctrl.queries.length">
         <section class="buttonset search-query-buttonset search-query-section">
             <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
-            <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
+            <button class="icon-button" ng-click="ctrl.addQuery()">
                 <span>&#128270;</span>
             </button>
         </section>
     </section>
     <section class="search-add">
         <section class="search-query-section">
-            <button class="icon-button" ng-click="ctrl.addEmptyQuery()">
+            <button class="icon-button" ng-click="ctrl.addQuery()">
                 <span>&#10133; Add another search</span>
             </button>
         </section>
