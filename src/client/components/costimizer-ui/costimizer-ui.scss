@@ -15,7 +15,8 @@ $search-query-border-color: rgba(218, 218, 218, 1);
 
 costimizer-ui {
     @include flex-parent(row, nowrap);
-    @include flex-child(1, 1)
+    @include flex-child(1, 1);
+    overflow: hidden;
 }
 
 .main {
