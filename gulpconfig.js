@@ -28,7 +28,7 @@ var gulpconfig = {
         "resolve": {
             "alias": {
                 "es6Promise": "es6-promise",
-                "fetch": __dirname + "/src/shared/components/fetch/fetch.js",
+                "fetch": __dirname + "/src/shared/modules/fetch/fetch.js",
                 "angularRoute": "angular-route"
             }
         },

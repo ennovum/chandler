@@ -9,61 +9,61 @@ import {
     AllegroSellerCrawler,
     AllegroLinker,
     AllegroSale
-} from './../../shared/components/allegro/allegro.js';
+} from './../../shared/modules/allegro/allegro.js';
 
 import {
     CeneoListingCrawler,
     CeneoLinker,
     CeneoSale
-} from './../../shared/components/ceneo/ceneo.js';
+} from './../../shared/modules/ceneo/ceneo.js';
 
 import {
     SaleMix
-} from './../../shared/components/sale/sale.js';
+} from './../../shared/modules/sale/sale.js';
 
 import {
     Costimizer
-} from './../../shared/components/costimizer/costimizer.js';
+} from './../../shared/modules/costimizer/costimizer.js';
 
 import {
     CostimizerUiComponent,
     CostimizerUiIntroComponent,
     CostimizerUiQueriesComponent,
     CostimizerUiResultsComponent,
-} from './../components/costimizer-ui/costimizer-ui.js';
+} from './../modules/costimizer-ui/costimizer-ui.js';
 
 import {
     LoadingComponent
-} from './../../shared/components/loading/loading.js';
+} from './../../shared/modules/loading/loading.js';
 
 import {
     Fetcher
-} from './../../shared/components/fetcher/fetcher.js';
+} from './../../shared/modules/fetcher/fetcher.js';
 
 import {
     Stock
-} from './../../shared/components/stock/stock.js';
+} from './../../shared/modules/stock/stock.js';
 
 import {
     Crawebler
-} from './../../shared/components/crawebler/crawebler.js';
+} from './../../shared/modules/crawebler/crawebler.js';
 
 import {
     OnEnterDirective,
     OnEscDirective
-} from './../../shared/components/keyboard/keyboard.js';
+} from './../../shared/modules/keyboard/keyboard.js';
 
 import {
     PriceComponent
-} from './../../shared/components/price/price.js';
+} from './../../shared/modules/price/price.js';
 
 import {
     Debouncer
-} from './../../shared/components/debouncer/debouncer.js';
+} from './../../shared/modules/debouncer/debouncer.js';
 
 import {
     AutofocusDirective
-} from './../../shared/components/input/input.js';
+} from './../../shared/modules/input/input.js';
 
 function depend() {
     angular

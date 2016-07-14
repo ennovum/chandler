@@ -3,7 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 import _ from 'lodash';
 
-import Injector from './../../shared/components/injector/injector.js';
+import Injector from './../../shared/modules/injector/injector.js';
 
 import depend from './depend.js';
 import config from './../config/config.js';
