@@ -35,7 +35,7 @@ class SaleMix {
 			vendor.sale = vendorSale;
 
 			saleMix.results = _.reduce(vendors, (results, vendor) => results.concat(vendor.sale.results), []);
-			saleMix.progress = _.sum(vendors, (vendor) => vendor.sale.progress) / vendors.length;
+			saleMix.progress = _.sumBy(vendors, (vendor) => vendor.sale.progress) / vendors.length;
 
 			handleSip(saleMix);
 		};

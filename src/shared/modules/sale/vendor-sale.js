@@ -26,7 +26,7 @@ class VendorSale {
 
                     lastResults = results;
 
-                    let progress = _.sum(searchSets, (searchSet) => searchSet.progress) / searchSets.length;
+                    let progress = _.sumBy(searchSets, (searchSet) => searchSet.progress) / searchSets.length;
                     let sale = {results, progress};
 
                     return this._decorateSale(sale)

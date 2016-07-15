@@ -1,17 +1,15 @@
-var gulp = require("gulp");
-var eslint = require("gulp-eslint");
-var _ = require("lodash");
+const gulp = require('gulp');
+const eslint = require('gulp-eslint');
+const _ = require('lodash');
 
-var conf = _.get(require("./../../gulpconfig.js"), "eslint", {});
+const conf = _.get(require('./../../gulpconfig.js'), 'eslint', {});
 
 function eslintJob(src, opts) {
-    opts = _.extend(_.extend({}, conf), opts);
+    opts = _.extend({}, conf, opts);
 
-    return function () {
-        return gulp.src(src)
-            .pipe(eslint(opts))
-            .pipe(eslint.format());
-    };
+    return () => gulp.src(src)
+        .pipe(eslint(opts))
+        .pipe(eslint.format());
 };
 
 module.exports = eslintJob;

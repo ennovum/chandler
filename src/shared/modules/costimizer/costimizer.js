@@ -46,7 +46,7 @@ class Costimizer {
         let prices = _.map(itemsGroups, (items) => {
             let minimum = _.min(items, (item) => item.price.value).price.value;
             let maximum = _.max(items, (item) => item.price.value).price.value;
-            let average = this._sanitizePrice(_.sum(items, (item) => item.price.value) / items.length);
+            let average = this._sanitizePrice(_.sumBy(items, (item) => item.price.value) / items.length);
             let currency = items[0].price.currency;
 
             return {minimum, maximum, average, currency};

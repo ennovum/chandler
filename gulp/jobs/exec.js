@@ -1,17 +1,17 @@
-var gulp = require("gulp");
-var gutil = require("gulp-util");
-var _ = require("lodash");
-var chprocess = require("child_process");
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const _ = require('lodash');
+const chprocess = require('child_process');
 
-var conf = _.get(require("./../../gulpconfig.js"), "exec", {});
+const conf = _.get(require('./../../gulpconfig.js'), 'exec', {});
 
 function execJob(command, args, opts) {
-    opts = _.extend(_.extend({
-        logTag: gutil.colors.gray("[exec]"),
+    opts = _.extend({
+        logTag: gutil.colors.gray('[exec]'),
         onLog: execLog,
         onError: execErrorLog,
         onExit: execExit
-    }, conf), opts);
+    }, conf, opts);
 
     function execLog(data) {
         lines = data.toString().split(/\r?\n/);
@@ -29,15 +29,15 @@ function execJob(command, args, opts) {
     }
 
     function execExit(code) {
-        gutil.log(opts.logTag, "exit (" + code + ")");
+        gutil.log(opts.logTag, 'exit (' + code + ')');
     }
 
-    return function execTask() {
-        var proc = chprocess.spawn(command, args);
+    return () => {
+        const proc = chprocess.spawn(command, args);
 
-        proc.stdout.on("data", opts.onLog);
-        proc.stderr.on("data", opts.onError);
-        proc.on("exit", opts.onExit);
+        proc.stdout.on('data', opts.onLog);
+        proc.stderr.on('data', opts.onError);
+        proc.on('exit', opts.onExit);
     };
 };
 
