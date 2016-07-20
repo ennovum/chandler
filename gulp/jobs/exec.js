@@ -8,29 +8,10 @@ const conf = _.get(require('./../../gulpconfig.js'), 'exec', {});
 function execJob(command, args, opts) {
     opts = _.extend({
         logTag: gutil.colors.gray('[exec]'),
-        onLog: execLog,
-        onError: execErrorLog,
-        onExit: execExit
+        onLog: (data) => execLog(data, opts),
+        onError: (data) => execErrorLog(data, opts),
+        onExit: (code) => execExit(code, opts)
     }, conf, opts);
-
-    function execLog(data) {
-        lines = data.toString().split(/\r?\n/);
-        _.forEach(lines, function (line) {
-            gutil.log(opts.logTag, line);
-        });
-    }
-
-    function execErrorLog(data) {
-        gutil.beep();
-        lines = data.toString().split(/\r?\n/);
-        _.forEach(lines, function (line) {
-            gutil.log(opts.logTag, gutil.colors.red(line));
-        });
-    }
-
-    function execExit(code) {
-        gutil.log(opts.logTag, 'exit (' + code + ')');
-    }
 
     return () => {
         const proc = chprocess.spawn(command, args);
@@ -40,5 +21,24 @@ function execJob(command, args, opts) {
         proc.on('exit', opts.onExit);
     };
 };
+
+function execLog(data, opts) {
+    lines = data.toString().split(/\r?\n/);
+    _.forEach(lines, (line) => {
+        gutil.log(opts.logTag, line);
+    });
+}
+
+function execErrorLog(data, opts) {
+    gutil.beep();
+    lines = data.toString().split(/\r?\n/);
+    _.forEach(lines, (line) => {
+        gutil.log(opts.logTag, gutil.colors.red(line));
+    });
+}
+
+function execExit(code, opts) {
+    gutil.log(opts.logTag, 'exit (' + code + ')');
+}
 
 module.exports = execJob;

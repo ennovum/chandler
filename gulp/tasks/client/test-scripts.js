@@ -1,10 +1,13 @@
 const gulp = require('gulp');
+const named = require('vinyl-named');
 
 const config = require('./../../../gulpconfig.js');
 const jobs = {
-    webpack: require('./../../jobs/webpack.js'),
-    mocha: require('./../../jobs/mocha.js'),
     watch: require('./../../jobs/watch.js')
+};
+const plugins = {
+    webpack: require('./../../plugins/webpack.js'),
+    mocha: require('./../../plugins/mocha.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -13,11 +16,15 @@ const client = config.dir.client;
 
 gulp.task(
     'client.test-scripts:build',
-    jobs.webpack(src + client + '/**/*.test.js', test + client + '/', {target: 'web'}));
+    () => gulp.src(src + client + '/**/*.test.js')
+        .pipe(named())
+        .pipe(plugins.webpack())
+        .pipe(gulp.dest(test + client + '/')));
 
 gulp.task(
     'client.test-scripts:start',
-    jobs.mocha(test + client + '/**/*.js'));
+    () => gulp.src(test + client + '/**/*.js')
+        .pipe(plugins.mocha()));
 
 gulp.task(
     'client.test-scripts:dev',

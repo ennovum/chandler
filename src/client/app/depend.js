@@ -29,7 +29,7 @@ import {
     CostimizerUiComponent,
     CostimizerUiIntroComponent,
     CostimizerUiQueriesComponent,
-    CostimizerUiResultsComponent,
+    CostimizerUiResultsComponent
 } from './../modules/costimizer-ui/costimizer-ui.js';
 
 import {

@@ -1,10 +1,13 @@
 const gulp = require('gulp');
+const named = require('vinyl-named');
 
 const config = require('./../../../gulpconfig.js');
 const jobs = {
-    nodepack: require('./../../jobs/nodepack.js'),
-    mocha: require('./../../jobs/mocha.js'),
     watch: require('./../../jobs/watch.js')
+};
+const plugins = {
+    nodepack: require('./../../plugins/nodepack.js'),
+    mocha: require('./../../plugins/mocha.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -13,11 +16,15 @@ const server = config.dir.server;
 
 gulp.task(
     'server.test-scripts:build',
-    jobs.nodepack(src + server + '/**/*.test.js', test + server + '/', {target: 'node'}));
+    () => gulp.src(src + server + '/**/*.test.js')
+        .pipe(named())
+    	.pipe(plugins.nodepack())
+    	.pipe(gulp.dest(test + server + '/')));
 
 gulp.task(
     'server.test-scripts:start',
-    jobs.mocha(test + server + '/**/*.js'));
+    () => gulp.src(test + server + '/**/*.js')
+        .pipe(plugins.mocha()));
 
 gulp.task(
     'server.test-scripts:dev',

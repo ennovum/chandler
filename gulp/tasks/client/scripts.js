@@ -1,9 +1,10 @@
 const gulp = require('gulp');
+const named = require('vinyl-named');
 
 const config = require('./../../../gulpconfig.js');
-const jobs = {
-    webpack: require('./../../jobs/webpack.js'),
-    eslint: require('./../../jobs/eslint.js')
+const plugins = {
+    webpack: require('./../../plugins/webpack.js'),
+    eslint: require('./../../plugins/eslint.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -12,12 +13,19 @@ const client = config.dir.client;
 
 gulp.task(
     'client.scripts:build',
-    jobs.webpack(src + client + '/*.js', dev + client + '/', {target: 'web'}));
+    () => gulp.src(src + client + '/*.js')
+        .pipe(named())
+        .pipe(plugins.webpack())
+        .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
     'client.scripts:dev',
-    jobs.webpack(src + client + '/*.js', dev + client + '/', {target: 'web', watch: true}));
+    () => gulp.src(src + client + '/*.js')
+        .pipe(named())
+        .pipe(plugins.webpack({watch: true}))
+        .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
     'client.scripts:lint',
-    jobs.eslint(src + client + '/**/*.js'));
+    () => gulp.src(src + client + '/**/*.js')
+        .pipe(plugins.eslint()));

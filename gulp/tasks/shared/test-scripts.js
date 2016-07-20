@@ -1,10 +1,13 @@
 const gulp = require('gulp');
+const named = require('vinyl-named');
 
 const config = require('./../../../gulpconfig.js');
 const jobs = {
-    nodepack: require('./../../jobs/nodepack.js'),
-    mocha: require('./../../jobs/mocha.js'),
     watch: require('./../../jobs/watch.js')
+};
+const plugins = {
+    nodepack: require('./../../plugins/nodepack.js'),
+    mocha: require('./../../plugins/mocha.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -13,11 +16,15 @@ const shared = config.dir.shared;
 
 gulp.task(
     'shared.test-scripts:build',
-    jobs.nodepack(src + shared + '/**/*.test.js', test + shared + '/', {target: 'node'}));
+    () => gulp.src(src + shared + '/**/*.test.js')
+        .pipe(named())
+    	.pipe(plugins.nodepack())
+    	.pipe(gulp.dest(test + shared + '/')));
 
 gulp.task(
     'shared.test-scripts:start',
-    jobs.mocha(test + shared + '/**/*.js'));
+    () => gulp.src(test + shared + '/**/*.js')
+        .pipe(plugins.mocha()));
 
 gulp.task(
     'shared.test-scripts:dev',

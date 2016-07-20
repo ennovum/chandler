@@ -4,11 +4,10 @@ const mocha = require('gulp-mocha');
 
 const conf = _.get(require('./../../gulpconfig.js'), 'mocha', {});
 
-function mochaJob(src, opts) {
+function mochaPlugin(opts) {
     opts = _.extend({}, conf, opts);
 
-    return () => gulp.src(src)
-        .pipe(mocha(opts));
+    return mocha(opts);
 };
 
-module.exports = mochaJob;
+module.exports = mochaPlugin;

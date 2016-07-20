@@ -1,9 +1,10 @@
 const gulp = require('gulp');
+const named = require('vinyl-named');
 
 const config = require('./../../../gulpconfig.js');
-const jobs = {
-    nodepack: require('./../../jobs/nodepack.js'),
-    eslint: require('./../../jobs/eslint.js')
+const plugins = {
+    nodepack: require('./../../plugins/nodepack.js'),
+    eslint: require('./../../plugins/eslint.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -12,12 +13,19 @@ const server = config.dir.server;
 
 gulp.task(
     'server.scripts:build',
-    jobs.nodepack(src + server + '/*.js', dev + server + '/', {target: 'node'}));
+    () => gulp.src(src + server + '/*.js')
+        .pipe(named())
+    	.pipe(plugins.nodepack())
+    	.pipe(gulp.dest(dev + server + '/')));
 
 gulp.task(
     'server.scripts:dev',
-    jobs.nodepack(src + server + '/*.js', dev + server + '/', {target: 'node', watch: true}));
+    () => gulp.src(src + server + '/*.js')
+        .pipe(named())
+    	.pipe(plugins.nodepack({watch: true}))
+    	.pipe(gulp.dest(dev + server + '/')));
 
 gulp.task(
     'server.scripts:lint',
-    jobs.eslint(src + server + '/**/*.js'));
+    () => gulp.src(src + server + '/**/*.js')
+    	.pipe(plugins.eslint()));

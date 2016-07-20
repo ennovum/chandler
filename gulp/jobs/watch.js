@@ -12,7 +12,7 @@ function watchTask(src, opts) {
     const start = opts && opts.start || true;
 
     return () => {
-        const watcher = gulp.watch(src, opts, function (event) {
+        const watcher = gulp.watch(src, opts, (event) => {
             if (tasks && ~types.indexOf(event.type)) {
                 run.apply(null, _.clone(tasks, true));
             }

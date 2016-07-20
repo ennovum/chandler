@@ -11,7 +11,7 @@ function runJob() {
     }
 
     return (callback) => {
-        run.apply(null, _.clone(sequence, true).concat(function (info) {
+        run.apply(null, _.clone(sequence, true).concat((info) => {
             if (ready) {
                 ready(info);
             }

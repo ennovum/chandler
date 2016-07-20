@@ -8,22 +8,10 @@ const conf = _.get(require('./../../gulpconfig.js'), 'nodemon', {});
 function nodemonJob(file, opts) {
     opts = _.extend({
         logTag: gutil.colors.gray('[nodemon]'),
-        onStart: nodemonStart,
-        onQuit: nodemonQuit,
-        onRestart: nodemonRestart
+        onStart: () => nodemonStart(opts),
+        onQuit: () => nodemonQuit(opts),
+        onRestart: (files) => nodemonRestart(files, opts)
     }, conf, opts);
-
-    function nodemonStart() {
-        gutil.log(opts.logTag, 'start');
-    }
-
-    function nodemonQuit() {
-        gutil.log(opts.logTag, 'quit');
-    }
-
-    function nodemonRestart(files) {
-        gutil.log(opts.logTag, 'restart');
-    }
 
     return () => {
         nodemon({
@@ -36,5 +24,17 @@ function nodemonJob(file, opts) {
             .on('restart', opts.onRestart);
     };
 };
+
+function nodemonStart(opts) {
+    gutil.log(opts.logTag, 'start');
+}
+
+function nodemonQuit(opts) {
+    gutil.log(opts.logTag, 'quit');
+}
+
+function nodemonRestart(files, opts) {
+    gutil.log(opts.logTag, 'restart');
+}
 
 module.exports = nodemonJob;

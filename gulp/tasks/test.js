@@ -10,7 +10,8 @@ require('./server/test-scripts.js');
 require('./shared/test-scripts.js');
 
 gulp.task(
-    'test:build', jobs.run(
+    'test:build',
+    jobs.run(
         'client.test-scripts:build',
         'server.test-scripts:build',
         'shared.test-scripts:build'));

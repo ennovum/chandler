@@ -2,7 +2,6 @@ const gulp = require('gulp');
 
 const config = require('./../../../gulpconfig.js');
 const jobs = {
-    copy: require('./../../jobs/copy.js'),
     watch: require('./../../jobs/watch.js')
 };
 
@@ -12,7 +11,8 @@ const client = config.dir.client;
 
 gulp.task(
     'client.documents:build',
-    jobs.copy(src + client + '/*.html', dev + client + '/'));
+    () => gulp.src(src + client + '/*.html')
+    	.pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
     'client.documents:dev',

@@ -2,8 +2,11 @@ const gulp = require('gulp');
 
 const config = require('./../../../gulpconfig.js');
 const jobs = {
-    sass: require('./../../jobs/sass.js'),
     watch: require('./../../jobs/watch.js')
+};
+const plugins = {
+    sass: require('./../../plugins/sass.js'),
+    autoprefixer: require('./../../plugins/autoprefixer.js')
 };
 
 const src = config.path.root + config.dir.src;
@@ -12,7 +15,10 @@ const client = config.dir.client;
 
 gulp.task(
     'client.styles:build',
-    jobs.sass(src + client + '/*.scss', dev + client + '/'));
+    () => gulp.src(src + client + '/*.scss')
+    	.pipe(plugins.sass())
+    	.pipe(plugins.autoprefixer())
+    	.pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
     'client.styles:dev',
