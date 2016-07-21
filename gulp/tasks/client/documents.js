@@ -1,9 +1,7 @@
 const gulp = require('gulp');
+const run = require('run-sequence');
 
 const config = require('./../../../gulpconfig.js');
-const jobs = {
-    watch: require('./../../jobs/watch.js')
-};
 
 const src = config.path.root + config.dir.src;
 const dev = config.path.root + config.dir.dev;
@@ -16,4 +14,5 @@ gulp.task(
 
 gulp.task(
     'client.documents:dev',
-    jobs.watch(src + client + '/*.html', {tasks: ['client.documents:build']}));
+    () => gulp.watch(src + client + '/*.html')
+    	.on('change', () => run('client.documents:build')));

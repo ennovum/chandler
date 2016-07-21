@@ -11,12 +11,16 @@ function sassPlugin(opts) {
         logTag: gutil.colors.gray('[sass]')
     }, conf, opts);
 
-    return sass(opts).on('error', (err) => sassErrorLog(err, opts));
+    const stream = sass(opts);
+    stream.on('error', (err) => sassErrorLog(err, stream, opts));
+
+    return stream;
 };
 
-function sassErrorLog(err, opts) {
+function sassErrorLog(err, stream, opts) {
     gutil.beep();
     gutil.log(opts.logTag, gutil.colors.red(err.message + ' on line ' + err.line + ' in ' + err.file));
+    stream.emit('end');
 }
 
 module.exports = sassPlugin;

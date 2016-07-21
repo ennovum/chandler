@@ -1,9 +1,7 @@
 const gulp = require('gulp');
+const run = require('run-sequence');
 
 const config = require('./../../../gulpconfig.js');
-const jobs = {
-    watch: require('./../../jobs/watch.js')
-};
 const plugins = {
     sass: require('./../../plugins/sass.js'),
     autoprefixer: require('./../../plugins/autoprefixer.js')
@@ -22,4 +20,5 @@ gulp.task(
 
 gulp.task(
     'client.styles:dev',
-    jobs.watch(src + client + '/**/*.scss', {tasks: ['client.styles:build']}));
+    () => gulp.watch(src + client + '/**/*.scss')
+        .on('change', () => run('client.styles:build')));

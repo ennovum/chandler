@@ -17,7 +17,7 @@ function eslintPlugin(opts) {
         const report = cli.executeOnFiles([file.path]);
 
         if (report.errorCount) {
-            console.log(opts.logTag + '\n\n' + formatter(report.results) + '\n');
+            gutil.log(opts.logTag, '\n' + formatter(report.results) + '\n');
         }
         
         done(null, report);

@@ -71,9 +71,7 @@ const gulpconfig = {
         'interval': 1000,
         'debounceDelay': 1000
     },
-    'sass': {
-        'errLogToConsole': true
-    },
+    'sass': {},
     'autoprefixer': {
         'browsers': ['last 2 versions'],
         'cascade': false

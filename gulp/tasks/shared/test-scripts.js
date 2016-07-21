@@ -1,10 +1,8 @@
 const gulp = require('gulp');
 const named = require('vinyl-named');
+const run = require('run-sequence');
 
 const config = require('./../../../gulpconfig.js');
-const jobs = {
-    watch: require('./../../jobs/watch.js')
-};
 const plugins = {
     nodepack: require('./../../plugins/nodepack.js'),
     mocha: require('./../../plugins/mocha.js')
@@ -28,4 +26,5 @@ gulp.task(
 
 gulp.task(
     'shared.test-scripts:dev',
-    jobs.watch(src + shared + '/**/*.test.js', {tasks: ['shared.test-scripts:build', 'shared.test-scripts:start']}));
+    () => gulp.watch(src + shared + '/**/*.test.js')
+        .on('change', () => run('shared.test-scripts:build', 'shared.test-scripts:start')));
