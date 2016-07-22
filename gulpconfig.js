@@ -33,7 +33,8 @@ const gulpconfig = {
             }
         },
         'plugins': [
-        ]
+        ],
+        'devtool': 'inline-source-map'
     },
     'nodepack': {
         'module': {
@@ -55,17 +56,15 @@ const gulpconfig = {
             'fetch': 'commonjs node-fetch',
             'express': 'commonjs express',
             'lodash': 'commonjs lodash',
-            'morgan': 'commonjs morgan',
-            'osmosis': 'commonjs osmosis',
-            'soap': 'commonjs soap',
-            'url': 'commonjs url'
+            'morgan': 'commonjs morgan'
         },
         'node': {
             '__filename': true,
             '__dirname': true
         },
         'plugins': [
-        ]
+        ],
+        'devtool': 'inline-source-map'
     },
     'watch': {
         'interval': 1000,

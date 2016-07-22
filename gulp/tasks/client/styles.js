@@ -1,5 +1,7 @@
 const gulp = require('gulp');
 const run = require('run-sequence');
+const sourcemaps = require('gulp-sourcemaps');
+const path = require('path');
 
 const config = require('./../../../gulpconfig.js');
 const plugins = {
@@ -12,12 +14,15 @@ const src = config.path.root + config.dir.src;
 const dev = config.path.root + config.dir.dev;
 const dist = config.path.root + config.dir.dist;
 const client = config.dir.client;
+const dev2src = path.relative(dev, src).replace('\\', '/');
 
 gulp.task(
     'client.styles:build',
     () => gulp.src(src + client + '/*.scss')
+        .pipe(sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
+        .pipe(sourcemaps.write({sourceRoot: dev2src + client}))
         .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
