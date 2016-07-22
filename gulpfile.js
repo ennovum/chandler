@@ -25,9 +25,9 @@ gulp.task(
 gulp.task(
     'dev',
     jobs.run(
-        ['client:dev', 'server:dev'],
+        ['client:build', 'server:build'],
         'server:start',
-        'test:dev'));
+        ['client:dev', 'server:dev']));
 
 gulp.task(
     'lint',
@@ -36,3 +36,7 @@ gulp.task(
 gulp.task(
     'test',
     jobs.run('lint', 'test:build', 'test:start'));
+
+gulp.task(
+    'dist',
+    jobs.run(['client:dist', 'server:dist']));

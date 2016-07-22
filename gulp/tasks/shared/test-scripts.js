@@ -27,4 +27,5 @@ gulp.task(
 gulp.task(
     'shared.test-scripts:dev',
     () => gulp.watch(src + shared + '/**/*.test.js')
+        .on('ready', () => run('shared.test-scripts:build', 'shared.test-scripts:start'))
         .on('change', () => run('shared.test-scripts:build', 'shared.test-scripts:start')));

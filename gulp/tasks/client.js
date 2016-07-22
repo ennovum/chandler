@@ -30,3 +30,12 @@ gulp.task(
 gulp.task(
     'client:lint',
     jobs.run('client.scripts:lint'));
+
+gulp.task(
+    'client:dist',
+    jobs.run([
+        'client.documents:dist',
+        'client.scripts:dist',
+        'client.styles:dist',
+        'client.images:dist'
+    ]));

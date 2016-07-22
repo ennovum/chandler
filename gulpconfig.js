@@ -78,7 +78,9 @@ const gulpconfig = {
     },
     'mocha': {
         'bail': true
-    }
+    },
+    'uglifyJs': {},
+    'cleanCss': {}
 };
 
 module.exports = gulpconfig;

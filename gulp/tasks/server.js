@@ -26,3 +26,7 @@ gulp.task(
 gulp.task(
     'server:start',
     jobs.nodemon(dev + server + '/index.js'));
+
+gulp.task(
+    'server:dist',
+    jobs.run('server.scripts:dist'));

@@ -6,7 +6,7 @@ const webpack = require('webpack-stream');
 
 const conf = _.get(require('./../../gulpconfig.js'), 'webpack', {});
 
-function webpackPlugin(dest, opts) {
+function webpackPlugin(opts) {
     opts = _.extend({
         target: 'web',
         logTag: gutil.colors.gray('[webpack]')

@@ -12,7 +12,10 @@ function sassPlugin(opts) {
     }, conf, opts);
 
     const stream = sass(opts);
-    stream.on('error', (err) => sassErrorLog(err, stream, opts));
+    stream.on('error', (err) => {
+        sassErrorLog(err, stream, opts);
+        stream.emit('end');
+    });
 
     return stream;
 };
@@ -20,7 +23,6 @@ function sassPlugin(opts) {
 function sassErrorLog(err, stream, opts) {
     gutil.beep();
     gutil.log(opts.logTag, gutil.colors.red(err.message + ' on line ' + err.line + ' in ' + err.file));
-    stream.emit('end');
 }
 
 module.exports = sassPlugin;

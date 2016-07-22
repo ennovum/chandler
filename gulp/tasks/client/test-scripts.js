@@ -27,4 +27,5 @@ gulp.task(
 gulp.task(
     'client.test-scripts:dev',
     () => gulp.watch(src + client + '/**/*.test.js')
+        .on('ready', () => run('client.test-scripts:build', 'client.test-scripts:start'))
         .on('change', () => run('client.test-scripts:build', 'client.test-scripts:start')));
