@@ -1,39 +1,46 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const _ = require('lodash');
+const fse = require('fs-extra');
 const nodemon = require('nodemon');
 
 const conf = _.get(require('./../../gulpconfig.js'), 'nodemon', {});
 
-function nodemonJob(file, opts) {
+function nodemonJob(path, opts) {
     opts = _.extend({
-        logTag: gutil.colors.gray('[nodemon]'),
-        onStart: () => nodemonStart(opts),
-        onQuit: () => nodemonQuit(opts),
-        onRestart: (files) => nodemonRestart(files, opts)
+        script: path,
+        logTag: gutil.colors.gray('[nodemon]')
     }, conf, opts);
 
-    return () => {
-        nodemon({
-            script: file
-        });
+    return (callback) => {
+        fse.ensureFileSync(path);
+        nodemon(opts);
 
         nodemon
-            .on('start', opts.onStart)
-            .on('quit', opts.onQuit)
-            .on('restart', opts.onRestart);
+            .on('start', () => {
+                nodemonStartLog(opts);
+            })
+            .on('quit', () => {
+                nodemonQuitLog(opts);
+            })
+            .on('restart', (paths) => {
+                nodemonRestartLog(paths, opts);
+            });
+
+        // if the job ends right away, nodemon may not get some instant changes :(
+        setTimeout(callback, 1000);
     };
 };
 
-function nodemonStart(opts) {
+function nodemonStartLog(opts) {
     gutil.log(opts.logTag, 'start');
 }
 
-function nodemonQuit(opts) {
+function nodemonQuitLog(opts) {
     gutil.log(opts.logTag, 'quit');
 }
 
-function nodemonRestart(files, opts) {
+function nodemonRestartLog(paths, opts) {
     gutil.log(opts.logTag, 'restart');
 }
 

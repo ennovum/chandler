@@ -9,8 +9,14 @@ require('./gulp/tasks/server.js');
 require('./gulp/tasks/test.js');
 
 gulp.task(
+    'clear',
+    jobs.run(['client:clear', 'server:clear']));
+
+gulp.task(
     'build',
-    jobs.run(['client:build', 'server:build']));
+    jobs.run(
+        ['client:clear', 'server:clear'],
+        ['client:build', 'server:build']));
 
 gulp.task(
     'server',
@@ -19,13 +25,14 @@ gulp.task(
 gulp.task(
     'start',
     jobs.run(
-        ['client:build', 'server:build'],
-        'server:start'));
+        ['client:clear', 'server:clear'],
+        'server:start',
+        ['client:build', 'server:build']));
 
 gulp.task(
     'dev',
     jobs.run(
-        ['client:build', 'server:build'],
+        ['client:clear', 'server:clear'],
         'server:start',
         ['client:dev', 'server:dev']));
 
@@ -39,4 +46,6 @@ gulp.task(
 
 gulp.task(
     'dist',
-    jobs.run(['client:dist', 'server:dist']));
+    jobs.run(
+        ['client:clear', 'server:clear'],
+        ['client:dist', 'server:dist']));

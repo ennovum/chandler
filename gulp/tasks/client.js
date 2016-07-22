@@ -1,13 +1,23 @@
 const gulp = require('gulp');
 
+const config = require('./../../gulpconfig.js');
 const jobs = {
+    clear: require('./../jobs/clear.js'),
     run: require('./../jobs/run.js')
 };
+
+const dev = config.path.root + config.dir.dev;
+const dist = config.path.root + config.dir.dist;
+const client = config.dir.client;
 
 require('./client/documents.js');
 require('./client/scripts.js');
 require('./client/styles.js');
 require('./client/images.js');
+
+gulp.task(
+    'client:clear',
+    jobs.clear(dev + client, dist + client));
 
 gulp.task(
     'client:build',
