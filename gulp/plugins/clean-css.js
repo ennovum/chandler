@@ -7,7 +7,7 @@ const _ = require('lodash');
 const conf = _.get(require('./../../buildconfig.js'), 'cleanCss', {});
 
 function cleanCssPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         logTag: gutil.colors.gray('[clean-css]')
     }, conf, opts);
 

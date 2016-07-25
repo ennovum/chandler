@@ -1,4 +1,4 @@
-let config = {
+const config = {
     'server': {
         'root': __dirname + '/../../..',
         'port': '80',

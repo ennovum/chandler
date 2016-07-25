@@ -1,4 +1,4 @@
-let config = {
+const config = {
     'api': {
         'allegro': {
             'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)

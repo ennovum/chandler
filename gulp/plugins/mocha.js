@@ -5,7 +5,7 @@ const mocha = require('gulp-mocha');
 const conf = _.get(require('./../../buildconfig.js'), 'mocha', {});
 
 function mochaPlugin(opts) {
-    opts = _.extend({}, conf, opts);
+    opts = _.merge({}, conf, opts);
 
     return mocha(opts);
 };

@@ -7,7 +7,7 @@ const _ = require('lodash');
 const conf = _.get(require('./../../buildconfig.js'), 'uglifyJs', {});
 
 function uglifyJsPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         logTag: gutil.colors.gray('[uglify-js]')
     }, conf, opts);
 

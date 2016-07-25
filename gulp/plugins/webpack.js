@@ -7,7 +7,7 @@ const webpack = require('webpack-stream');
 const conf = _.get(require('./../../buildconfig.js'), 'webpack', {});
 
 function webpackPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         target: 'web',
         logTag: gutil.colors.gray('[webpack]')
     }, conf, opts);

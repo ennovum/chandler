@@ -7,7 +7,7 @@ const webpack = require('webpack-stream');
 const conf = _.get(require('./../../buildconfig.js'), 'nodepack', {});
 
 function nodepackPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         target: 'node',
         logTag: gutil.colors.gray('[nodepack]')
     }, conf, opts);

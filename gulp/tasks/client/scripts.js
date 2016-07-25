@@ -3,35 +3,40 @@ const named = require('vinyl-named');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
-const config = require('./../../../buildconfig.js');
+const buildconfig = require('./../../../buildconfig.js');
 const plugins = {
     webpack: require('./../../plugins/webpack.js'),
     eslint: require('./../../plugins/eslint.js'),
     uglifyJs: require('./../../plugins/uglify-js.js')
 };
 
-const src = config.path.root + config.dir.src;
-const dev = config.path.root + config.dir.dev;
-const dist = config.path.root + config.dir.dist;
-const client = config.dir.client;
+const src = buildconfig.path.root + buildconfig.dir.src;
+const dev = buildconfig.path.root + buildconfig.dir.dev;
+const dist = buildconfig.path.root + buildconfig.dir.dist;
+const client = buildconfig.dir.client;
+
 const dev2src = path.relative(dev, src).replace('\\', '/');
+const sourceRoot = dev2src + client;
+
+const build = process.env.npm_package_config_build;
+const config = src + client + '/config/config-' + build + '.js'
 
 gulp.task(
     'client.scripts:build',
     () => gulp.src(src + client + '/*.js')
         .pipe(named())
-        .pipe(plugins.webpack())
+        .pipe(plugins.webpack({resolve: {alias: {'config': config}}}))
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write({sourceRoot: dev2src + client}))
+        .pipe(sourcemaps.write({sourceRoot: sourceRoot}))
         .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
     'client.scripts:dev',
     () => gulp.src(src + client + '/*.js')
         .pipe(named())
-        .pipe(plugins.webpack({watch: true}))
+        .pipe(plugins.webpack({watch: true, resolve: {alias: {'config': config}}}))
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write({sourceRoot: dev2src + client}))
+        .pipe(sourcemaps.write({sourceRoot: sourceRoot}))
         .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(
@@ -43,6 +48,6 @@ gulp.task(
     'client.scripts:dist',
     () => gulp.src(src + client + '/*.js')
         .pipe(named())
-        .pipe(plugins.webpack())
+        .pipe(plugins.webpack({resolve: {alias: {'config': config}}}))
         .pipe(plugins.uglifyJs())
         .pipe(gulp.dest(dist + client + '/')));

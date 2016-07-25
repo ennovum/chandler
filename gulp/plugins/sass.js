@@ -7,7 +7,7 @@ const sass = require('gulp-sass');
 const conf = _.get(require('./../../buildconfig.js'), 'sass', {});
 
 function sassPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         logTag: gutil.colors.gray('[sass]')
     }, conf, opts);
 

@@ -2,11 +2,11 @@ import es6Promise from 'es6Promise';
 import express from 'express';
 import morgan from 'morgan';
 import _ from 'lodash';
+import config from 'config';
 
 import Injector from './../../shared/modules/injector/injector.js';
 
 import depend from './depend.js';
-import config from './../config/config.js';
 import routing from './routing.js';
 
 es6Promise.polyfill();

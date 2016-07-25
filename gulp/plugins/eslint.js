@@ -7,7 +7,7 @@ const _ = require('lodash');
 const conf = _.get(require('./../../buildconfig.js'), 'eslint', {});
 
 function eslintPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         logTag: gutil.colors.gray('[eslint]')
     }, conf, opts);
 

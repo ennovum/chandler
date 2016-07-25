@@ -6,7 +6,7 @@ const _ = require('lodash');
 const conf = _.get(require('./../../buildconfig.js'), 'del', {});
 
 function delPlugin(opts) {
-    opts = _.extend({}, conf, opts);
+    opts = _.merge({}, conf, opts);
 
     return through.obj((file, enc, done) => {
         del(file.path);

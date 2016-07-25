@@ -5,7 +5,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const conf = _.get(require('./../../buildconfig.js'), 'autoprefixer', {});
 
 function autoprefixerPlugin(opts) {
-    opts = _.extend({}, conf, opts);
+    opts = _.merge({}, conf, opts);
 
     return autoprefixer(opts);
 };

@@ -1,8 +1,5 @@
 import angular from 'angular';
-
-import {
-    config
-} from './../config/config.js';
+import config from 'config';
 
 import {
     AllegroListingCrawler,

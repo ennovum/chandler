@@ -7,7 +7,7 @@ const _ = require('lodash');
 const conf = _.get(require('./../../buildconfig.js'), 'imagemin', {});
 
 function imageminPlugin(opts) {
-    opts = _.extend({
+    opts = _.merge({
         logTag: gutil.colors.gray('[imagemin]')
     }, conf, opts);
 

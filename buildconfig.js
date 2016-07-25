@@ -34,8 +34,6 @@ const buildconfigDefault = {
                 'angularRoute': 'angular-route'
             }
         },
-        'plugins': [
-        ],
         'devtool': 'inline-source-map'
     },
     'nodepack': {
@@ -64,8 +62,6 @@ const buildconfigDefault = {
             '__filename': true,
             '__dirname': true
         },
-        'plugins': [
-        ],
         'devtool': 'inline-source-map'
     },
     'watch': {
