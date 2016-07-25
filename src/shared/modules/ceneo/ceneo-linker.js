@@ -15,7 +15,7 @@ class CeneoLinker {
     }
 
     _decorateURL(url) {
-        let proxy = _.get(this._config, 'api.ceneo.proxy');
+        let proxy = _.get(this._config, 'api.proxy');
         if (proxy) {
             url = proxy(url);
         }

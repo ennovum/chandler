@@ -81,7 +81,8 @@ const buildconfigDefault = {
 };
 
 const buildconfigMap = {
-    'default': buildconfigDefault
+    'default': buildconfigDefault,
+    'corsio': buildconfigDefault
 }
 
 const build = process.env.npm_package_config_build;

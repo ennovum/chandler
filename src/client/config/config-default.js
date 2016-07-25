@@ -1,11 +1,6 @@
 const config = {
     'api': {
-        'allegro': {
-            'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
-        },
-        'ceneo': {
-            'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
-        }
+        'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
     }
 };
 

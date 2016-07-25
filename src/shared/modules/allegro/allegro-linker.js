@@ -17,7 +17,7 @@ class AllegroLinker {
     }
 
     _decorateURL(url) {
-        let proxy = _.get(this._config, 'api.allegro.proxy');
+        let proxy = _.get(this._config, 'api.proxy');
         if (proxy) {
             url = proxy(url);
         }
