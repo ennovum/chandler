@@ -47,6 +47,9 @@
     "mocha": "^2.3.3",
     "nodemon": "^1.7.3"
   },
+  "config": {
+    "build": "default"
+  },
   "scripts": {
     "clear": "node ./node_modules/gulp/bin/gulp.js clear",
     "build": "node ./node_modules/gulp/bin/gulp.js build",

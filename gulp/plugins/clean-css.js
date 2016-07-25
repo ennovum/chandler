@@ -4,7 +4,7 @@ const through = require('through2');
 const clean = require('gulp-clean-css');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'cleanCss', {});
+const conf = _.get(require('./../../buildconfig.js'), 'cleanCss', {});
 
 function cleanCssPlugin(opts) {
     opts = _.extend({

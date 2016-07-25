@@ -3,7 +3,7 @@ const named = require('vinyl-named');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
-const config = require('./../../../gulpconfig.js');
+const config = require('./../../../buildconfig.js');
 const plugins = {
     nodepack: require('./../../plugins/nodepack.js'),
     eslint: require('./../../plugins/eslint.js'),

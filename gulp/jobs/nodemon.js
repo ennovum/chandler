@@ -4,7 +4,7 @@ const _ = require('lodash');
 const fse = require('fs-extra');
 const nodemon = require('nodemon');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'nodemon', {});
+const conf = _.get(require('./../../buildconfig.js'), 'nodemon', {});
 
 function nodemonJob(path, opts) {
     opts = _.extend({

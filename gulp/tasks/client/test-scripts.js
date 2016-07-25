@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const named = require('vinyl-named');
 const run = require('run-sequence');
 
-const config = require('./../../../gulpconfig.js');
+const config = require('./../../../buildconfig.js');
 const plugins = {
     webpack: require('./../../plugins/webpack.js'),
     mocha: require('./../../plugins/mocha.js')

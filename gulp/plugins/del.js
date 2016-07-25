@@ -3,7 +3,7 @@ const through = require('through2');
 const del = require('del');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'del', {});
+const conf = _.get(require('./../../buildconfig.js'), 'del', {});
 
 function delPlugin(opts) {
     opts = _.extend({}, conf, opts);

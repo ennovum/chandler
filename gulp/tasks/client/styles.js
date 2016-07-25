@@ -3,7 +3,7 @@ const run = require('run-sequence');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
-const config = require('./../../../gulpconfig.js');
+const config = require('./../../../buildconfig.js');
 const plugins = {
     sass: require('./../../plugins/sass.js'),
     autoprefixer: require('./../../plugins/autoprefixer.js'),

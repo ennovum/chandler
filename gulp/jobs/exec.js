@@ -3,7 +3,7 @@ const gutil = require('gulp-util');
 const _ = require('lodash');
 const chprocess = require('child_process');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'exec', {});
+const conf = _.get(require('./../../buildconfig.js'), 'exec', {});
 
 function execJob(command, args, opts) {
     opts = _.extend({

@@ -4,7 +4,7 @@ const through = require('through2');
 const eslint = require('eslint');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'eslint', {});
+const conf = _.get(require('./../../buildconfig.js'), 'eslint', {});
 
 function eslintPlugin(opts) {
     opts = _.extend({

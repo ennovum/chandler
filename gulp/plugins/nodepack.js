@@ -4,7 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack-stream');
 
-const conf = _.get(require('./../../gulpconfig.js'), 'nodepack', {});
+const conf = _.get(require('./../../buildconfig.js'), 'nodepack', {});
 
 function nodepackPlugin(opts) {
     opts = _.extend({

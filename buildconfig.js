@@ -1,4 +1,6 @@
-const gulpconfig = {
+const process = require('process');
+
+const buildconfigDefault = {
     'path': {
         'root': __dirname,
         'npm': __dirname + '/node_modules',
@@ -82,4 +84,15 @@ const gulpconfig = {
     'cleanCss': {}
 };
 
-module.exports = gulpconfig;
+const buildconfigMap = {
+    'default': buildconfigDefault
+}
+
+const build = process.env.npm_package_config_build;
+const buildconfig = buildconfigMap[build];
+
+if (buildconfig === undefined) {
+    throw new Error('Build config not found (' + build + ').');
+}
+
+module.exports = buildconfig;

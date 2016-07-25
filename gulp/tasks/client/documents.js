@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const run = require('run-sequence');
 
-const config = require('./../../../gulpconfig.js');
+const config = require('./../../../buildconfig.js');
 
 const src = config.path.root + config.dir.src;
 const dev = config.path.root + config.dir.dev;
