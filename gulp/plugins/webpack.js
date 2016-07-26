@@ -4,7 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack-stream');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'webpack', {});
+const buildconf = _.get(require('./../../build.js'), 'webpack', {});
 
 function webpackPlugin(opts) {
     opts = _.merge({

@@ -4,7 +4,7 @@ const through = require('through2');
 const _ = require('lodash');
 const sass = require('gulp-sass');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'sass', {});
+const buildconf = _.get(require('./../../build.js'), 'sass', {});
 
 function sassPlugin(opts) {
     opts = _.merge({

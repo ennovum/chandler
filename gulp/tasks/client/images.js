@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const run = require('run-sequence');
 
-const buildconf = require('./../../../buildconf.js');
+const buildconf = require('./../../../build.js');
 const plugins = {
     imagemin: require('./../../plugins/imagemin.js')
 };

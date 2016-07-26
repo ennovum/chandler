@@ -3,7 +3,7 @@ const through = require('through2');
 const del = require('del');
 const _ = require('lodash');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'del', {});
+const buildconf = _.get(require('./../../build.js'), 'del', {});
 
 function delPlugin(opts) {
     opts = _.merge({}, buildconf, opts);

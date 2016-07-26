@@ -4,7 +4,7 @@ const through = require('through2');
 const imagemin = require('gulp-imagemin');
 const _ = require('lodash');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'imagemin', {});
+const buildconf = _.get(require('./../../build.js'), 'imagemin', {});
 
 function imageminPlugin(opts) {
     opts = _.merge({

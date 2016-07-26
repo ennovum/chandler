@@ -4,7 +4,7 @@ const _ = require('lodash');
 const fse = require('fs-extra');
 const nodemon = require('nodemon');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'nodemon', {});
+const buildconf = _.get(require('./../../build.js'), 'nodemon', {});
 
 function nodemonJob(path, opts) {
     opts = _.extend({

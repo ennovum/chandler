@@ -4,7 +4,7 @@ const through = require('through2');
 const uglify = require('gulp-uglify');
 const _ = require('lodash');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'uglifyJs', {});
+const buildconf = _.get(require('./../../build.js'), 'uglifyJs', {});
 
 function uglifyJsPlugin(opts) {
     opts = _.merge({

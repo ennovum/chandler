@@ -4,7 +4,7 @@ const through = require('through2');
 const eslint = require('eslint');
 const _ = require('lodash');
 
-const buildconf = _.get(require('./../../buildconf.js'), 'eslint', {});
+const buildconf = _.get(require('./../../build.js'), 'eslint', {});
 
 function eslintPlugin(opts) {
     opts = _.merge({
