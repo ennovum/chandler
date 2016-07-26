@@ -1,4 +1,4 @@
-import config from 'config';
+import conf from 'conf';
 
 import {
     ProxyHandler
@@ -9,7 +9,7 @@ import {
 } from './../../shared/modules/fetcher/fetcher.js';
 
 function depend(injector) {
-    injector.set('config', config);
+    injector.set('conf', conf);
     injector.register('proxyHandler', ProxyHandler.factory);
     injector.register('fetcher', Fetcher.factory);
 }

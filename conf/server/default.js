@@ -1,4 +1,4 @@
-const config = {
+const conf = {
     'server': {
         'root': __dirname + '/../..',
         'port': '80',
@@ -6,5 +6,5 @@ const config = {
     }
 };
 
-export default config;
-export {config};
+export default conf;
+export {conf};

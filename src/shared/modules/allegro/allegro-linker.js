@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 class AllegroLinker {
-    constructor(config) {
-        this._config = config;
+    constructor(conf) {
+        this._conf = conf;
     }
 
     getListingURL(phrase, page) {
@@ -17,7 +17,7 @@ class AllegroLinker {
     }
 
     _decorateURL(url) {
-        let proxy = _.get(this._config, 'api.proxy');
+        let proxy = _.get(this._conf, 'api.proxy');
         if (proxy) {
             url = proxy(url);
         }
@@ -27,7 +27,7 @@ class AllegroLinker {
 }
 
 AllegroLinker.service = (...args) => new AllegroLinker(...args);
-AllegroLinker.service.$inject = ['config'];
+AllegroLinker.service.$inject = ['conf'];
 
 export default AllegroLinker;
 export {AllegroLinker};

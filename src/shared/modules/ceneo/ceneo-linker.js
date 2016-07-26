@@ -1,6 +1,6 @@
 class CeneoLinker {
-    constructor(config) {
-        this._config = config;
+    constructor(conf) {
+        this._conf = conf;
     }
 
     getListingURL(phrase, page) {
@@ -15,7 +15,7 @@ class CeneoLinker {
     }
 
     _decorateURL(url) {
-        let proxy = _.get(this._config, 'api.proxy');
+        let proxy = _.get(this._conf, 'api.proxy');
         if (proxy) {
             url = proxy(url);
         }
@@ -25,7 +25,7 @@ class CeneoLinker {
 }
 
 CeneoLinker.service = (...args) => new CeneoLinker(...args);
-CeneoLinker.service.$inject = ['config'];
+CeneoLinker.service.$inject = ['conf'];
 
 export default CeneoLinker;
 export {CeneoLinker};

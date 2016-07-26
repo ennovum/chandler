@@ -1,6 +1,6 @@
 const process = require('process');
 
-const build = process.env.npm_package_config_build;
-const buildconf = require('./conf/build/' + build + '.js');
+const confName = process.env.npm_package_config_conf;
+const buildconf = require('./conf/build/' + confName + '.js');
 
 module.exports = buildconf;

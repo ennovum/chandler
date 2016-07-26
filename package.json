@@ -48,7 +48,7 @@
     "nodemon": "^1.7.3"
   },
   "config": {
-    "build": "default"
+    "conf": "default"
   },
   "scripts": {
     "clear": "node ./node_modules/gulp/bin/gulp.js clear",

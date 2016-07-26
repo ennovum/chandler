@@ -1,5 +1,5 @@
 import angular from 'angular';
-import config from 'config';
+import conf from 'conf';
 
 import {
     AllegroListingCrawler,
@@ -64,18 +64,18 @@ import {
 
 function depend() {
     angular
-        .module('config', [])
-        .service('config', () => config);
+        .module('conf', [])
+        .service('conf', () => conf);
 
     angular
-        .module('allegro', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
+        .module('allegro', ['conf', 'fetcher', 'crawebler', 'stock', 'costimizer'])
         .service('allegroListingCrawler', AllegroListingCrawler.service)
         .service('allegroSellerCrawler', AllegroSellerCrawler.service)
         .service('allegroLinker', AllegroLinker.service)
         .service('allegroSale', AllegroSale.service);
 
     angular
-        .module('ceneo', ['config', 'fetcher', 'crawebler', 'stock', 'costimizer'])
+        .module('ceneo', ['conf', 'fetcher', 'crawebler', 'stock', 'costimizer'])
         .service('ceneoListingCrawler', CeneoListingCrawler.service)
         .service('ceneoLinker', CeneoLinker.service)
         .service('ceneoSale', CeneoSale.service);

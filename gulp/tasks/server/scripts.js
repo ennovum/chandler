@@ -16,8 +16,8 @@ const dev = buildconf.path.root + buildconf.dir.dev;
 const dist = buildconf.path.root + buildconf.dir.dist;
 const server = buildconf.dir.server;
 
-const build = process.env.npm_package_config_build;
-const confFile = conf + server + '/' + build + '.js'
+const confName = process.env.npm_package_config_conf;
+const confFile = conf + server + '/' + confName + '.js'
 
 const dev2src = path.relative(dev, src).replace('\\', '/');
 const sourcemapsRoot = dev2src + server;
@@ -26,7 +26,7 @@ gulp.task(
     'server.scripts:build',
     () => gulp.src(src + server + '/*.js')
         .pipe(named())
-        .pipe(plugins.nodepack({resolve: {alias: {'config': confFile}}}))
+        .pipe(plugins.nodepack({resolve: {alias: {'conf': confFile}}}))
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write({sourceRoot: sourcemapsRoot}))
         .pipe(gulp.dest(dev + server + '/')));
@@ -35,7 +35,7 @@ gulp.task(
     'server.scripts:dev',
     () => gulp.src(src + server + '/*.js')
         .pipe(named())
-        .pipe(plugins.nodepack({watch: true, resolve: {alias: {'config': confFile}}}))
+        .pipe(plugins.nodepack({watch: true, resolve: {alias: {'conf': confFile}}}))
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write({sourceRoot: sourcemapsRoot}))
         .pipe(gulp.dest(dev + server + '/')));
@@ -49,6 +49,6 @@ gulp.task(
     'server.scripts:dist',
     () => gulp.src(src + server + '/*.js')
         .pipe(named())
-        .pipe(plugins.nodepack({resolve: {alias: {'config': confFile}}}))
+        .pipe(plugins.nodepack({resolve: {alias: {'conf': confFile}}}))
         .pipe(plugins.uglifyJs())
         .pipe(gulp.dest(dist + server + '/')));

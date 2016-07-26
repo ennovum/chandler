@@ -1,4 +1,4 @@
-const config = {
+const conf = {
     'path': {
         'root': __dirname + '/../..',
         'npm': __dirname + '/../../node_modules',
@@ -79,4 +79,4 @@ const config = {
     'cleanCss': {}
 };
 
-module.exports = config;
+module.exports = conf;
