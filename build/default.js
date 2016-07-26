@@ -1,8 +1,8 @@
 const conf = {
     'path': {
-        'root': __dirname + '/../..',
-        'npm': __dirname + '/../../node_modules',
-        'bower': __dirname + '/../../bower_components'
+        'root': __dirname + '/..',
+        'npm': __dirname + '/../node_modules',
+        'bower': __dirname + '/../bower_components'
     },
     'dir': {
         'conf': '/conf',
@@ -29,7 +29,7 @@ const conf = {
         'resolve': {
             'alias': {
                 'es6Promise': 'es6-promise',
-                'fetch': __dirname + '/../../src/shared/modules/fetch/fetch.js',
+                'fetch': __dirname + '/../src/shared/modules/fetch/fetch.js',
                 'angularRoute': 'angular-route'
             }
         },

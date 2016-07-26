@@ -48,6 +48,7 @@
     "nodemon": "^1.7.3"
   },
   "config": {
+    "build": "default",
     "conf": "default"
   },
   "scripts": {
