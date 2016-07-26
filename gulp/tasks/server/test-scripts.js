@@ -2,15 +2,15 @@ const gulp = require('gulp');
 const named = require('vinyl-named');
 const run = require('run-sequence');
 
-const config = require('./../../../buildconfig.js');
+const buildconf = require('./../../../buildconf.js');
 const plugins = {
     nodepack: require('./../../plugins/nodepack.js'),
     mocha: require('./../../plugins/mocha.js')
 };
 
-const src = config.path.root + config.dir.src;
-const test = config.path.root + config.dir.test;
-const server = config.dir.server;
+const src = buildconf.path.root + buildconf.dir.src;
+const test = buildconf.path.root + buildconf.dir.test;
+const server = buildconf.dir.server;
 
 gulp.task(
     'server.test-scripts:build',

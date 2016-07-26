@@ -1,15 +1,15 @@
 const gulp = require('gulp');
 const run = require('run-sequence');
 
-const config = require('./../../../buildconfig.js');
+const buildconf = require('./../../../buildconf.js');
 const plugins = {
     imagemin: require('./../../plugins/imagemin.js')
 };
 
-const src = config.path.root + config.dir.src;
-const dev = config.path.root + config.dir.dev;
-const dist = config.path.root + config.dir.dist;
-const client = config.dir.client;
+const src = buildconf.path.root + buildconf.dir.src;
+const dev = buildconf.path.root + buildconf.dir.dev;
+const dist = buildconf.path.root + buildconf.dir.dist;
+const client = buildconf.dir.client;
 
 gulp.task(
     'client.images:build',

@@ -4,13 +4,13 @@ const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack-stream');
 
-const conf = _.get(require('./../../buildconfig.js'), 'nodepack', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'nodepack', {});
 
 function nodepackPlugin(opts) {
     opts = _.merge({
         target: 'node',
         logTag: gutil.colors.gray('[nodepack]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     return webpack(opts, null, (err, stats) => {
         gutil.log(opts.logTag, '\n' + stats.toString({

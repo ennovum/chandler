@@ -4,12 +4,12 @@ const through = require('through2');
 const uglify = require('gulp-uglify');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../buildconfig.js'), 'uglifyJs', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'uglifyJs', {});
 
 function uglifyJsPlugin(opts) {
     opts = _.merge({
         logTag: gutil.colors.gray('[uglify-js]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     const stream = uglify(opts);
     stream.on('error', (err) => {

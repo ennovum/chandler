@@ -1,12 +1,11 @@
-const process = require('process');
-
-const buildconfigDefault = {
+const config = {
     'path': {
-        'root': __dirname,
-        'npm': __dirname + '/node_modules',
-        'bower': __dirname + '/bower_components'
+        'root': __dirname + '/../..',
+        'npm': __dirname + '/../../node_modules',
+        'bower': __dirname + '/../../bower_components'
     },
     'dir': {
+        'conf': '/conf',
         'src': '/src',
         'dev': '/dev',
         'test': '/test',
@@ -30,7 +29,7 @@ const buildconfigDefault = {
         'resolve': {
             'alias': {
                 'es6Promise': 'es6-promise',
-                'fetch': __dirname + '/src/shared/modules/fetch/fetch.js',
+                'fetch': __dirname + '/../../src/shared/modules/fetch/fetch.js',
                 'angularRoute': 'angular-route'
             }
         },
@@ -80,16 +79,4 @@ const buildconfigDefault = {
     'cleanCss': {}
 };
 
-const buildconfigMap = {
-    'default': buildconfigDefault,
-    'corsio': buildconfigDefault
-}
-
-const build = process.env.npm_package_config_build;
-const buildconfig = buildconfigMap[build];
-
-if (buildconfig === undefined) {
-    throw new Error('Build config not found (' + build + ').');
-}
-
-module.exports = buildconfig;
+module.exports = config;

@@ -4,12 +4,12 @@ const through = require('through2');
 const _ = require('lodash');
 const sass = require('gulp-sass');
 
-const conf = _.get(require('./../../buildconfig.js'), 'sass', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'sass', {});
 
 function sassPlugin(opts) {
     opts = _.merge({
         logTag: gutil.colors.gray('[sass]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     const stream = sass(opts);
     stream.on('error', (err) => {

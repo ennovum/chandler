@@ -3,18 +3,20 @@ const run = require('run-sequence');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
-const config = require('./../../../buildconfig.js');
+const buildconf = require('./../../../buildconf.js');
 const plugins = {
     sass: require('./../../plugins/sass.js'),
     autoprefixer: require('./../../plugins/autoprefixer.js'),
     cleanCss: require('./../../plugins/clean-css.js')
 };
 
-const src = config.path.root + config.dir.src;
-const dev = config.path.root + config.dir.dev;
-const dist = config.path.root + config.dir.dist;
-const client = config.dir.client;
+const src = buildconf.path.root + buildconf.dir.src;
+const dev = buildconf.path.root + buildconf.dir.dev;
+const dist = buildconf.path.root + buildconf.dir.dist;
+const client = buildconf.dir.client;
+
 const dev2src = path.relative(dev, src).replace('\\', '/');
+const sourcemapsRoot = dev2src + client;
 
 gulp.task(
     'client.styles:build',
@@ -22,7 +24,7 @@ gulp.task(
         .pipe(sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
-        .pipe(sourcemaps.write({sourceRoot: dev2src + client}))
+        .pipe(sourcemaps.write({sourceRoot: sourcemapsRoot}))
         .pipe(gulp.dest(dev + client + '/')));
 
 gulp.task(

@@ -2,10 +2,10 @@ const gulp = require('gulp');
 const _ = require('lodash');
 const mocha = require('gulp-mocha');
 
-const conf = _.get(require('./../../buildconfig.js'), 'mocha', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'mocha', {});
 
 function mochaPlugin(opts) {
-    opts = _.merge({}, conf, opts);
+    opts = _.merge({}, buildconf, opts);
 
     return mocha(opts);
 };

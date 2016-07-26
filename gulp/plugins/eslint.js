@@ -4,12 +4,12 @@ const through = require('through2');
 const eslint = require('eslint');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../buildconfig.js'), 'eslint', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'eslint', {});
 
 function eslintPlugin(opts) {
     opts = _.merge({
         logTag: gutil.colors.gray('[eslint]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     return through.obj((file, enc, done) => {
         const cli = new eslint.CLIEngine();

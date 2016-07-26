@@ -1,6 +1,6 @@
 const config = {
     'server': {
-        'root': __dirname + '/../../..',
+        'root': __dirname + '/../..',
         'port': '80',
         'baseUrl': '/api'
     }

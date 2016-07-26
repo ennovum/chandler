@@ -4,12 +4,12 @@ const through = require('through2');
 const imagemin = require('gulp-imagemin');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../buildconfig.js'), 'imagemin', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'imagemin', {});
 
 function imageminPlugin(opts) {
     opts = _.merge({
         logTag: gutil.colors.gray('[imagemin]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     const stream = imagemin(opts);
     stream.on('error', (err) => {

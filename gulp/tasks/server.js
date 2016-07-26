@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 
-const config = require('./../../buildconfig.js');
+const buildconf = require('./../../buildconf.js');
 const jobs = {
     clear: require('./../jobs/clear.js'),
     run: require('./../jobs/run.js'),
@@ -9,9 +9,9 @@ const jobs = {
 
 require('./server/scripts.js');
 
-const dev = config.path.root + config.dir.dev;
-const dist = config.path.root + config.dir.dist;
-const server = config.dir.server;
+const dev = buildconf.path.root + buildconf.dir.dev;
+const dist = buildconf.path.root + buildconf.dir.dist;
+const server = buildconf.dir.server;
 
 gulp.task(
     'server:clear',

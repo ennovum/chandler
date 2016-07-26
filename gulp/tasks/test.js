@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 
-const config = require('./../../buildconfig.js');
+const buildconf = require('./../../buildconf.js');
 const jobs = {
     run: require('./../jobs/run.js')
 };

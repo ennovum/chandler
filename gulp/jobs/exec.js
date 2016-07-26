@@ -3,7 +3,7 @@ const gutil = require('gulp-util');
 const _ = require('lodash');
 const chprocess = require('child_process');
 
-const conf = _.get(require('./../../buildconfig.js'), 'exec', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'exec', {});
 
 function execJob(command, args, opts) {
     opts = _.extend({
@@ -11,7 +11,7 @@ function execJob(command, args, opts) {
         onLog: (data) => execLog(data, opts),
         onError: (data) => execErrorLog(data, opts),
         onExit: (code) => execExit(code, opts)
-    }, conf, opts);
+    }, buildconf, opts);
 
     return () => {
         const proc = chprocess.spawn(command, args);

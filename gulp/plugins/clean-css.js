@@ -4,12 +4,12 @@ const through = require('through2');
 const clean = require('gulp-clean-css');
 const _ = require('lodash');
 
-const conf = _.get(require('./../../buildconfig.js'), 'cleanCss', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'cleanCss', {});
 
 function cleanCssPlugin(opts) {
     opts = _.merge({
         logTag: gutil.colors.gray('[clean-css]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     const stream = clean(opts);
     stream.on('error', (err) => {

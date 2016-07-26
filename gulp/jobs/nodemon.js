@@ -4,13 +4,13 @@ const _ = require('lodash');
 const fse = require('fs-extra');
 const nodemon = require('nodemon');
 
-const conf = _.get(require('./../../buildconfig.js'), 'nodemon', {});
+const buildconf = _.get(require('./../../buildconf.js'), 'nodemon', {});
 
 function nodemonJob(path, opts) {
     opts = _.extend({
         script: path,
         logTag: gutil.colors.gray('[nodemon]')
-    }, conf, opts);
+    }, buildconf, opts);
 
     return (callback) => {
         fse.ensureFileSync(path);

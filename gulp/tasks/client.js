@@ -1,14 +1,14 @@
 const gulp = require('gulp');
 
-const config = require('./../../buildconfig.js');
+const buildconf = require('./../../buildconf.js');
 const jobs = {
     clear: require('./../jobs/clear.js'),
     run: require('./../jobs/run.js')
 };
 
-const dev = config.path.root + config.dir.dev;
-const dist = config.path.root + config.dir.dist;
-const client = config.dir.client;
+const dev = buildconf.path.root + buildconf.dir.dev;
+const dist = buildconf.path.root + buildconf.dir.dist;
+const client = buildconf.dir.client;
 
 require('./client/documents.js');
 require('./client/scripts.js');
