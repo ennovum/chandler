@@ -11,11 +11,15 @@ function tapePlugin(opts) {
 
     return through.obj((file, enc, done) => {
         const source = file.contents;
-        const stream = test.createStream()
+        const htest = test.createHarness();
+        const stream = htest.createStream()
             .pipe(faucet())
             .pipe(process.stdout);
+        const require2 = function (what) {
+            return what === 'tape' ? htest : require(what);
+        };
         
-        (new Function('require', source))(require);
+        (new Function('require', source))(require2);
 
         done(null, stream);
     });
