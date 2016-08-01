@@ -5,27 +5,22 @@ const run = require('run-sequence');
 const buildconf = require('./../../../build.js');
 const plugins = {
     webpack: require('./../../plugins/webpack.js'),
-    mocha: require('./../../plugins/mocha.js')
+    tape: require('./../../plugins/tape.js')
 };
 
 const src = buildconf.path.root + buildconf.dir.src;
-const test = buildconf.path.root + buildconf.dir.test;
 const client = buildconf.dir.client;
 
 gulp.task(
-    'client.test-scripts:build',
+    'client.test-scripts:start',
     () => gulp.src(src + client + '/**/*.test.js')
         .pipe(named())
         .pipe(plugins.webpack())
-        .pipe(gulp.dest(test + client + '/')));
-
-gulp.task(
-    'client.test-scripts:start',
-    () => gulp.src(test + client + '/**/*.js')
-        .pipe(plugins.mocha()));
+        .pipe(plugins.tape()));
 
 gulp.task(
     'client.test-scripts:dev',
-    () => gulp.watch(src + client + '/**/*.test.js')
-        .on('ready', () => run('client.test-scripts:build', 'client.test-scripts:start'))
-        .on('change', () => run('client.test-scripts:build', 'client.test-scripts:start')));
+    () => gulp.src(src + client + '/**/*.test.js')
+        .pipe(named())
+        .pipe(plugins.webpack({watch: true}))
+        .pipe(plugins.tape()));

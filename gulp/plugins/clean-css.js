@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
-const through = require('through2');
 const clean = require('gulp-clean-css');
 const _ = require('lodash');
 

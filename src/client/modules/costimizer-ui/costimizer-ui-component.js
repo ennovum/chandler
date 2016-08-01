@@ -48,7 +48,7 @@ class CostimizerUiComponent {
                 this._debouncer.destroy(resultsDebounce);
             })
             .catch((err) => {
-                console.error(err); // TODO
+                window.console.error(err); // TODO
             });
     }
 

@@ -8,7 +8,6 @@ const conf = {
         'conf': '/conf',
         'src': '/src',
         'dev': '/dev',
-        'test': '/test',
         'dist': '/dist',
         'client': '/client',
         'server': '/server',
@@ -55,7 +54,8 @@ const conf = {
             'fetch': 'commonjs node-fetch',
             'express': 'commonjs express',
             'lodash': 'commonjs lodash',
-            'morgan': 'commonjs morgan'
+            'morgan': 'commonjs morgan',
+            'tape': 'commonjs tape'
         },
         'node': {
             '__filename': true,
@@ -72,9 +72,7 @@ const conf = {
         'browsers': ['last 2 versions'],
         'cascade': false
     },
-    'mocha': {
-        'bail': true
-    },
+    'mocha': {},
     'uglifyJs': {},
     'cleanCss': {}
 };

@@ -42,7 +42,7 @@ gulp.task(
 
 gulp.task(
     'test',
-    jobs.run('lint', 'test:build', 'test:start'));
+    jobs.run('lint', 'test:start'));
 
 gulp.task(
     'dist',

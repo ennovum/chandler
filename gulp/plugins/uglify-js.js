@@ -1,6 +1,5 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
-const through = require('through2');
 const uglify = require('gulp-uglify');
 const _ = require('lodash');
 
