@@ -14,6 +14,7 @@ require('./client/documents.js');
 require('./client/scripts.js');
 require('./client/styles.js');
 require('./client/images.js');
+require('./client/test-scripts.js');
 
 gulp.task(
     'client:clear',
@@ -35,11 +36,17 @@ gulp.task(
         'client.scripts:dev',
         'client.styles:dev',
         'client.images:dev'
+    ], [
+        'client.test-scripts:dev'
     ]));
 
 gulp.task(
     'client:lint',
     jobs.run('client.scripts:lint'));
+
+gulp.task(
+    'client:test',
+    jobs.run('client.test-scripts:test'));
 
 gulp.task(
     'client:dist',

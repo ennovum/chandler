@@ -12,7 +12,7 @@ const src = buildconf.path.root + buildconf.dir.src;
 const shared = buildconf.dir.shared;
 
 gulp.task(
-    'shared.test-scripts:start',
+    'shared.test-scripts:test',
     () => gulp.src(src + shared + '/**/*.test.js')
         .pipe(named())
         .pipe(plugins.nodepack())

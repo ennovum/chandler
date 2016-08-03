@@ -8,6 +8,7 @@ const jobs = {
 };
 
 require('./server/scripts.js');
+require('./server/test-scripts.js');
 
 const dev = buildconf.path.root + buildconf.dir.dev;
 const dist = buildconf.path.root + buildconf.dir.dist;
@@ -23,11 +24,15 @@ gulp.task(
 
 gulp.task(
     'server:dev',
-    jobs.run('server.scripts:dev'));
+    jobs.run('server.scripts:dev', 'server.test-scripts:dev'));
 
 gulp.task(
     'server:lint',
     jobs.run('server.scripts:lint'));
+
+gulp.task(
+    'server:test',
+    jobs.run('server.test-scripts:test'));
 
 gulp.task(
     'server:start',

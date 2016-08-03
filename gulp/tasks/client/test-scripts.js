@@ -12,7 +12,7 @@ const src = buildconf.path.root + buildconf.dir.src;
 const client = buildconf.dir.client;
 
 gulp.task(
-    'client.test-scripts:start',
+    'client.test-scripts:test',
     () => gulp.src(src + client + '/**/*.test.js')
         .pipe(named())
         .pipe(plugins.webpack())

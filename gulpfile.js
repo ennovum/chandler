@@ -6,7 +6,7 @@ const jobs = {
 
 require('./gulp/tasks/client.js');
 require('./gulp/tasks/server.js');
-require('./gulp/tasks/test.js');
+require('./gulp/tasks/shared.js');
 
 gulp.task(
     'clear',
@@ -38,11 +38,13 @@ gulp.task(
 
 gulp.task(
     'lint',
-    jobs.run('client:lint', 'server:lint'));
+    jobs.run('client:lint', 'server:lint', 'shared:lint'));
 
 gulp.task(
     'test',
-    jobs.run('lint', 'test:start'));
+    jobs.run(
+        'lint', 
+        ['client:test', 'server:test', 'shared:test']));
 
 gulp.task(
     'dist',
