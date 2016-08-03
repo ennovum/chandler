@@ -25,7 +25,6 @@ class AggregatorListingCrawler extends VendorListingCrawler {
     _getListingProducts(listingProductCrColl) {
         return Promise.all(listingProductCrColl.map((listingProductCrEl) => {
             let listingProduct;
-            let product;
 
             return this._digListingProduct(listingProductCrEl)
                 .then((_listingProduct) => listingProduct = _listingProduct)

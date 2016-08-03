@@ -6,8 +6,8 @@ class PriceComponent {
         this.textValue = '';
         this.textCurrency = '';
 
-        $scope.$watch(() => this.value, () => this._evalValue())
-        $scope.$watch(() => this.currency, () => this._evalCurrency())
+        $scope.$watch(() => this.value, () => this._evalValue());
+        $scope.$watch(() => this.currency, () => this._evalCurrency());
     }
 
     _evalValue() {

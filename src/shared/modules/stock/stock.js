@@ -22,7 +22,7 @@ class Stock {
         return this.validate(id)
             .then(() => {
                 let cached = this.cachedMap[id];
-                return cached && cached.data || undefined
+                return cached && cached.data || undefined;
             });
     }
 

@@ -71,7 +71,7 @@ class Debounce {
 
         if (!this._lastRunTime || (nowTime >= (this._lastRunTime + this._span))) {
             this._fn();
-            this._fn = null
+            this._fn = null;
             this._lastRunTime = nowTime;
         }
     }
@@ -82,7 +82,7 @@ class Debounce {
         }
 
         this._fn();
-        this._fn = null
+        this._fn = null;
     }
 }
 

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class CeneoLinker {
     constructor(conf) {
         this._conf = conf;

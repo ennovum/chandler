@@ -28,7 +28,7 @@ function matchTags(tagslug1, tagslug2) {
     return false;
 }
 
-const tagger = {parseTags, matchTags}
+const tagger = {parseTags, matchTags};
 
 export default tagger;
 export {tagger, parseTags, matchTags};

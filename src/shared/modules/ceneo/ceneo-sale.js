@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import VendorSale from './../sale/vendor-sale.js';
 
 class CeneoSale extends VendorSale {
