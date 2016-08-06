@@ -16,7 +16,7 @@ const conf = {
     'webpack': {
         'module': {
             'loaders': [
-                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/},
+                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/, query: {presets: ['es2015']}},
                 {'loader': 'raw-loader', 'test': /\.html$/}
             ]
         },
@@ -37,7 +37,7 @@ const conf = {
     'nodepack': {
         'module': {
             'loaders': [
-                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/}
+                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/, query: {presets: ['es2015']}}
             ]
         },
         'stats': {
