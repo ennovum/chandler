@@ -1,9 +1,12 @@
 import _ from 'lodash';
+import lang from 'lang';
 
 class CostimizerUiResultsComponent {
     constructor($scope) {
         this.queries; // via bindings
         this.results; // via bindings
+
+        this.lang = lang.costimizerUiResults;
 
         this.sortedResults = null;
         this.selectedResultIds = [];
@@ -48,10 +51,10 @@ const template = `
     <table class="grid results-items-grid" ng-if="ctrl.results">
         <tr class="grid-row">
             <td class="grid-head grid-label">
-                Sellers ({{ctrl.sortedResults.length}})
+                {{ctrl.lang.sellersLabel(ctrl.sortedResults.length)}}
             </td>
             <td class="grid-head" ng-repeat="query in ctrl.queries track by $index">
-                Offers for "{{query.phrase}}"
+                {{ctrl.lang.offersLabel(query.phrase)}}
             </td>
         </tr>
         <tr class="grid-row" ng-repeat="result in ctrl.sortedResults">
@@ -63,8 +66,7 @@ const template = `
                 ng-click="ctrl.toggleResult(result)"
             >
                 <div>
-                    <span ng-if="offer.items.length === 1">1 offer</span>
-                    <span ng-if="offer.items.length > 1">{{offer.items.length}} offers</span>
+                    {{ctrl.lang.offersCountLabel(offer.items.length)}}
                 </div>
                 <div ng-repeat="price in offer.prices">
                     <span ng-if="price.minimum === price.maximum">
@@ -88,7 +90,7 @@ const template = `
         </tr>
         <tr class="grid-row" ng-if="!ctrl.results.length">
             <td class="grid-cell" colspan="{{1 + ctrl.queries.length}}">
-                <span>No results</span>
+                <span>{{ctrl.lang.noResultsLabel}}</span>
             </td>
         </tr>
     </table>

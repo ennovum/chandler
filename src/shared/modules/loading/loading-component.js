@@ -1,6 +1,10 @@
+import lang from 'lang';
+
 class LoadingComponent {
     constructor($scope) {
         this._$scope = $scope;
+
+        this.lang = lang.loading;
 
         this.promise; // via bindings
         this.progress; // via bindings
@@ -41,8 +45,12 @@ class LoadingComponent {
 
 const template = `
     <div class="loading" ng-if="ctrl.isLoading">
-        <span class="loading-label">Loading... {{ctrl.progress * 100 | number:0}}%</span>
-        <a class="loading-abort" ng-click="ctrl.abort()" ng-if="ctrl.isAbortable && !ctrl.isAborted">Stop &#10060;</a>
+        <span class="loading-label">
+            {{ctrl.lang.loadingLabel}}
+            {{ctrl.progress * 100 | number:0}}%</span>
+        <a class="loading-abort" ng-click="ctrl.abort()" ng-if="ctrl.isAbortable && !ctrl.isAborted">
+            &#10060; {{ctrl.lang.abortLabel}}
+        </a>
     </div>
 `;
 

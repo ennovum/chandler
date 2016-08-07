@@ -1,8 +1,11 @@
 import _ from 'lodash';
+import lang from 'lang';
 
 class CostimizerUiIntroComponent {
     constructor($scope, $element) {
         this._el = $element[0];
+
+        this.lang = lang.costimizerUiIntro;
 
         this.onSubmit; // via bindings
 
@@ -36,19 +39,19 @@ class CostimizerUiIntroComponent {
 const template = `
     <section class="search-intro-form">
         <section class="buttonset search-query-buttonset search-intro-section">
-            <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
+            <input type="text" class="input-text search-query-input search-query-add-input"
+                ng-model="ctrl.model.newQuery.phrase" placeholder="{{ctrl.lang.queryPlaceholder}}"
+                on-enter="ctrl.addQuery()" autofocus />
             <button class="icon-button" ng-click="ctrl.addQuery()">
-                <span>&#128270; Search</span>
+                <span>&#128270; {{ctrl.lang.searchLabel}}</span>
             </button>
         </section>
         <section class="search-intro-section search-intro-add">
             <button class="icon-button" ng-click="ctrl.addQuery()">
-                <span>&#10133; Add another search</span>
+                <span>&#10133; {{ctrl.lang.searchAddLabel}}</span>
             </button>
         </section>
-        <section class="search-intro-section search-intro-description">
-            <p>Welcome! <strong>Chandler</strong> lets you search products on <strong>Allegro</strong> & <strong>Ceneo</strong> in one place.</p>
-            <p>What is uniqe about <strong>Chandler</strong> is that you can specify <strong>multiple searches</strong> and you will receive results from <strong>sellers that offer everything</strong> you are looking for.</p>
+        <section class="search-intro-section search-intro-description" ng-bind-html="ctrl.lang.introHTML | trust">
         </section>
     </section>
 `;

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import lang from 'lang';
 
 const RESULTS_DEBOUNCE_SPAN = 5000;
 const VENDOR_ID_ALLEGRO = 'allegro';
@@ -9,6 +10,8 @@ class CostimizerUiComponent {
         this._$scope = $scope;
         this._saleMix = saleMix;
         this._debouncer = debouncer;
+
+        this.lang = lang.costimizerUi;
 
         this.on = {
             submitQueries: (queries) => this.submitQueries(queries),
@@ -71,13 +74,19 @@ class CostimizerUiComponent {
 const template = `
     <div class="main" ng-if="!ctrl.queries">
         <div class="logo">
-            <h3>Chandler <span class="beta">beta</span></h3>
+            <h3>
+                <span>{{ctrl.lang.chandlerTitle}}</span>
+                <span class="beta">{{ctrl.lang.betaLabel}}</span>
+            </h3>
         </div>
         <costimizer-ui-intro on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-intro>
     </div>
     <div class="sidebar" ng-if="ctrl.queries">
         <div class="logo">
-            <h3>Chandler <span class="beta">beta</span></h3>
+            <h3>
+                <span>{{ctrl.lang.chandlerTitle}}</span>
+                <span class="beta">{{ctrl.lang.betaLabel}}</span>
+            </h3>
         </div>
         <costimizer-ui-queries queries="ctrl.queries" on-submit="ctrl.on.submitQueries(queries)"></costimizer-ui-queries>
     </div>

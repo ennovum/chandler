@@ -6,6 +6,7 @@ const conf = {
     },
     'dir': {
         'conf': '/conf',
+        'lang': '/lang',
         'src': '/src',
         'dev': '/dev',
         'dist': '/dist',

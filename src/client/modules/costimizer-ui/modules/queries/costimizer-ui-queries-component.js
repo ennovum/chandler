@@ -1,8 +1,11 @@
 import _ from 'lodash';
+import lang from 'lang';
 
 class CostimizerUiQueriesComponent {
     constructor($scope, $element) {
         this._el = $element[0];
+
+        this.lang = lang.costimizerUiQueries;
 
         this.sourceQueries; // via bindings
         this.onSubmit; // via bindings
@@ -88,7 +91,9 @@ class CostimizerUiQueriesComponent {
 const template = `
     <section class="search-query" ng-repeat="query in ctrl.queries track by $index">
         <section class="buttonset search-query-buttonset search-query-section">
-            <input class="input-text search-query-input search-query-update-input" type="text" ng-model="ctrl.model.queries[$index].phrase" placeholder="Set the query" on-enter="ctrl.submitQuery($index)" />
+            <input type="text" class="input-text search-query-input search-query-update-input"
+                ng-model="ctrl.model.queries[$index].phrase" placeholder="{{ctrl.lang.querySetPlaceholder}}"
+                on-enter="ctrl.submitQuery($index)" />
             <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
                 <span>&#128270;</span>
             </button>
@@ -96,31 +101,22 @@ const template = `
                 <span>&#10060;</span>
             </button>
         </section>
-        <!--<section class="search-query-section">
-            <button class="icon-button" ng-click="ctrl.updateQuery($index)" ng-if="!ctrl.isPristineQuery($index)">
-                <span>&#128270; Set search</span>
-            </button>
-            <button class="icon-button search-query-remove-button" ng-click="ctrl.removeQuery($index)" ng-if="ctrl.isPristineQuery($index)">
-                <span>&#10060; Remove search</span>
-            </button>
-        </section>-->
     </section>
     <section class="search-query-form" ng-if="!ctrl.queries.length">
         <section class="buttonset search-query-buttonset search-query-section">
-            <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter a query" on-enter="ctrl.addQuery()" autofocus />
+            <input type="text" class="input-text search-query-input search-query-add-input"
+                ng-model="ctrl.model.newQuery.phrase" placeholder="{{ctrl.lang.queryPlaceholder}}"
+                on-enter="ctrl.addQuery()" autofocus />
             <button class="icon-button" ng-click="ctrl.addQuery()">
                 <span>&#128270;</span>
             </button>
         </section>
-        <!--<section class="search-query-section">
-            <button class="icon-button" ng-click="ctrl.addQuery()">
-                <span>&#128270; Search</span>
-            </button>
-        </section>-->
     </section>
     <section class="search-query-form" ng-if="ctrl.queries.length">
         <section class="buttonset search-query-buttonset search-query-section">
-            <input class="input-text search-query-input search-query-add-input" type="text" ng-model="ctrl.model.newQuery.phrase" placeholder="Enter another query" on-enter="ctrl.addQuery()" autofocus />
+            <input type="text" class="input-text search-query-input search-query-add-input"
+                ng-model="ctrl.model.newQuery.phrase" placeholder="{{ctrl.lang.queryAddPlaceholder}}"
+                on-enter="ctrl.addQuery()" autofocus />
             <button class="icon-button" ng-click="ctrl.addQuery()">
                 <span>&#128270;</span>
             </button>
@@ -129,7 +125,7 @@ const template = `
     <section class="search-add">
         <section class="search-query-section">
             <button class="icon-button" ng-click="ctrl.addQuery()">
-                <span>&#10133; Add another search</span>
+                <span>&#10133; {{ctrl.lang.searchAddLabel}}</span>
             </button>
         </section>
     </section>

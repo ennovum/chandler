@@ -11,6 +11,7 @@ const plugins = {
 };
 
 const conf = buildconf.path.root + buildconf.dir.conf;
+const lang = buildconf.path.root + buildconf.dir.lang;
 const src = buildconf.path.root + buildconf.dir.src;
 const dev = buildconf.path.root + buildconf.dir.dev;
 const dist = buildconf.path.root + buildconf.dir.dist;
@@ -19,7 +20,10 @@ const client = buildconf.dir.client;
 const confName = process.env.npm_package_config_conf;
 const confFile = conf + client + '/' + confName + '.js';
 
-const alias = {'conf': confFile};
+const langName = process.env.npm_package_config_lang;
+const langFile = lang + client + '/' + langName + '.js';
+
+const alias = {'conf': confFile, 'lang': langFile};
 const resolve = {alias};
 
 const dev2src = path.relative(dev, src).replace('\\', '/');
