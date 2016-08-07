@@ -1,12 +1,11 @@
 import _ from 'lodash';
-import lang from 'lang';
 
 class CostimizerUiResultsComponent {
-    constructor($scope) {
+    constructor($scope, i18n) {
         this.queries; // via bindings
         this.results; // via bindings
 
-        this.lang = lang.costimizerUiResults;
+        this.lang = i18n.getLang('costimizerUiResults');
 
         this.sortedResults = null;
         this.selectedResultIds = [];
@@ -97,7 +96,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiResultsComponent(...args);
-controller.$inject = ['$scope'];
+controller.$inject = ['$scope', 'i18n'];
 
 const component = {
     template,

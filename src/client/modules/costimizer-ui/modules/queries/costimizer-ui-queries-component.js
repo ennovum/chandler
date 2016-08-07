@@ -1,11 +1,8 @@
 import _ from 'lodash';
-import lang from 'lang';
 
 class CostimizerUiQueriesComponent {
-    constructor($scope, $element) {
-        this._el = $element[0];
-
-        this.lang = lang.costimizerUiQueries;
+    constructor($scope, i18n) {
+        this.lang = i18n.getLang('costimizerUiQueries');
 
         this.sourceQueries; // via bindings
         this.onSubmit; // via bindings
@@ -132,7 +129,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiQueriesComponent(...args);
-controller.$inject = ['$scope', '$element'];
+controller.$inject = ['$scope', 'i18n'];
 
 const component = {
     template,

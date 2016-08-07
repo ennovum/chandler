@@ -1,11 +1,8 @@
 import _ from 'lodash';
-import lang from 'lang';
 
 class CostimizerUiIntroComponent {
-    constructor($scope, $element) {
-        this._el = $element[0];
-
-        this.lang = lang.costimizerUiIntro;
+    constructor($scope, i18n) {
+        this.lang = i18n.getLang('costimizerUiIntro');
 
         this.onSubmit; // via bindings
 
@@ -57,7 +54,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiIntroComponent(...args);
-controller.$inject = ['$scope', '$element'];
+controller.$inject = ['$scope', 'i18n'];
 
 const component = {
     template,

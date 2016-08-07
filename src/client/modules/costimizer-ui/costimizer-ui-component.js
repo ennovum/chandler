@@ -1,17 +1,16 @@
 import _ from 'lodash';
-import lang from 'lang';
 
 const RESULTS_DEBOUNCE_SPAN = 5000;
 const VENDOR_ID_ALLEGRO = 'allegro';
 const VENDOR_ID_CENEO = 'ceneo';
 
 class CostimizerUiComponent {
-    constructor($scope, saleMix, debouncer) {
+    constructor($scope, i18n, saleMix, debouncer) {
         this._$scope = $scope;
         this._saleMix = saleMix;
         this._debouncer = debouncer;
 
-        this.lang = lang.costimizerUi;
+        this.lang = i18n.getLang('costimizerUi');
 
         this.on = {
             submitQueries: (queries) => this.submitQueries(queries),
@@ -97,7 +96,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ['$scope', 'saleMix', 'debouncer'];
+controller.$inject = ['$scope', 'i18n', 'saleMix', 'debouncer'];
 
 const component = {
     template,

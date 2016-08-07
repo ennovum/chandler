@@ -66,6 +66,10 @@ import {
     TrustFilter
 } from './../../shared/modules/trust/trust.js';
 
+import {
+    I18n
+} from './../../shared/modules/i18n/i18n.js';
+
 function depend() {
     angular
         .module('conf', [])
@@ -93,14 +97,14 @@ function depend() {
         .service('costimizer', Costimizer.factory);
 
     angular
-        .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust'])
+        .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust', 'i18n'])
         .component('costimizerUi', CostimizerUiComponent.component)
         .component('costimizerUiIntro', CostimizerUiIntroComponent.component)
         .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)
         .component('costimizerUiResults', CostimizerUiResultsComponent.component);
 
     angular
-        .module('loading', [])
+        .module('loading', ['i18n'])
         .component('loading', LoadingComponent.component);
 
     angular
@@ -135,6 +139,10 @@ function depend() {
     angular
         .module('trust', [])
         .filter('trust', TrustFilter.filter);
+
+    angular
+        .module('i18n', [])
+        .service('i18n', I18n.service);
 }
 
 export default depend;

@@ -2,6 +2,7 @@ import es6Promise from 'es6Promise';
 import _ from 'lodash';
 import angular from 'angular';
 import 'angularRoute';
+import lang from 'lang';
 
 import depend from './depend.js';
 import routing from './routing.js';
@@ -13,14 +14,18 @@ depend();
 angular
     .module('app', [
         'ngRoute',
-        'costimizerUi'
+        'costimizerUi',
+        'i18n'
     ])
     .config(['$routeProvider', ($routeProvider) => {
         _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
 
         $routeProvider.otherwise({
-            'redirectTo': routing.defaultPath
+            redirectTo: routing.defaultPath
         });
+    }])
+    .run(['i18n', (i18n) => {
+        i18n.setLang(lang);
     }]);
 
 class App {

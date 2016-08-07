@@ -1,10 +1,8 @@
-import lang from 'lang';
-
 class LoadingComponent {
-    constructor($scope) {
+    constructor($scope, i18n) {
         this._$scope = $scope;
 
-        this.lang = lang.loading;
+        this.lang = i18n.getLang('loading');
 
         this.promise; // via bindings
         this.progress; // via bindings
@@ -55,7 +53,7 @@ const template = `
 `;
 
 const controller = (...args) => new LoadingComponent(...args);
-controller.$inject = ['$scope'];
+controller.$inject = ['$scope', 'i18n'];
 
 const component = {
     template,
