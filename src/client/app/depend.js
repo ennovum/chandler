@@ -62,6 +62,10 @@ import {
     AutofocusDirective
 } from './../../shared/modules/input/input.js';
 
+import {
+    TrustFilter
+} from './../../shared/modules/trust/trust.js';
+
 function depend() {
     angular
         .module('conf', [])
@@ -89,7 +93,7 @@ function depend() {
         .service('costimizer', Costimizer.factory);
 
     angular
-        .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input'])
+        .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust'])
         .component('costimizerUi', CostimizerUiComponent.component)
         .component('costimizerUiIntro', CostimizerUiIntroComponent.component)
         .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)
@@ -127,6 +131,10 @@ function depend() {
     angular
         .module('input', [])
         .directive('autofocus', AutofocusDirective.directive);
+
+    angular
+        .module('trust', [])
+        .filter('trust', TrustFilter.filter);
 }
 
 export default depend;
