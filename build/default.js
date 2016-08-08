@@ -1,8 +1,10 @@
+const path = require('path');
+
 const conf = {
     'path': {
-        'root': __dirname + '/..',
-        'npm': __dirname + '/../node_modules',
-        'bower': __dirname + '/../bower_components'
+        'root': path.resolve(__dirname + '/..'),
+        'npm': path.resolve(__dirname + '/../node_modules'),
+        'bower': path.resolve(__dirname + '/../bower_components')
     },
     'dir': {
         'conf': '/conf',
@@ -27,9 +29,18 @@ const conf = {
             'children': false
         },
         'resolve': {
+            'root': [
+                path.resolve(__dirname + '/..'),
+                path.resolve(__dirname + '/../src/client'),
+                path.resolve(__dirname + '/../src/shared')
+            ],
+            'modulesDirectories': [
+                'node_modules',
+                'modules'
+            ],
             'alias': {
-                'es6Promise': 'es6-promise',
                 'fetch': __dirname + '/../src/shared/modules/fetch/fetch.js',
+                'es6Promise': 'es6-promise',
                 'angularRoute': 'angular-route'
             }
         },
@@ -47,6 +58,15 @@ const conf = {
             'children': false
         },
         'resolve': {
+            'root': [
+                path.resolve(__dirname + '/..'),
+                path.resolve(__dirname + '/../src/server'),
+                path.resolve(__dirname + '/../src/shared')
+            ],
+            'modulesDirectories': [
+                'node_modules',
+                'modules'
+            ],
             'alias': {
             }
         },
