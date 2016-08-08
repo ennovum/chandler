@@ -1,6 +1,5 @@
 import jsoner from 'jsoner/jsoner.js';
-
-import BrokerListingCrawler from './../crawler/broker-listing-crawler.js';
+import BrokerListingCrawler from 'crawler/broker-listing-crawler.js';
 
 class AllegroListingCrawler extends BrokerListingCrawler {
     constructor(allegroLinker, fetcher, crawebler, stock) {

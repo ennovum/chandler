@@ -14,7 +14,8 @@ const conf = {
         'dist': '/dist',
         'client': '/client',
         'server': '/server',
-        'shared': '/shared'
+        'shared': '/shared',
+        'modules': '/modules'
     },
     'webpack': {
         'module': {
@@ -30,9 +31,7 @@ const conf = {
         },
         'resolve': {
             'root': [
-                path.resolve(__dirname + '/..'),
-                path.resolve(__dirname + '/../src/client'),
-                path.resolve(__dirname + '/../src/shared')
+                path.resolve(__dirname + '/../src')
             ],
             'modulesDirectories': [
                 'node_modules',
@@ -59,9 +58,7 @@ const conf = {
         },
         'resolve': {
             'root': [
-                path.resolve(__dirname + '/..'),
-                path.resolve(__dirname + '/../src/server'),
-                path.resolve(__dirname + '/../src/shared')
+                path.resolve(__dirname + '/../src')
             ],
             'modulesDirectories': [
                 'node_modules',

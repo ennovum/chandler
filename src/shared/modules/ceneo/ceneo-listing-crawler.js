@@ -1,4 +1,4 @@
-import AggregatorListingCrawler from './../crawler/aggregator-listing-crawler.js';
+import AggregatorListingCrawler from 'crawler/aggregator-listing-crawler.js';
 
 class CeneoListingCrawler extends AggregatorListingCrawler {
     constructor(ceneoLinker, fetcher, crawebler, stock) {

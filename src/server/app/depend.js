@@ -2,11 +2,11 @@ import conf from 'conf';
 
 import {
     ProxyHandler
-} from './../modules/proxy-handler/proxy-handler.js';
+} from 'proxy-handler/proxy-handler.js';
 
 import {
     Fetcher
-} from './../../shared/modules/fetcher/fetcher.js';
+} from 'fetcher/fetcher.js';
 
 function depend(injector) {
     injector.set('conf', conf);

@@ -1,4 +1,4 @@
-import {parseTags, matchTags} from '../tagger/tagger.js';
+import {parseTags, matchTags} from 'tagger/tagger.js';
 
 let CACHE_TIME = 1000 * 60;
 
