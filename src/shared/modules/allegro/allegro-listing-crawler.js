@@ -1,3 +1,5 @@
+import jsoner from 'jsoner/jsoner.js';
+
 import BrokerListingCrawler from './../crawler/broker-listing-crawler.js';
 
 class AllegroListingCrawler extends BrokerListingCrawler {
@@ -38,7 +40,7 @@ class AllegroListingCrawler extends BrokerListingCrawler {
         let title = listingOfferCrEl.element('.offer-title').text();
         let price = this._sanitizePrice(listingOfferCrEl.element('.offer-price .statement').text());
         let url = `http://allegro.pl/show_item.php?item=${id}`;
-        let photoUrls = JSON.parse(listingOfferCrEl.element('.offer-photo').attribute('data-photo-urls'));
+        let photoUrls = jsoner.parse(listingOfferCrEl.element('.offer-photo').attribute('data-photo-urls'));
 
         let listingOffer = {id, title, price, seller: null, url, photoUrls};
 
