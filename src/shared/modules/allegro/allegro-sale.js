@@ -2,14 +2,19 @@ import _ from 'lodash';
 import VendorSale from 'sale/vendor-sale.js';
 
 class AllegroSale extends VendorSale {
-    constructor(allegroListingCrawler, allegroSellerCrawler, costimizer) {
+    constructor(allegroCategoryCrawler, allegroListingCrawler, allegroSellerCrawler, costimizer) {
         super(costimizer);
 
+        this._allegroCategoryCrawler = allegroCategoryCrawler;
         this._allegroListingCrawler = allegroListingCrawler;
         this._allegroSellerCrawler = allegroSellerCrawler;
     }
 
-    _fetchListingPage(query, page) {
+    getCategoryMap() {
+        return this._allegroCategoryCrawler.getCategoryMap();
+    }
+
+    getListingPage(query, page) {
         return this._allegroListingCrawler.getListingPage(query, page);
     }
 
@@ -29,7 +34,7 @@ class AllegroSale extends VendorSale {
 }
 
 AllegroSale.service = (...args) => new AllegroSale(...args);
-AllegroSale.service.$inject = ['allegroListingCrawler', 'allegroSellerCrawler', 'costimizer'];
+AllegroSale.service.$inject = ['allegroCategoryCrawler', 'allegroListingCrawler', 'allegroSellerCrawler', 'costimizer'];
 
 export default AllegroSale;
 export {AllegroSale};

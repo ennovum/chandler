@@ -5,53 +5,79 @@ class SaleMix {
         this._allegroSale = allegroSale;
         this._ceneoSale = ceneoSale;
 
-        this._vendors = [
-            {
-                id: 'allegro',
-                saleService: this._allegroSale
-            },
-            {
-                id: 'ceneo',
-                saleService: this._ceneoSale
-            }
-        ];
+        this._vendors = [{
+            id: 'allegro',
+            saleService: this._allegroSale
+        }, {
+            id: 'ceneo',
+            saleService: this._ceneoSale
+        }];
+    }
+
+    getCategoryMaps(vendorIds) {
+        let vendors = this._evalVendors(vendorIds);
+        let items = _.map(vendors, (vendor) => ({
+            vendor,
+            promise: null
+        }));
+
+        _.forEach(items, (item) => {
+            item.promise = item.vendor.saleService.getCategoryMap().then((categoryMap) => ({
+                vendorId: item.vendor.id,
+                categoryMap
+            }));
+        });
+
+        let promises = _.map(items, (item) => item.promise);
+        let promise = Promise.all(promises);
+
+        return promise;
     }
 
     sipSaleMix(vendorIds, queries, handleSip) {
+        let vendors = this._evalVendors(vendorIds);
+        let items = _.map(vendors, (vendor) => ({
+            vendor,
+            sale: {results: [], progress: 0},
+            promise: null
+        }));
+
+        let saleMix = {results: [], progress: 0};
+
+        let handleVendorSip = (item, sale) => {
+            item.sale = sale;
+
+            saleMix.results = _.reduce(items, (results, item) => results.concat(item.sale.results), []);
+            saleMix.progress = _.sumBy(items, (item) => item.sale.progress) / items.length;
+
+            handleSip(saleMix);
+        };
+
+        _.forEach(items, (item) => {
+            item.promise = item.vendor.saleService.sipSale(queries, (sale) => handleVendorSip(item, sale));
+        });
+
+        let promises = _.map(items, (item) => item.promise);
+        let promise = Promise.all(promises).then(() => saleMix);
+
+        promise.abort = () => {
+            _.forEach(items, (item) => item.promise.abort());
+        };
+
+        return promise;
+    }
+
+    _evalVendors(vendorIds) {
         let vendors = _.map(vendorIds, (vendorId) => {
             let vendor = _.find(this._vendors, (vendor) => vendor.id === vendorId);
 
             let id = vendor.id;
             let saleService = vendor.saleService;
-            let sale = {results: [], progress: 0};
-            let promise = null;
 
-            return {id, saleService, sale, promise};
+            return {id, saleService};
         });
 
-        let saleMix = {results: [], progress: 0};
-
-        let handleVendorSip = (vendor, vendorSale) => {
-            vendor.sale = vendorSale;
-
-            saleMix.results = _.reduce(vendors, (results, vendor) => results.concat(vendor.sale.results), []);
-            saleMix.progress = _.sumBy(vendors, (vendor) => vendor.sale.progress) / vendors.length;
-
-            handleSip(saleMix);
-        };
-
-        _.forEach(vendors, (vendor) => {
-            vendor.promise = vendor.saleService.sipSale(queries, (sale) => handleVendorSip(vendor, sale));
-        });
-
-        let promise = Promise.all(_.map(vendors, (vendor) => vendor.promise))
-            .then(() => saleMix);
-
-        promise.abort = () => {
-            _.forEach(vendors, (vendor) => vendor.promise.abort());
-        };
-
-        return promise;
+        return vendors;
     }
 }
 

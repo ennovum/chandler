@@ -5,6 +5,11 @@ class AllegroLinker {
         this._conf = conf;
     }
 
+    getCategoryMapDataURL() {
+        let url = `http://allegro.pl/Utils/Category.php/getChildrens/category,0`;
+        return this._decorateURL(url);
+    }
+
     getListingURL(phrase, page) {
         let encodedPhrase = encodeURIComponent(phrase);
         let url = `http://allegro.pl/listing/listing.php?order=t&string=${encodedPhrase}&p=${page}`;

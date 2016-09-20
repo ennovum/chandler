@@ -1,19 +1,24 @@
 import VendorSale from 'sale/vendor-sale.js';
 
 class CeneoSale extends VendorSale {
-    constructor(ceneoListingCrawler, costimizer) {
+    constructor(ceneoCategoryCrawler, ceneoListingCrawler, costimizer) {
         super(costimizer);
 
+        this._ceneoCategoryCrawler = ceneoCategoryCrawler;
         this._ceneoListingCrawler = ceneoListingCrawler;
     }
 
-    _fetchListingPage(query, page) {
+    getCategoryMap() {
+        return this._ceneoCategoryCrawler.getCategoryMap();
+    }
+
+    getListingPage(query, page) {
         return this._ceneoListingCrawler.getListingPage(query, page);
     }
 }
 
 CeneoSale.service = (...args) => new CeneoSale(...args);
-CeneoSale.service.$inject = ['ceneoListingCrawler', 'costimizer'];
+CeneoSale.service.$inject = ['ceneoCategoryCrawler', 'ceneoListingCrawler', 'costimizer'];
 
 export default CeneoSale;
 export {CeneoSale};

@@ -1,3 +1,5 @@
+import VendorCrawler from './vendor-crawler.js';
+
 const CURRENCY_MAP = {
     '': 'PLN',
     'zł': 'PLN'
@@ -5,8 +7,10 @@ const CURRENCY_MAP = {
 const PRICE_REGEX = /^\s*([\d\s,]+)\s*([^\d\s]+)/;
 const PRICE_WHITESPACE_REGEX = /(\s|&nbsp;)+/;
 
-class VendorListingCrawler {
-    constructor() {
+class VendorListingCrawler extends VendorCrawler {
+    constructor(crawebler) {
+        super(crawebler);
+
         this._currencyMap = CURRENCY_MAP;
         this._priceRegex = PRICE_REGEX;
         this._priceWhitespaceRegex = PRICE_WHITESPACE_REGEX;
@@ -45,7 +49,7 @@ class VendorListingCrawler {
 }
 
 VendorListingCrawler.service = (...args) => new VendorListingCrawler(...args);
-VendorListingCrawler.service.$inject = [];
+VendorListingCrawler.service.$inject = ['crawebler'];
 
 export default VendorListingCrawler;
 export {VendorListingCrawler};

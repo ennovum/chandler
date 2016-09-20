@@ -2,9 +2,7 @@ import VendorListingCrawler from './vendor-listing-crawler.js';
 
 class BrokerListingCrawler extends VendorListingCrawler {
     constructor(crawebler) {
-        super();
-
-        this._crawebler = crawebler;
+        super(crawebler);
     }
 
     _getListing(query, page, listingCrDoc) {

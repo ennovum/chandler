@@ -7,7 +7,6 @@ class AllegroListingCrawler extends BrokerListingCrawler {
 
         this._allegroLinker = allegroLinker;
         this._fetcher = fetcher;
-        this._crawebler = crawebler;
         this._stock = stock;
     }
 

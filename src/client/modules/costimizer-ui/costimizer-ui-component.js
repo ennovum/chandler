@@ -17,11 +17,25 @@ class CostimizerUiComponent {
             abortQueries: () => this.abortQueries()
         };
 
+        this.categoryMaps = null;
+
         this.queries = null;
         this.results = null;
         this.progress = null;
 
         this.sipSalePromise = null;
+
+        this.getCategoryMaps();
+    }
+
+    getCategoryMaps() {
+        let vendorIds = [VENDOR_ID_ALLEGRO, VENDOR_ID_CENEO];
+
+        this._saleMix.getCategoryMaps(vendorIds).then((categoryMaps) => {
+            this.categoryMaps = categoryMaps;
+        }, (err) => {
+            window.console.error(err); // TODO
+        });
     }
 
     submitQueries(queries) {
@@ -48,8 +62,7 @@ class CostimizerUiComponent {
                     resultsDebounce.flush();
                 }
                 this._debouncer.destroy(resultsDebounce);
-            })
-            .catch((err) => {
+            }, (err) => {
                 window.console.error(err); // TODO
             });
     }

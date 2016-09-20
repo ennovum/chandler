@@ -71,7 +71,7 @@ class VendorSale {
     }
 
     _sipListingTail(query, page, handleSip, checkAborted) {
-        return this._fetchListingPage(query, page)
+        return this.getListingPage(query, page)
             .then((result) => {
                 let isAborted = checkAborted();
                 let hasNextPage = (result.meta.page + 1) < result.meta.pageCount;

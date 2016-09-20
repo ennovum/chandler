@@ -6,7 +6,6 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
 
         this._ceneoLinker = ceneoLinker;
         this._fetcher = fetcher;
-        this._crawebler = crawebler;
         this._stock = stock;
     }
 

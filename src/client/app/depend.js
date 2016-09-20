@@ -2,6 +2,7 @@ import angular from 'angular';
 import conf from 'conf';
 
 import {
+    AllegroCategoryCrawler,
     AllegroListingCrawler,
     AllegroSellerCrawler,
     AllegroLinker,
@@ -9,6 +10,7 @@ import {
 } from 'shared/allegro/allegro.js';
 
 import {
+    CeneoCategoryCrawler,
     CeneoListingCrawler,
     CeneoLinker,
     CeneoSale
@@ -77,6 +79,7 @@ function depend() {
 
     angular
         .module('allegro', ['conf', 'fetcher', 'crawebler', 'stock', 'costimizer'])
+        .service('allegroCategoryCrawler', AllegroCategoryCrawler.service)
         .service('allegroListingCrawler', AllegroListingCrawler.service)
         .service('allegroSellerCrawler', AllegroSellerCrawler.service)
         .service('allegroLinker', AllegroLinker.service)
@@ -84,6 +87,7 @@ function depend() {
 
     angular
         .module('ceneo', ['conf', 'fetcher', 'crawebler', 'stock', 'costimizer'])
+        .service('ceneoCategoryCrawler', CeneoCategoryCrawler.service)
         .service('ceneoListingCrawler', CeneoListingCrawler.service)
         .service('ceneoLinker', CeneoLinker.service)
         .service('ceneoSale', CeneoSale.service);
