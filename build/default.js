@@ -1,10 +1,11 @@
 const path = require('path');
 
+const root = path.resolve(__dirname + '/..');
+
 const conf = {
     'path': {
-        'root': path.resolve(__dirname + '/..'),
-        'npm': path.resolve(__dirname + '/../node_modules'),
-        'bower': path.resolve(__dirname + '/../bower_components')
+        'root': root,
+        'npm': path.resolve(root, 'node_modules')
     },
     'dir': {
         'conf': '/conf',
@@ -31,14 +32,13 @@ const conf = {
         },
         'resolve': {
             'root': [
-                path.resolve(__dirname + '/../src')
+                path.resolve(root, 'src')
             ],
-            'modulesDirectories': [
-                'node_modules',
-                'modules'
-            ],
+            'modulesDirectories': ['node_modules'],
             'alias': {
-                'fetch': __dirname + '/../src/shared/modules/fetch/fetch.js',
+                'client': root + '/src/client/modules',
+                'shared': root + '/src/shared/modules',
+                'fetch': root + '/src/shared/modules/fetch/fetch.js',
                 'es6Promise': 'es6-promise',
                 'angularRoute': 'angular-route'
             }
@@ -58,13 +58,12 @@ const conf = {
         },
         'resolve': {
             'root': [
-                path.resolve(__dirname + '/../src')
+                path.resolve(root, 'src')
             ],
-            'modulesDirectories': [
-                'node_modules',
-                'modules'
-            ],
+            'modulesDirectories': ['node_modules'],
             'alias': {
+                'client': root + '/src/client/modules',
+                'shared': root + '/src/shared/modules'
             }
         },
         'externals': {
