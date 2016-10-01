@@ -5,8 +5,9 @@ import fetch from 'fetch';
 const TIMEOUT_DEFAULT = 5000;
 const ATTEMPTS_DEFAULT = 2;
 
-const TIMEOUT_STATUS = 408;
-const TIMEOUT_STATUS_TEXT = 'Request Timeout';
+const STATUS_OK = 200;
+const STATUS_TIMEOUT = 408;
+const STATUS_TIMEOUT_TEXT = 'Request Timeout';
 
 class Fetcher {
     fetch(url, options) {
@@ -22,8 +23,8 @@ class Fetcher {
                     resolve(fetch(url, options));
                 }
                 else {
-                    const status = TIMEOUT_STATUS;
-                    const statusText = TIMEOUT_STATUS_TEXT;
+                    const status = STATUS_TIMEOUT;
+                    const statusText = STATUS_TIMEOUT_TEXT;
                     const responseText = null;
 
                     reject({status, statusText, responseText});
@@ -33,15 +34,19 @@ class Fetcher {
             }, timeout);
 
             this.request(url, options).then((response) => {
-                timeoutRef && clearTimeout(timeoutRef);
-                timeoutRef = null;
+                if (timeoutRef) {
+                    clearTimeout(timeoutRef);
+                    timeoutRef = null;
 
-                resolve(response);
+                    resolve(response);
+                }
             }, (error) => {
-                timeoutRef && clearTimeout(timeoutRef);
-                timeoutRef = null;
+                if (timeoutRef) {
+                    clearTimeout(timeoutRef);
+                    timeoutRef = null;
 
-                reject(error);
+                    reject(error);
+                }
             });
         });
     }
@@ -52,8 +57,9 @@ class Fetcher {
                 const status = response.status;
                 const statusText = response.statusText;
 
-                if (status !== 200) {
+                if (status !== STATUS_OK) {
                     reject(response.text().then((responseText) => ({status, statusText, responseText})));
+                    return;
                 }
 
                 resolve(response);
