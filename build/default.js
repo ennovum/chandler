@@ -22,6 +22,7 @@ const conf = {
         'module': {
             'loaders': [
                 {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/, query: {presets: ['es2015']}},
+                {'loader': 'json-loader', 'test': /\.json$/},
                 {'loader': 'raw-loader', 'test': /\.html$/}
             ]
         },
@@ -38,8 +39,8 @@ const conf = {
             'alias': {
                 'client': root + '/src/client/modules',
                 'shared': root + '/src/shared/modules',
-                'fetch': root + '/src/shared/modules/fetch/fetch.js',
                 'es6Promise': 'es6-promise',
+                'request': 'browser-request',
                 'angularRoute': 'angular-route'
             }
         },
@@ -48,7 +49,9 @@ const conf = {
     'nodepack': {
         'module': {
             'loaders': [
-                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/, query: {presets: ['es2015']}}
+                {'loader': 'babel-loader', 'test': /\.js$/, 'exclude': /node_modules/, query: {presets: ['es2015']}},
+                {'loader': 'json-loader', 'test': /\.json$/},
+                {'loader': 'raw-loader', 'test': /\.html$/}
             ]
         },
         'stats': {
@@ -68,7 +71,7 @@ const conf = {
         },
         'externals': {
             'es6Promise': 'commonjs es6-promise',
-            'fetch': 'commonjs node-fetch',
+            'request': 'commonjs request',
             'express': 'commonjs express',
             'lodash': 'commonjs lodash',
             'morgan': 'commonjs morgan',
