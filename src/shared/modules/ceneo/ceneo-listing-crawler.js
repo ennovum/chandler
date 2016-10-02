@@ -18,8 +18,8 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
     }
 
     _digListingMeta(query, page, listingCrDoc) {
-        let pageSize = listingCrDoc.collection('.category-list-body .cat-prod-row').count();
-        let pageCount = listingCrDoc.element('.pagination > ul > li:not(.page-arrow)').number();
+        let pageSize = listingCrDoc.collection('.category-list-body .cat-prod-row').count() || 0;
+        let pageCount = listingCrDoc.element('.pagination > ul > li:not(.page-arrow)').number() || 1;
 
         let meta = {page, pageSize, pageCount, query};
 
@@ -27,7 +27,7 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
     }
 
     _findListingProducts(listingCrDoc) {
-        let listingProductCrColl = listingCrDoc.collection('.category-list-body .cat-prod-row');
+        let listingProductCrColl = listingCrDoc.collection('.category-list-body .cat-prod-row, .category-list-body .category-item-box');
 
         return Promise.resolve(listingProductCrColl);
     }
@@ -50,8 +50,7 @@ class CeneoListingCrawler extends AggregatorListingCrawler {
     }
 
     _digProduct(productCrDoc) {
-        let id = productCrDoc.element('.offer-summary .go-to-shop').attribute('data-productid') ||
-            productCrDoc.element('.product-meta .clipboard-add').attribute('data-pid');
+        let id = productCrDoc.element('.product-meta .add-to-favorite').attribute('data-pid');
 
         let product = {id, offers: null};
 

@@ -19,12 +19,12 @@ class AllegroListingCrawler extends BrokerListingCrawler {
     }
 
     _digListingMeta(query, page, listingCrDoc) {
-        let pageSize = listingCrDoc.collection('#listing-offers .offers .offer').count();
-        let pageCount = listingCrDoc.element('#listing .pagination .last').number();
+        let pageSize = listingCrDoc.collection('#listing-offers .offers .offer').count() || 0;
+        let pageCount = listingCrDoc.element('#listing .pagination .last').number() || 1;
 
-        let listingMeta = {page, pageSize, pageCount, query};
+        let meta = {page, pageSize, pageCount, query};
 
-        return Promise.resolve(listingMeta);
+        return Promise.resolve(meta);
     }
 
     _findListingOffers(listingCrDoc) {
