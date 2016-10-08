@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 import TogglerDirective from './toggler-directive';
 
 angular

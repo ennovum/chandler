@@ -5,9 +5,6 @@ import request from 'request';
 const TIMEOUT_MS_DEFAULT = 5000;
 const ATTEMPTS_DEFAULT = 2;
 
-const STATUS_TIMEOUT = 408;
-const STATUS_TIMEOUT_TEXT = 'Request Timeout';
-
 class Fetcher {
     fetch(url, options) {
         const timeout = get(options, 'timeout', TIMEOUT_MS_DEFAULT);

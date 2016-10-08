@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import VendorCategoryCrawler from 'crawler/vendor-category-crawler';
 
 class AllegroCategoryCrawler extends VendorCategoryCrawler {

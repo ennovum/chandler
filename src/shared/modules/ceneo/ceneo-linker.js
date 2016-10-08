@@ -12,7 +12,7 @@ class CeneoLinker {
 
     getListingURL(phrase, page) {
         let encodedPhrase = encodeURIComponent(phrase);
-        let url = `http://www.ceneo.pl/;szukaj-${encodedPhrase};0020-30-0-0-{page+1}.htm`;
+        let url = `http://www.ceneo.pl/;szukaj-${encodedPhrase};0020-30-0-0-${page+1}.htm`;
         return this._decorateURL(url);
     }
 
