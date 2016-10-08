@@ -1,4 +1,8 @@
+import es6Promise from 'es6Promise';
+
 import App from './app/app';
 
-let app = new App();
+es6Promise.polyfill();
+
+const app = new App();
 app.run();

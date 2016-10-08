@@ -1,18 +1,12 @@
-import es6Promise from 'es6Promise';
 import express from 'express';
 import morgan from 'morgan';
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
 import conf from 'conf';
+import injector from 'shared/injector/in-module';
+import 'shared/conf/in-module';
+import 'server/proxy-handler/in-module';
 
-import Injector from './../../shared/modules/injector/injector';
-
-import depend from './depend';
 import routing from './routing';
-
-es6Promise.polyfill();
-
-let injector = new Injector();
-depend(injector);
 
 class App {
     constructor() {
@@ -28,7 +22,7 @@ class App {
     }
 
     _configure() {
-        _.forEach(routing.routes, (route, path) => {
+        forEach(routing.routes, (route, path) => {
             let handler = injector.get(route.handler);
             let method = route.method || 'handle';
 

@@ -1,15 +1,10 @@
-import es6Promise from 'es6Promise';
-import _ from 'lodash';
+import forEach from 'lodash/forEach';
+import lang from 'lang';
 import angular from 'angular';
 import 'angularRoute';
-import lang from 'lang';
+import 'webui/costimizer-ui/ng-module';
 
-import depend from './depend';
 import routing from './routing';
-
-es6Promise.polyfill();
-
-depend();
 
 angular
     .module('app', [
@@ -18,7 +13,7 @@ angular
         'i18n'
     ])
     .config(['$routeProvider', ($routeProvider) => {
-        _.forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
+        forEach(routing.routes, (route, path) => $routeProvider.when(path, route));
 
         $routeProvider.otherwise({
             redirectTo: routing.defaultPath

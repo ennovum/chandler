@@ -38,6 +38,7 @@ const conf = {
             'modulesDirectories': ['node_modules'],
             'alias': {
                 'webui': root + '/src/webui/modules',
+                'server': root + '/src/server/modules',
                 'shared': root + '/src/shared/modules',
                 'es6Promise': 'es6-promise',
                 'request': 'browser-request',
@@ -66,6 +67,7 @@ const conf = {
             'modulesDirectories': ['node_modules'],
             'alias': {
                 'webui': root + '/src/webui/modules',
+                'server': root + '/src/server/modules',
                 'shared': root + '/src/shared/modules'
             }
         },

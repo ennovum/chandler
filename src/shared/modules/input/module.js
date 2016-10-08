@@ -1,6 +1,4 @@
 import AutofocusDirective from './autofocus-directive';
 
-const input = {AutofocusDirective};
-
-export default input;
+export default {AutofocusDirective};
 export {AutofocusDirective};

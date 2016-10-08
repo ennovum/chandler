@@ -1,7 +1,5 @@
 import OnEnterDirective from './on-enter-directive';
 import OnEscDirective from './on-esc-directive';
 
-const keyboard = {OnEnterDirective, OnEscDirective};
-
-export default keyboard;
+export default {OnEnterDirective, OnEscDirective};
 export {OnEnterDirective, OnEscDirective};
