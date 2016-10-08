@@ -29,7 +29,7 @@ import {
     CostimizerUiIntroComponent,
     CostimizerUiQueriesComponent,
     CostimizerUiResultsComponent
-} from 'client/costimizer-ui/costimizer-ui.js';
+} from 'webui/costimizer-ui/costimizer-ui.js';
 
 import {
     LoadingComponent

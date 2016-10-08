@@ -9,18 +9,18 @@ const plugins = {
 };
 
 const src = buildconf.path.root + buildconf.dir.src;
-const client = buildconf.dir.client;
+const webui = buildconf.dir.webui;
 
 gulp.task(
-    'client.test-scripts:test',
-    () => gulp.src(src + client + '/**/*.test.js')
+    'webui.test-scripts:test',
+    () => gulp.src(src + webui + '/**/*.test.js')
         .pipe(named())
         .pipe(plugins.webpack())
         .pipe(plugins.tape()));
 
 gulp.task(
-    'client.test-scripts:dev',
-    () => gulp.src(src + client + '/**/*.test.js')
+    'webui.test-scripts:dev',
+    () => gulp.src(src + webui + '/**/*.test.js')
         .pipe(named())
         .pipe(plugins.webpack({watch: true}))
         .pipe(plugins.tape()));

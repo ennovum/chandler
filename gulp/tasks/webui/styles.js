@@ -13,30 +13,30 @@ const plugins = {
 const src = buildconf.path.root + buildconf.dir.src;
 const dev = buildconf.path.root + buildconf.dir.dev;
 const dist = buildconf.path.root + buildconf.dir.dist;
-const client = buildconf.dir.client;
+const webui = buildconf.dir.webui;
 
 const dev2src = path.relative(dev, src).replace('\\', '/');
-const sourcemapsRoot = dev2src + client;
+const sourcemapsRoot = dev2src + webui;
 
 gulp.task(
-    'client.styles:build',
-    () => gulp.src(src + client + '/*.scss')
+    'webui.styles:build',
+    () => gulp.src(src + webui + '/*.scss')
         .pipe(sourcemaps.init())
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
         .pipe(sourcemaps.write({sourceRoot: sourcemapsRoot}))
-        .pipe(gulp.dest(dev + client + '/')));
+        .pipe(gulp.dest(dev + webui + '/')));
 
 gulp.task(
-    'client.styles:dev',
-    () => gulp.watch(src + client + '/**/*.scss')
-        .on('ready', () => run('client.styles:build'))
-        .on('change', () => run('client.styles:build')));
+    'webui.styles:dev',
+    () => gulp.watch(src + webui + '/**/*.scss')
+        .on('ready', () => run('webui.styles:build'))
+        .on('change', () => run('webui.styles:build')));
 
 gulp.task(
-    'client.styles:dist',
-    () => gulp.src(src + client + '/*.scss')
+    'webui.styles:dist',
+    () => gulp.src(src + webui + '/*.scss')
         .pipe(plugins.sass())
         .pipe(plugins.autoprefixer())
         .pipe(plugins.cleanCss())
-        .pipe(gulp.dest(dist + client + '/')));
+        .pipe(gulp.dest(dist + webui + '/')));

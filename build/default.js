@@ -13,7 +13,7 @@ const conf = {
         'src': '/src',
         'dev': '/dev',
         'dist': '/dist',
-        'client': '/client',
+        'webui': '/webui',
         'server': '/server',
         'shared': '/shared',
         'modules': '/modules'
@@ -37,7 +37,7 @@ const conf = {
             ],
             'modulesDirectories': ['node_modules'],
             'alias': {
-                'client': root + '/src/client/modules',
+                'webui': root + '/src/webui/modules',
                 'shared': root + '/src/shared/modules',
                 'es6Promise': 'es6-promise',
                 'request': 'browser-request',
@@ -65,7 +65,7 @@ const conf = {
             ],
             'modulesDirectories': ['node_modules'],
             'alias': {
-                'client': root + '/src/client/modules',
+                'webui': root + '/src/webui/modules',
                 'shared': root + '/src/shared/modules'
             }
         },
