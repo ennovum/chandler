@@ -37,5 +37,8 @@ class App {
     }
 }
 
+App.factory = (...args) => new App(...args);
+App.factory.$inject = [];
+
 export default App;
 export {App};

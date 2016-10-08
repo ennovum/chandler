@@ -1,10 +1,9 @@
 import es6Promise from 'es6Promise';
-
-import App from './app/app';
+import angular from 'angular';
+import 'webui/app/ng-module';
 
 es6Promise.polyfill();
 
 window.addEventListener('load', () => {
-    let app = new App();
-    app.run();
+    angular.bootstrap(document, ['app']);
 });
