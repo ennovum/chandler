@@ -1,4 +1,4 @@
-import conf from './default.js';
+import conf from './default';
 
 export default conf;
 export {conf};

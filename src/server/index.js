@@ -1,4 +1,4 @@
-import App from './app/app.js';
+import App from './app/app';
 
 let app = new App();
 app.run();

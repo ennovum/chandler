@@ -1,4 +1,4 @@
-import AutofocusDirective from './autofocus-directive.js';
+import AutofocusDirective from './autofocus-directive';
 
 const input = {AutofocusDirective};
 

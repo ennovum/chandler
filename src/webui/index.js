@@ -1,4 +1,4 @@
-import App from './app/app.js';
+import App from './app/app';
 
 window.addEventListener('load', () => {
     let app = new App();

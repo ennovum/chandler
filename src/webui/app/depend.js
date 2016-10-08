@@ -7,70 +7,70 @@ import {
     AllegroSellerCrawler,
     AllegroLinker,
     AllegroSale
-} from 'shared/allegro/allegro.js';
+} from 'shared/allegro/allegro';
 
 import {
     CeneoCategoryCrawler,
     CeneoListingCrawler,
     CeneoLinker,
     CeneoSale
-} from 'shared/ceneo/ceneo.js';
+} from 'shared/ceneo/ceneo';
 
 import {
     SaleMix
-} from 'shared/sale/sale.js';
+} from 'shared/sale/sale';
 
 import {
     Costimizer
-} from 'shared/costimizer/costimizer.js';
+} from 'shared/costimizer/costimizer';
 
 import {
     CostimizerUiComponent,
     CostimizerUiIntroComponent,
     CostimizerUiQueriesComponent,
     CostimizerUiResultsComponent
-} from 'webui/costimizer-ui/costimizer-ui.js';
+} from 'webui/costimizer-ui/costimizer-ui';
 
 import {
     LoadingComponent
-} from 'shared/loading/loading.js';
+} from 'shared/loading/loading';
 
 import {
     Fetcher
-} from 'shared/fetcher/fetcher.js';
+} from 'shared/fetcher/fetcher';
 
 import {
     Stock
-} from 'shared/stock/stock.js';
+} from 'shared/stock/stock';
 
 import {
     Crawebler
-} from 'shared/crawebler/crawebler.js';
+} from 'shared/crawebler/crawebler';
 
 import {
     OnEnterDirective,
     OnEscDirective
-} from 'shared/keyboard/keyboard.js';
+} from 'shared/keyboard/keyboard';
 
 import {
     PriceComponent
-} from 'shared/price/price.js';
+} from 'shared/price/price';
 
 import {
     Debouncer
-} from 'shared/debouncer/debouncer.js';
+} from 'shared/debouncer/debouncer';
 
 import {
     AutofocusDirective
-} from 'shared/input/input.js';
+} from 'shared/input/input';
 
 import {
     TrustFilter
-} from 'shared/trust/trust.js';
+} from 'shared/trust/trust';
 
 import {
     I18n
-} from 'shared/i18n/i18n.js';
+} from 'shared/i18n/i18n';
 
 function depend() {
     angular

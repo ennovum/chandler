@@ -1,5 +1,5 @@
-import VendorSale from './vendor-sale.js';
-import SaleMix from './sale-mix.js';
+import VendorSale from './vendor-sale';
+import SaleMix from './sale-mix';
 
 export default {VendorSale, SaleMix};
 export {VendorSale, SaleMix};

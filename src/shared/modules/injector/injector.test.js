@@ -1,7 +1,7 @@
 import test from 'tape';
 import _ from 'lodash';
 
-import Injector from './injector.js';
+import Injector from './injector';
 
 class Foo {
     constructor() {

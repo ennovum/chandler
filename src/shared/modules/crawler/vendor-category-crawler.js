@@ -1,4 +1,4 @@
-import VendorCrawler from './vendor-crawler.js';
+import VendorCrawler from './vendor-crawler';
 
 class VendorCategoryCrawler extends VendorCrawler {
     constructor(crawebler) {

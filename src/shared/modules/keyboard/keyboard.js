@@ -1,5 +1,5 @@
-import OnEnterDirective from './on-enter-directive.js';
-import OnEscDirective from './on-esc-directive.js';
+import OnEnterDirective from './on-enter-directive';
+import OnEscDirective from './on-esc-directive';
 
 const keyboard = {OnEnterDirective, OnEscDirective};
 

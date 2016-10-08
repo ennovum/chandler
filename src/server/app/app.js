@@ -4,10 +4,10 @@ import morgan from 'morgan';
 import _ from 'lodash';
 import conf from 'conf';
 
-import Injector from './../../shared/modules/injector/injector.js';
+import Injector from './../../shared/modules/injector/injector';
 
-import depend from './depend.js';
-import routing from './routing.js';
+import depend from './depend';
+import routing from './routing';
 
 es6Promise.polyfill();
 

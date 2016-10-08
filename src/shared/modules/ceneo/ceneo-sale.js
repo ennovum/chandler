@@ -1,4 +1,4 @@
-import VendorSale from 'sale/vendor-sale.js';
+import VendorSale from 'sale/vendor-sale';
 
 class CeneoSale extends VendorSale {
     constructor(ceneoCategoryCrawler, ceneoListingCrawler, costimizer) {

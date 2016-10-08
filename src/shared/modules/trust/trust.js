@@ -1,4 +1,4 @@
-import TrustFilter from './trust-filter.js';
+import TrustFilter from './trust-filter';
 
 const trust = {TrustFilter};
 

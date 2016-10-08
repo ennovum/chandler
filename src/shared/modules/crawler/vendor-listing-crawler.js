@@ -1,4 +1,4 @@
-import VendorCrawler from './vendor-crawler.js';
+import VendorCrawler from './vendor-crawler';
 
 const CURRENCY_MAP = {
     '': 'PLN',

@@ -4,8 +4,8 @@ import angular from 'angular';
 import 'angularRoute';
 import lang from 'lang';
 
-import depend from './depend.js';
-import routing from './routing.js';
+import depend from './depend';
+import routing from './routing';
 
 es6Promise.polyfill();
 

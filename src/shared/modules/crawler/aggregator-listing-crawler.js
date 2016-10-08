@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import VendorListingCrawler from './vendor-listing-crawler.js';
+import VendorListingCrawler from './vendor-listing-crawler';
 
 class AggregatorListingCrawler extends VendorListingCrawler {
     constructor(crawebler) {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import VendorCategoryCrawler from 'crawler/vendor-category-crawler.js';
+import VendorCategoryCrawler from 'crawler/vendor-category-crawler';
 
 class CeneoCategoryCrawler extends VendorCategoryCrawler {
     constructor(ceneoLinker, fetcher, crawebler, stock) {

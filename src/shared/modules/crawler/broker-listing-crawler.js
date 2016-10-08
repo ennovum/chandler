@@ -1,4 +1,4 @@
-import VendorListingCrawler from './vendor-listing-crawler.js';
+import VendorListingCrawler from './vendor-listing-crawler';
 
 class BrokerListingCrawler extends VendorListingCrawler {
     constructor(crawebler) {

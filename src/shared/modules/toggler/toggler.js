@@ -1,4 +1,4 @@
-import TogglerDirective from './toggler-directive.js';
+import TogglerDirective from './toggler-directive';
 
 const toggler = {TogglerDirective};
 

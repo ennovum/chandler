@@ -1,3 +1,3 @@
-import LoadingComponent from './loading-component.js';
+import LoadingComponent from './loading-component';
 
 export {LoadingComponent};
