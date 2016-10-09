@@ -2,6 +2,8 @@ import angular from 'angular';
 import 'shared/conf/ng-module';
 import 'shared/i18n/ng-module';
 import 'shared/sale-mix/ng-module';
+import 'shared/allegro/ng-module';
+import 'shared/ceneo/ng-module';
 import 'shared/debouncer/ng-module';
 import 'shared/loading/ng-module';
 import 'shared/keyboard/ng-module';
@@ -15,7 +17,7 @@ import CostimizerUiQueriesComponent from './modules/queries/costimizer-ui-querie
 import CostimizerUiResultsComponent from './modules/results/costimizer-ui-results-component';
 
 angular
-    .module('costimizerUi', ['conf', 'i18n', 'saleMix', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust'])
+    .module('costimizerUi', ['conf', 'i18n', 'saleMix', 'allegro', 'ceneo', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust'])
     .component('costimizerUi', CostimizerUiComponent.component)
     .component('costimizerUiIntro', CostimizerUiIntroComponent.component)
     .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)

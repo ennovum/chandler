@@ -4,10 +4,12 @@ const VENDOR_ID_ALLEGRO = 'allegro';
 const VENDOR_ID_CENEO = 'ceneo';
 
 class CostimizerUiComponent {
-    constructor($scope, conf, i18n, saleMix, debouncer) {
+    constructor($scope, conf, i18n, saleMix, allegroSale, ceneoSale, debouncer) {
         this._$scope = $scope;
         this._conf = conf;
         this._saleMix = saleMix;
+        this._allegroSale = allegroSale;
+        this._ceneoSale = ceneoSale;
         this._debouncer = debouncer;
 
         this.lang = i18n.getLang('costimizerUi');
@@ -25,10 +27,16 @@ class CostimizerUiComponent {
 
         this.sipSalePromise = null;
 
-        this.getCategoryMaps();
+        this._registerVendors();
+        this._getCategoryMaps();
     }
 
-    getCategoryMaps() {
+    _registerVendors() {
+        this._saleMix.registerVendor(VENDOR_ID_ALLEGRO, this._allegroSale);
+        this._saleMix.registerVendor(VENDOR_ID_CENEO, this._ceneoSale);
+    }
+
+    _getCategoryMaps() {
         let vendorIds = [VENDOR_ID_ALLEGRO, VENDOR_ID_CENEO];
 
         this._saleMix.getCategoryMaps(vendorIds).then((categoryMaps) => {
@@ -109,7 +117,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ['$scope', 'conf', 'i18n', 'saleMix', 'debouncer'];
+controller.$inject = ['$scope', 'conf', 'i18n', 'saleMix', 'allegroSale', 'ceneoSale', 'debouncer'];
 
 const component = {
     template,

@@ -1,17 +1,12 @@
 import _ from 'lodash';
 
 class SaleMix {
-    constructor(allegroSale, ceneoSale) {
-        this._allegroSale = allegroSale;
-        this._ceneoSale = ceneoSale;
+    constructor() {
+        this._vendors = [];
+    }
 
-        this._vendors = [{
-            id: 'allegro',
-            saleService: this._allegroSale
-        }, {
-            id: 'ceneo',
-            saleService: this._ceneoSale
-        }];
+    registerVendor(id, saleService) {
+        this._vendors.push({id, saleService})
     }
 
     getCategoryMaps(vendorIds) {
@@ -82,7 +77,7 @@ class SaleMix {
 }
 
 SaleMix.service = (...args) => new SaleMix(...args);
-SaleMix.service.$inject = ['allegroSale', 'ceneoSale'];
+SaleMix.service.$inject = [];
 
 export default SaleMix;
 export {SaleMix};
