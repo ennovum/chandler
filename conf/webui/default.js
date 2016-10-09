@@ -1,6 +1,11 @@
 const conf = {
-    'api': {
-        'proxy': (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
+    costimizer: {
+        results: {
+            debounceSpan: 5000
+        }
+    },
+    api: {
+        proxy: (url) => '//' + window.location.host + '/api/proxy?url=' + encodeURIComponent(url)
     }
 };
 

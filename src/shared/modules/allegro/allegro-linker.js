@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 class AllegroLinker {
     constructor(conf) {
         this._conf = conf;
@@ -22,7 +20,7 @@ class AllegroLinker {
     }
 
     _decorateURL(url) {
-        let proxy = _.get(this._conf, 'api.proxy');
+        let proxy = this._conf.get('api.proxy');
         if (proxy) {
             url = proxy(url);
         }

@@ -1,6 +1,7 @@
 import angular from 'angular';
-import conf from 'conf';
+
+import Conf from './conf';
 
 angular
     .module('conf', [])
-    .service('conf', () => conf);
+    .service('conf', Conf.service);

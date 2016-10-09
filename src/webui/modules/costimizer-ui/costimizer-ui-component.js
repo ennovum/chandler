@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
-const RESULTS_DEBOUNCE_SPAN = 5000;
 const VENDOR_ID_ALLEGRO = 'allegro';
 const VENDOR_ID_CENEO = 'ceneo';
 
 class CostimizerUiComponent {
-    constructor($scope, i18n, saleMix, debouncer) {
+    constructor($scope, conf, i18n, saleMix, debouncer) {
         this._$scope = $scope;
+        this._conf = conf;
         this._saleMix = saleMix;
         this._debouncer = debouncer;
 
@@ -45,9 +45,9 @@ class CostimizerUiComponent {
 
         this.abortQueries();
 
-        let resultsDebounce = this._debouncer.create({span: RESULTS_DEBOUNCE_SPAN});
+        let resultsDebounceSpan = this._conf.get('costimizer.results.debounceSpan');
+        let resultsDebounce = this._debouncer.create({span: resultsDebounceSpan});
         let vendorIds = [VENDOR_ID_ALLEGRO, VENDOR_ID_CENEO];
-
         let validQueries = _.filter(queries, (query) => !!_.trim(query.phrase));
 
         let sipSalePromise = this.sipSalePromise = this._saleMix.sipSaleMix(vendorIds, validQueries, (saleMix) => {
@@ -109,7 +109,7 @@ const template = `
 `;
 
 const controller = (...args) => new CostimizerUiComponent(...args);
-controller.$inject = ['$scope', 'i18n', 'saleMix', 'debouncer'];
+controller.$inject = ['$scope', 'conf', 'i18n', 'saleMix', 'debouncer'];
 
 const component = {
     template,
