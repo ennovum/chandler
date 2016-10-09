@@ -1,5 +1,5 @@
 import angular from 'angular';
-import 'shared/sale/ng-module';
+import 'shared/sale-mix/ng-module';
 import 'shared/debouncer/ng-module';
 import 'shared/loading/ng-module';
 import 'shared/keyboard/ng-module';
@@ -14,7 +14,7 @@ import CostimizerUiQueriesComponent from './modules/queries/costimizer-ui-querie
 import CostimizerUiResultsComponent from './modules/results/costimizer-ui-results-component';
 
 angular
-    .module('costimizerUi', ['sale', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust', 'i18n'])
+    .module('costimizerUi', ['saleMix', 'debouncer', 'loading', 'keyboard', 'price', 'input', 'trust', 'i18n'])
     .component('costimizerUi', CostimizerUiComponent.component)
     .component('costimizerUiIntro', CostimizerUiIntroComponent.component)
     .component('costimizerUiQueries', CostimizerUiQueriesComponent.component)

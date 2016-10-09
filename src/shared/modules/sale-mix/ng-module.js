@@ -5,5 +5,5 @@ import 'shared/ceneo/ng-module';
 import SaleMix from './sale-mix';
 
 angular
-    .module('sale', ['allegro', 'ceneo'])
+    .module('saleMix', ['allegro', 'ceneo'])
     .service('saleMix', SaleMix.service);
