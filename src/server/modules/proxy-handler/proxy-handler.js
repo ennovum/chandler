@@ -8,6 +8,8 @@ class ProxyHandler {
 
         this._fetcher.fetchText(url).then((source) => {
             res.send(source);
+        }, (err) => {
+            res.status(500).send();
         });
     }
 }
