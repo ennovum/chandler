@@ -1,9 +1,13 @@
+import conf from 'conf';
 import lang from 'lang';
 
-function run(i18n) {
+const configuration = conf;
+
+function run(conf, i18n) {
+    conf.setConf(configuration);
     i18n.setLang(lang);
 }
-run.$inject = ['i18n'];
+run.$inject = ['conf', 'i18n'];
 
 export default run;
 export {run};

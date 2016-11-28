@@ -1,9 +1,16 @@
 import get from 'lodash/get';
-import conf from 'conf';
 
 class Conf {
+    constructor() {
+        this._conf = null;
+    }
+
+    setConf(conf) {
+        this._conf = conf;
+    }
+
     get(path, alt) {
-        return get(conf, path, alt);
+        return get(this._conf, path, alt);
     }
 }
 
